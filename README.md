@@ -6,8 +6,6 @@ Play online: https://aquastar.github.io/ai-literacy-faculty/
 
 Keys: Space or arrows to advance, S for speaker notes (with timing cues), Esc for overview.
 
-## Plan B: four mental models, five experiments
+## Live demo folder
 
-A second cut of the same talk, built around four predictive mental models and five live experiments (each with a recorded fallback): https://aquastar.github.io/ai-literacy-faculty/b/
-
-`b/demo/` is the live-demo folder: a data-structures assignment (LRU cache, 12 tests) for experiment 5, and an `inbox/` with a prompt-injection sample for experiment 3. The grades file is fake.
+`demo/` is a data-structures assignment (LRU cache with O(1) get/put, starter with TODOs, 12 tests of which 11 fail) for the live-demo slide, plus `demo/inbox/` with a prompt-injection sample. The grades file is fake.
