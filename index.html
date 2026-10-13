@@ -304,12 +304,48 @@ svg text{font-family:"Fira Sans",sans-serif}
 .lanes ul{margin:0;padding-left:1.1em}
 .lanes li{margin:.18em 0}
 .lanes li b{color:var(--ink)}
+/* part map */
+.map{display:flex;gap:10px;margin-top:1.1em}
+.map>div{flex:1;border-radius:8px;padding:.4em .6em;font-size:.48em;line-height:1.25;border:2px solid #3a4a55;color:#9aa6ae}
+.map>div.done{border-color:#2d3a42;color:#6f7d87;background:#1a2228}
+.map>div.done .n::after{content:"  ✓";color:#7cd992}
+.map>div.here{background:var(--accent);border-color:var(--accent);color:#fff}
+.map>div.here .d,.map>div.here .m{color:#fff}
+.map .n{font-weight:600;font-size:1.15em}
+.map .d{margin-top:.15em}
+.map .m{margin-top:.25em;font-size:.9em;opacity:.75}
+.map.road{margin:.4em 1.1em 0}
+.map.road>div{border:0;background:var(--soft);color:var(--ink);font-size:.62em;padding:.6em .8em;border-top:8px solid var(--accent2)}
+.map.road>div .n{color:var(--accent);font-size:1.3em}
+.map.road>div .d{color:var(--muted)}
+.map.road>div .m{color:var(--accent2);opacity:1;font-weight:600}
+/* terminal */
+.term{background:#1f2a30;color:#d7dee3;font-family:"Fira Mono",monospace;font-size:.5em;line-height:1.75;border-radius:10px;padding:.8em 1em;flex:1.5;min-width:0}
+.term .ln{display:block;opacity:0;animation:fadein .3s forwards;white-space:pre-wrap}
+.term .p{color:#F76902}.term .ok{color:#7cd992}.term .dim{color:#8fa0aa}.term .bad{color:#ff8a80}
+/* spiky chart */
+.spk{width:100%;height:400px;display:block;margin:0 1.1em}
+.spk .bar{transform-box:fill-box;transform-origin:bottom;transform:scaleY(0)}
+.spk .fragment.visible .bar{animation:growy .7s ease-out forwards}
+@keyframes growy{to{transform:scaleY(1)}}
+/* comparison grid */
+.cmp{display:grid;grid-template-columns:1fr 1.6fr 1.6fr;gap:4px;margin:.3em 1.1em 0;font-size:.5em;line-height:1.28}
+.cmp>div{padding:.38em .6em;background:var(--soft);border-radius:6px}
+.cmp .h{background:none;font-weight:600;font-size:1.05em;padding-bottom:.1em}
+.cmp .h.c1{color:var(--accent2)}.cmp .h.c2{color:var(--accent)}
+.cmp .q{font-weight:600;color:var(--muted);background:none}
+.cmp .c2{background:#fff1e6}
+/* diagrams */
+.dg{width:100%;display:block;margin:0 1.1em}
+.dg text{font-family:"Fira Sans",sans-serif}
+.pipe>div .h{min-height:2.7em}
+.pipe>div .sub{min-height:2.6em}
 .pulse{animation:pulse 1.2s ease-in-out infinite}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(198,40,40,.0)}50%{box-shadow:0 0 0 8px rgba(198,40,40,.25)}}
 </style>
 </head>
 <body class="on-title">
-<svg width="0" height="0" style="position:absolute"><defs><marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#F76902"/></marker><marker id="ahr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#c62828"/></marker></defs></svg>
+<svg width="0" height="0" style="position:absolute"><defs><marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#F76902"/></marker><marker id="ahu" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" refX="10" refY="7" orient="auto"><path d="M0 0 L14 7 L0 14 z" fill="#F76902"/></marker><marker id="ahd" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto"><path d="M0 0 L12 6 L0 12 z" fill="#4C5B66"/></marker><marker id="ahs" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#F76902"/></marker><marker id="ahr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#c62828"/></marker></defs></svg>
 <div class="reveal"><div class="slides">
 
 <section data-ch="0">
@@ -324,17 +360,18 @@ svg text{font-family:"Fira Sans",sans-serif}
 </section>
 
 <section data-ch="1">
-  <h2>Three claims, outside in</h2>
-  <div class="kv" style="margin-top:.8em">
-    <div class="fragment"><div class="n">1</div><div class="l" style="font-size:.85em"><b>The engine is simple.</b><br>One string, one loop. Everything else is training and plumbing.</div></div>
-    <div class="fragment"><div class="n">2</div><div class="l" style="font-size:.85em"><b>The curve is steep.</b><br>The length of task an AI can finish doubles every ~4–7 months.</div></div>
-    <div class="fragment"><div class="n">3</div><div class="l" style="font-size:.85em"><b>The classroom has to move.</b><br>AI already completes almost every assignment we give.</div></div>
+  <h2>Four parts, outside in: ~30 minutes</h2>
+  <div class="map road"></div>
+  <div class="kv" style="margin-top:.7em">
+    <div class="fragment"><div class="n" style="font-size:1.2em">Claim 1</div><div class="l" style="font-size:.78em"><b>The engine is simple.</b> One string, one loop. Everything else is training and plumbing.</div></div>
+    <div class="fragment"><div class="n" style="font-size:1.2em">Claim 2</div><div class="l" style="font-size:.78em"><b>The curve is steep.</b> The length of task an AI can finish doubles every ~4–7 months.</div></div>
+    <div class="fragment"><div class="n" style="font-size:1.2em">Claim 3</div><div class="l" style="font-size:.78em"><b>The classroom has to move.</b> AI already completes almost every assignment we give.</div></div>
   </div>
-  <div class="takeaway fragment" style="margin-top:1.2em">Assumed: you know what a neural network is. We skip the math and spend the time on what changed in the last 18 months.</div>
-  <aside class="notes">~30 s.</aside>
+  <div class="takeaway fragment" style="margin-top:.6em;font-size:.78em">Assumed: you know what a neural network is. We skip the math and spend the time on what changed in the last 18 months.</div>
+  <aside class="notes">~30 s. The four tiles come back at each part boundary with a check mark on what's done.</aside>
 </section>
 
-<section data-ch="1"><div class="divider"><div class="num">1</div><div class="t">What it is</div><div class="s">From the outside in: the field, the history, the word "GPT", the engine</div></div></section>
+<section data-ch="1"><div class="divider"><div class="num">1</div><div class="t">What it is</div><div class="s">From the outside in: the field, the history, the word "GPT", the engine</div><div class="map"></div></div></section>
 
 <section data-ch="1">
   <h2>When the news says "AI," it almost always means one small circle</h2>
@@ -487,7 +524,7 @@ svg text{font-family:"Fira Sans",sans-serif}
   <aside class="notes">~2 min. Four panels animate. 1: pretraining is literally this, at web scale. 2: SFT teaches the format. 3: RLHF: people prefer answers that agree with them, hence sycophancy. 4: RLVR is why 2025 was the year coding agents started working; reward hacking = models caught editing tests to pass.</aside>
 </section>
 
-<section data-ch="2"><div class="divider"><div class="num">2</div><div class="t">The curve</div><div class="s">What the numbers look like in October 2026</div></div></section>
+<section data-ch="2"><div class="divider"><div class="num">2</div><div class="t">The curve</div><div class="s">What the numbers look like in October 2026</div><div class="map"></div></div></section>
 
 <section data-ch="2">
   <h2>How long a task can an AI finish on its own?</h2>
@@ -535,10 +572,45 @@ svg text{font-family:"Fira Sans",sans-serif}
 </section>
 
 <section data-ch="2">
+  <h2>The frontier is jagged: PhD problems, kindergarten mistakes</h2>
+  <svg class="spk" viewBox="0 0 1180 400">
+    <line x1="30" y1="170" x2="1150" y2="170" stroke="#4C5B66" stroke-width="2" stroke-dasharray="8 6"/>
+    <text x="1150" y="160" text-anchor="end" font-size="15" fill="#4C5B66" font-weight="600">a strong human expert</text>
+    <line x1="30" y1="300" x2="1150" y2="300" stroke="#c4cacf" stroke-width="2"/>
+    <g class="fragment" data-fragment-index="1"><rect class="bar" x="40" y="48" width="120" height="252" rx="6" fill="#F76902"/><text x="100" y="324" text-anchor="middle" font-size="14" font-weight="600">Olympiad math</text><text x="100" y="342" text-anchor="middle" font-size="12" fill="#5b6770">gold-medal IMO score</text><text x="100" y="358" text-anchor="middle" font-size="12" fill="#5b6770">(OpenAI, DeepMind, 2025)</text></g>
+    <g class="fragment" data-fragment-index="1"><rect class="bar" x="200" y="62" width="120" height="238" rx="6" fill="#F76902"/><text x="260" y="324" text-anchor="middle" font-size="14" font-weight="600">Code from a spec</text><text x="260" y="342" text-anchor="middle" font-size="12" fill="#5b6770">99.5% on a CS1 exam (2023);</text><text x="260" y="358" text-anchor="middle" font-size="12" fill="#5b6770">80% of real GitHub issues</text></g>
+    <g class="fragment" data-fragment-index="2"><rect class="bar" x="360" y="170" width="120" height="130" rx="6" fill="#F76902"/><text x="420" y="324" text-anchor="middle" font-size="14" font-weight="600">A 12-hour task,</text><text x="420" y="342" text-anchor="middle" font-size="14" font-weight="600">half the time</text><text x="420" y="360" text-anchor="middle" font-size="12" fill="#5b6770">METR 50% horizon, 2026</text></g>
+    <g class="fragment" data-fragment-index="2"><rect class="bar" x="520" y="248" width="120" height="52" rx="6" fill="#8a949c"/><text x="580" y="324" text-anchor="middle" font-size="14" font-weight="600">Same task, 4 times in 5</text><text x="580" y="342" text-anchor="middle" font-size="12" fill="#5b6770">80% horizon ≈ 5× shorter:</text><text x="580" y="358" text-anchor="middle" font-size="12" fill="#5b6770">a 2–3-hour task</text></g>
+    <g class="fragment" data-fragment-index="3"><rect class="bar" x="680" y="262" width="120" height="38" rx="6" fill="#8a949c"/><text x="740" y="324" text-anchor="middle" font-size="14" font-weight="600">r's in "strawberry"</text><text x="740" y="342" text-anchor="middle" font-size="12" fill="#5b6770">it sees st · raw · berry,</text><text x="740" y="358" text-anchor="middle" font-size="12" fill="#5b6770">not letters (tokens, slide 7)</text></g>
+    <g class="fragment" data-fragment-index="3"><rect class="bar" x="840" y="240" width="120" height="60" rx="6" fill="#8a949c"/><text x="900" y="324" text-anchor="middle" font-size="14" font-weight="600">Saying "I don't know"</text><text x="900" y="342" text-anchor="middle" font-size="12" fill="#5b6770">benchmarks score a guess</text><text x="900" y="358" text-anchor="middle" font-size="12" fill="#5b6770">above a blank (OpenAI, 2025)</text></g>
+    <g class="fragment" data-fragment-index="4"><rect class="bar" x="1000" y="214" width="120" height="86" rx="6" fill="#8a949c"/><text x="1060" y="324" text-anchor="middle" font-size="14" font-weight="600">Speeding up an expert</text><text x="1060" y="342" text-anchor="middle" font-size="12" fill="#5b6770">16 senior devs, own repos:</text><text x="1060" y="358" text-anchor="middle" font-size="12" fill="#5b6770">19% slower, felt 20% faster</text></g>
+    </svg>
+  <div class="takeaway fragment" data-fragment-index="5" style="font-size:.8em;margin-top:.2em">Judge it <b>per task</b>, not by reputation. Superhuman and sub-human sit side by side, so <b>verify anything that matters</b>, and teach students to.</div>
+  <p class="foot">METR Time Horizon 1.1 (2026) and METR developer RCT (Jul 2025, 246 tasks); Kalai et al., "Why language models hallucinate" (OpenAI, Sep 2025); Denny et al., CACM 2024.</p>
+  <aside class="notes">~1.5 min. Four clicks. Orange = above a strong expert, gray = below. The two middle bars are the same model on the same tasks; only the reliability bar moved. The strawberry bar is the tokenizer from slide 7. The last bar: the experienced developers were slower and believed the opposite.</aside>
+</section>
+
+<section data-ch="2">
+  <h2>Open weights vs. commercial: the split that matters to us</h2>
+  <div class="cmp">
+    <div class="h"></div><div class="h c1">Commercial, closed weights</div><div class="h c2">Open weights</div>
+    <div class="q fragment" data-fragment-index="1">who</div><div class="fragment" data-fragment-index="1">OpenAI (GPT-6), Anthropic (Claude 5.5), Google (Gemini 4). Meta went closed in April 2026.</div><div class="c2 fragment" data-fragment-index="1">DeepSeek (V4), Alibaba (Qwen 3.5), Moonshot (Kimi), Zhipu (GLM), Mistral. Mostly China, one in France.</div>
+    <div class="q fragment" data-fragment-index="2">where it runs</div><div class="fragment" data-fragment-index="2">their cloud. You send the text; it comes back.</div><div class="c2 fragment" data-fragment-index="2">anywhere: a campus GPU cluster; the small ones on a laptop.</div>
+    <div class="q fragment" data-fragment-index="3">what leaves campus</div><div class="fragment" data-fragment-index="3">every prompt, unless an Edu contract says otherwise. Student work in a vendor's cloud is a FERPA question.</div><div class="c2 fragment" data-fragment-index="3">nothing.</div>
+    <div class="q fragment" data-fragment-index="4">how far behind</div><div class="fragment" data-fragment-index="4">the frontier, first. Capability, tools, and the agent ecosystem arrive here.</div><div class="c2 fragment" data-fragment-index="4">about <b>4 months</b> (Epoch AI, May 2026). In 2023 it was more than a year.</div>
+    <div class="q fragment" data-fragment-index="5">what you may change</div><div class="fragment" data-fragment-index="5">the prompt.</div><div class="c2 fragment" data-fragment-index="5">everything: fine-tune, inspect the weights, fork, publish.</div>
+    <div class="q fragment" data-fragment-index="6">what it costs</div><div class="fragment" data-fragment-index="6">per token; falling 10–40× a year.</div><div class="c2 fragment" data-fragment-index="6">GPUs and someone to run them; free per token.</div>
+    <div class="q fragment" data-fragment-index="7">for us</div><div class="fragment" data-fragment-index="7"><b>teaching with the newest tools</b>; anything that needs MCP, agents, computer use.</div><div class="c2 fragment" data-fragment-index="7"><b>research on the model itself</b>; courses where student data must stay home; a departmental model that doesn't change under you mid-semester.</div>
+  </div>
+  <div class="takeaway fragment" data-fragment-index="8" style="font-size:.78em;margin-top:.4em">"Open vs. closed" matters more to us than "US vs. China": the open models are what our research, and our privacy-sensitive courses, will run on.</div>
+  <aside class="notes">~1.5 min. Seven clicks, one row each. The point for this room: two different tools for two different jobs. A department can run a frontier-class open model on its own cluster this semester.</aside>
+</section>
+
+<section data-ch="2">
   <h2>What's hot right now (October 2026): six things</h2>
   <div class="board">
     <div class="fragment"><div class="h">1 · Models build models</div>
-      <svg viewBox="0 0 300 96" class="b-loop"><g class="ring"><path d="M52 18 A30 30 0 1 1 22 48" fill="none" stroke="#F76902" stroke-width="5" stroke-linecap="round"/><path d="M22 48 L30 38 M22 48 L12 40" stroke="#F76902" stroke-width="5" fill="none" stroke-linecap="round"/></g>
+      <svg viewBox="0 0 300 96" class="b-loop"><g class="ring"><path d="M52 18 A30 30 0 1 1 22 48" fill="none" stroke="#F76902" stroke-width="5" stroke-linecap="round" marker-end="url(#ahu)"/></g>
         <text x="52" y="53" text-anchor="middle" font-size="12" font-weight="600">AI</text>
         <text x="100" y="35" font-size="13">writes <tspan font-weight="600" fill="#F76902">~80%</tspan> of Anthropic's code</text><text x="100" y="58" font-size="13">and trains the next model.</text><text x="100" y="80" font-size="12" fill="#5b6770">OpenAI: automated researcher by 2028</text></svg>
       <div class="d">"Recursive self-improvement" went from sci-fi word to lab KPI. Skeptics: "just faster coding."</div></div>
@@ -573,7 +645,19 @@ svg text{font-family:"Fira Sans",sans-serif}
   <aside class="notes">~2.5 min. Six tiles, each with its own picture. For this room, linger on 3 (security faculty), 4 (we can run these on campus), 6 (everyone: Stanford says no mass layoffs, but the hiring door narrowed most in our majors).</aside>
 </section>
 
-<section data-ch="3"><div class="divider"><div class="num">3</div><div class="t">Agents, the engineering, and the hole</div><div class="s">What a CS department should know that a chatbot user doesn't</div></div></section>
+<section data-ch="2">
+  <h2>How to read an AI headline: four questions, thirty seconds</h2>
+  <div class="steps" style="margin-top:.5em">
+    <div class="fragment"><div class="n">1</div><div class="t">Which circle?</div><div class="d">"AI discovers a new antibiotic": a classifier, not a chatbot. "AI passes the bar exam": an LLM. Slide 4 decides what the claim can mean.</div></div>
+    <div class="fragment"><div class="n">2</div><div class="t">Benchmark or product?</div><div class="d">80% on SWE-bench is not 80% on your repository. Benchmarks leak into training data; products add a harness and a human.</div></div>
+    <div class="fragment"><div class="n">3</div><div class="t">50% or 80%?</div><div class="d">"Finishes 12-hour tasks" means half the time. The reliable version of the same number is ~5× shorter.</div></div>
+    <div class="fragment"><div class="n">4</div><div class="t">Who measured it?</div><div class="d">The lab's own evaluation, a third party (METR, Epoch), a peer-reviewed trial, or a demo? Each step down the list is worth about one grade of skepticism.</div></div>
+  </div>
+  <div class="takeaway fragment" style="font-size:.8em;margin-top:.6em">Most headlines fail two of the four. The ones that pass all four are the ones to plan a curriculum around.</div>
+  <aside class="notes">~1 min. The literacy skill in one slide. Try it on the six tiles from the previous slide: tile 1 fails question 4; tile 6 passes all four.</aside>
+</section>
+
+<section data-ch="3"><div class="divider"><div class="num">3</div><div class="t">Agents, the engineering, and the hole</div><div class="s">What a CS department should know that a chatbot user doesn't</div><div class="map"></div></div></section>
 
 <section data-ch="3">
   <h2>An agent is the same string, looped until a checker says done</h2>
@@ -600,6 +684,137 @@ svg text{font-family:"Fira Sans",sans-serif}
     </div>
   </div>
   <aside class="notes">~1.5 min. Same colored string as before, now numbered. 1 code, 2 you, 3 model proposes and code executes, 4 loop, 5 stop. The user typed one sentence; everything else the model wrote or the harness pasted. Fallback if the live demo fails.</aside>
+</section>
+
+<section data-ch="3">
+  <h2>What it looks like on a student's laptop tonight</h2>
+  <div class="aw">
+    <div class="term">
+      <span class="ln" style="animation-delay:.3s"><span class="p">$</span> claude "Do hw3. The spec is in README.md, tests are in tests/."</span>
+      <span class="ln dim" style="animation-delay:1.3s">● Read README.md, cache.py, tests/test_cache.py (3 files)</span>
+      <span class="ln dim" style="animation-delay:2.2s">● Plan: LRU cache over an OrderedDict; get/put in O(1); evict least-recently-used</span>
+      <span class="ln dim" style="animation-delay:3.1s">● Edited cache.py (+41 −3)</span>
+      <span class="ln" style="animation-delay:4.0s">● Ran pytest tests/ → <span class="bad">2 failed</span>: capacity=0 edge case</span>
+      <span class="ln dim" style="animation-delay:4.9s">● Edited cache.py (+4 −1)</span>
+      <span class="ln" style="animation-delay:5.8s">● Ran pytest tests/ → <span class="ok">12 passed</span> in 0.4 s</span>
+      <span class="ln dim" style="animation-delay:6.7s">● Wrote REPORT.md: design choices, complexity analysis, what the tests cover</span>
+      <span class="ln" style="animation-delay:7.6s"><span class="ok">✔ Done</span> · 2 min 41 s · $0.31 · human input: one line</span>
+    </div>
+    <div class="anno">
+      <div class="fragment" data-fragment-index="1"><i class="k">1</i><span><b>One line from the student.</b> Everything below is the loop from the previous slide, running by itself.</span></div>
+      <div class="fragment" data-fragment-index="2"><i class="k">2</i><span><b>Reads the spec and the starter code, plans, edits, runs our tests</b>, fails once, fixes its own mistake.</span></div>
+      <div class="fragment" data-fragment-index="3"><i class="k">3</i><span><b>The write-up too.</b> "Explain your design choices" is answered before the student has read the code.</span></div>
+      <div class="warn fragment" data-fragment-index="4"><i class="k">4</i><span><b>Under three minutes, under a dollar</b>, and the student watched. What did the assignment measure?</span></div>
+    </div>
+  </div>
+  <div class="takeaway fragment" data-fragment-index="4" style="font-size:.78em;margin-top:.4em">This is Claude Code or Codex on any student laptop in October 2026. Part 4 is about what we do with that.</div>
+  <aside class="notes">~1.5 min. The terminal plays by itself (~8 s); then four clicks. The assignment is generic (an LRU cache) on purpose. Ask the room: which of our courses does this not apply to?</aside>
+</section>
+
+<section data-ch="3">
+  <h2>Around the model: the harness in one picture</h2>
+  <svg class="dg" viewBox="0 0 1180 400" style="height:400px">
+    <rect x="440" y="150" width="300" height="100" rx="12" fill="#F76902"/>
+    <text x="590" y="192" text-anchor="middle" font-size="24" font-weight="600" fill="#fff">the model</text>
+    <text x="590" y="222" text-anchor="middle" font-size="15" fill="#fff">reads the string, writes the string</text>
+    <g class="fragment" data-fragment-index="1">
+      <rect x="40" y="30" width="330" height="120" rx="10" fill="#e2f2e6" stroke="#3b8a55" stroke-width="2"/>
+      <text x="60" y="62" font-size="19" font-weight="600" fill="#1e5c33">Retrieval</text><text x="60" y="88" font-size="14" fill="#333">finds the right files, docs, past conversations</text><text x="60" y="108" font-size="14" fill="#333">and pastes them into the string ("RAG")</text><text x="60" y="134" font-size="13" fill="#5b6770" font-style="italic">information retrieval, databases</text>
+      <path d="M370 110 L440 165" stroke="#3b8a55" stroke-width="3" fill="none" marker-end="url(#ahd)"/>
+    </g>
+    <g class="fragment" data-fragment-index="2">
+      <rect x="810" y="30" width="330" height="120" rx="10" fill="#fdf1d6" stroke="#b9861a" stroke-width="2"/>
+      <text x="830" y="62" font-size="19" font-weight="600" fill="#7a5a10">Tools + permissions</text><text x="830" y="88" font-size="14" fill="#333">runs what the model asks for, in a sandbox;</text><text x="830" y="108" font-size="14" fill="#333">asks a human before anything dangerous</text><text x="830" y="134" font-size="13" fill="#5b6770" font-style="italic">operating systems, security</text>
+      <path d="M740 165 L810 110" stroke="#b9861a" stroke-width="3" fill="none" marker-end="url(#ahd)"/>
+    </g>
+    <g class="fragment" data-fragment-index="3">
+      <rect x="40" y="250" width="330" height="120" rx="10" fill="#dcebfa" stroke="#3b7ac2" stroke-width="2"/>
+      <text x="60" y="282" font-size="19" font-weight="600" fill="#1f4e80">Verifier</text><text x="60" y="308" font-size="14" fill="#333">tests, linter, type checker after every edit;</text><text x="60" y="328" font-size="14" fill="#333">the checker that defines "done"</text><text x="60" y="354" font-size="13" fill="#5b6770" font-style="italic">software engineering, programming languages</text>
+      <path d="M370 290 L440 235" stroke="#3b7ac2" stroke-width="3" fill="none" marker-end="url(#ahd)"/>
+    </g>
+    <g class="fragment" data-fragment-index="4">
+      <rect x="810" y="250" width="330" height="120" rx="10" fill="#efe6f8" stroke="#7d55b3" stroke-width="2"/>
+      <text x="830" y="282" font-size="19" font-weight="600" fill="#4a2f7a">Memory</text><text x="830" y="308" font-size="14" fill="#333">summarizes old turns when the window fills;</text><text x="830" y="328" font-size="14" fill="#333">hands side-quests to sub-agents with fresh windows</text><text x="830" y="354" font-size="13" fill="#5b6770" font-style="italic">systems, memory hierarchies</text>
+      <path d="M740 235 L810 290" stroke="#7d55b3" stroke-width="3" fill="none" marker-end="url(#ahd)"/>
+    </g>
+  </svg>
+  <div class="takeaway fragment" data-fragment-index="5" style="font-size:.8em;margin-top:.1em">The model is the <b>CPU</b>; the harness is the <b>operating system</b>, written in ordinary code by people like us. Much of what made agents work in 2025 was harness engineering, not a new model.</div>
+  <aside class="notes">~1.5 min. Four clicks, one box each. The model never touches a file, a shell, or the network; the harness does, and decides what the model is allowed to ask for. Every box is a research area in this department.</aside>
+</section>
+
+<section data-ch="3">
+  <h2>MCP: one plug for every tool</h2>
+  <div class="cols" style="align-items:center;gap:1em">
+    <div style="flex:1.4">
+      <svg class="dg" viewBox="0 0 700 360" style="height:360px;margin:0">
+        <rect x="20" y="130" width="200" height="100" rx="12" fill="#F76902"/><text x="120" y="172" text-anchor="middle" font-size="19" font-weight="600" fill="#fff">model + harness</text><text x="120" y="198" text-anchor="middle" font-size="13" fill="#fff">any vendor, any agent</text>
+        <g class="fragment" data-fragment-index="1">
+          <rect x="300" y="150" width="90" height="60" rx="8" fill="#4C5B66"/><text x="345" y="186" text-anchor="middle" font-size="20" font-weight="600" fill="#fff">MCP</text>
+          <path d="M220 180 L300 180" stroke="#4C5B66" stroke-width="4" marker-end="url(#ahd)"/>
+          <text x="345" y="235" text-anchor="middle" font-size="12" fill="#5b6770">one protocol: "here are my tools,</text><text x="345" y="251" text-anchor="middle" font-size="12" fill="#5b6770">their parameters, what they do"</text>
+        </g>
+        <g class="fragment" data-fragment-index="2">
+          <path d="M390 180 L470 60 M390 180 L470 120 M390 180 L470 180 M390 180 L470 240 M390 180 L470 300" stroke="#8a949c" stroke-width="2" fill="none"/>
+          <g font-size="14" fill="#111"><rect x="470" y="40" width="200" height="40" rx="8" fill="#e6ebef"/><text x="570" y="65" text-anchor="middle">GitHub</text>
+          <rect x="470" y="100" width="200" height="40" rx="8" fill="#e6ebef"/><text x="570" y="125" text-anchor="middle">the LMS (Canvas, Moodle)</text>
+          <rect x="470" y="160" width="200" height="40" rx="8" fill="#e6ebef"/><text x="570" y="185" text-anchor="middle">email, calendar, Slack</text>
+          <rect x="470" y="220" width="200" height="40" rx="8" fill="#e6ebef"/><text x="570" y="245" text-anchor="middle">a database, a lab instrument</text>
+          <rect x="470" y="280" width="200" height="40" rx="8" fill="#fff1e6" stroke="#F76902"/><text x="570" y="305" text-anchor="middle">your own tool, in 50 lines</text></g>
+        </g>
+      </svg>
+    </div>
+    <div style="flex:1">
+      <div class="card fragment" data-fragment-index="1" style="font-size:.68em"><b>Before:</b> every tool × every model needed its own adapter. <b>After:</b> a tool describes itself once; any model reads the description like any other text and writes a call. The harness still does the calling.</div>
+      <div class="card fragment" data-fragment-index="2" style="font-size:.68em"><b>Adoption:</b> Anthropic, Nov 2024; OpenAI and Google, spring 2025; donated to the Linux Foundation, Dec 2025; 10,000+ public servers. Already the USB-C of tools.</div>
+      <div class="card warn fragment" data-fragment-index="3" style="font-size:.68em"><b>The catch:</b> every server is a new door for a stranger's text to enter the string. Three slides from now.</div>
+    </div>
+  </div>
+  <aside class="notes">~1 min. MCP is the plumbing the original tutorial draft listed. Three clicks. The "your own tool in 50 lines" box is the one for students: wrapping a course autograder as an MCP server is a one-afternoon project.</aside>
+</section>
+
+<section data-ch="3">
+  <h2>Agent teams: why one agent is not enough, and what it costs</h2>
+  <div class="cols" style="align-items:flex-start;gap:1em">
+    <div style="flex:1.4">
+      <svg class="dg" viewBox="0 0 700 360" style="height:360px;margin:0">
+        <rect x="250" y="20" width="200" height="70" rx="10" fill="#F76902"/><text x="350" y="50" text-anchor="middle" font-size="18" font-weight="600" fill="#fff">lead agent</text><text x="350" y="74" text-anchor="middle" font-size="13" fill="#fff">plans, splits, merges</text>
+        <g class="fragment" data-fragment-index="1">
+          <rect x="260" y="98" width="180" height="12" rx="6" fill="#e6ebef"/><rect x="260" y="98" width="170" height="12" rx="6" fill="#c62828"/><text x="350" y="128" text-anchor="middle" font-size="12" fill="#c62828">its window: 94% full</text>
+        </g>
+        <g class="fragment" data-fragment-index="2">
+          <path d="M300 90 L130 170" stroke="#8a949c" stroke-width="2" fill="none" marker-end="url(#ahd)"/><path d="M350 90 L350 170" stroke="#8a949c" stroke-width="2" fill="none" marker-end="url(#ahd)"/><path d="M400 90 L570 170" stroke="#8a949c" stroke-width="2" fill="none" marker-end="url(#ahd)"/>
+          <g font-size="13" fill="#111">
+            <rect x="40" y="170" width="180" height="90" rx="10" fill="#dcebfa" stroke="#3b7ac2"/><text x="130" y="196" text-anchor="middle" font-weight="600">agent: parser</text><rect x="55" y="210" width="150" height="10" rx="5" fill="#e6ebef"/><rect x="55" y="210" width="30" height="10" rx="5" fill="#3b7ac2"/><text x="130" y="244" text-anchor="middle" font-size="12" fill="#5b6770">fresh window</text>
+            <rect x="260" y="170" width="180" height="90" rx="10" fill="#dcebfa" stroke="#3b7ac2"/><text x="350" y="196" text-anchor="middle" font-weight="600">agent: database</text><rect x="275" y="210" width="150" height="10" rx="5" fill="#e6ebef"/><rect x="275" y="210" width="40" height="10" rx="5" fill="#3b7ac2"/><text x="350" y="244" text-anchor="middle" font-size="12" fill="#5b6770">fresh window</text>
+            <rect x="480" y="170" width="180" height="90" rx="10" fill="#dcebfa" stroke="#3b7ac2"/><text x="570" y="196" text-anchor="middle" font-weight="600">agent: tests</text><rect x="495" y="210" width="150" height="10" rx="5" fill="#e6ebef"/><rect x="495" y="210" width="25" height="10" rx="5" fill="#3b7ac2"/><text x="570" y="244" text-anchor="middle" font-size="12" fill="#5b6770">fresh window</text>
+          </g>
+        </g>
+        <g class="fragment" data-fragment-index="3">
+          <rect x="200" y="290" width="300" height="56" rx="10" fill="#e2f2e6" stroke="#3b8a55"/><text x="350" y="313" text-anchor="middle" font-size="14" font-weight="600" fill="#1e5c33">reviewer agent</text><text x="350" y="333" text-anchor="middle" font-size="12" fill="#333">reads the others' diffs, runs the checker, sends work back</text>
+          <path d="M130 260 L250 290 M350 260 L350 290 M570 260 L450 290" stroke="#3b8a55" stroke-width="2" fill="none"/>
+        </g>
+      </svg>
+    </div>
+    <div style="flex:1">
+      <div class="card fragment" data-fragment-index="1" style="font-size:.66em"><b>Why:</b> one window fills up (the memory box). Big tasks have to be split, like work in any organization.</div>
+      <div class="card fragment" data-fragment-index="2" style="font-size:.66em"><b>Split:</b> a lead agent hands sub-tasks to agents with fresh windows, in parallel, each on its own copy of the repo. Claude Code "agent teams" (Feb 2026): 2–16 agents; Codex and Windsurf the same month.</div>
+      <div class="card fragment" data-fragment-index="3" style="font-size:.66em"><b>Review:</b> one agent checks another. A cheap second opinion, not an independent one: same training, same blind spots.</div>
+      <div class="card warn fragment" data-fragment-index="4" style="font-size:.66em"><b>The bill:</b> cost multiplies by the number of agents. Shared files, locking, who decides "done": distributed-systems problems, now in every CS student's toolbox.</div>
+    </div>
+  </div>
+  <aside class="notes">~1.5 min. Four clicks. This is levels 4 and 5 of the ladder in Part 4: the human sets goals and designs the checks. The OpenAI "Dots" always-on agents and Anthropic's C-compiler demo are this picture at scale.</aside>
+</section>
+
+<section data-ch="3">
+  <h2>Four ways agents fail, and the course each one belongs in</h2>
+  <div class="steps" style="margin-top:.5em">
+    <div class="fragment"><div class="n">1</div><div class="t">Reward hacking</div><div class="d">Told "make the tests pass," it edits the tests. Seen in training (slide 9) and in the wild. <b>Defense:</b> a checker the agent cannot touch. <i>Software testing.</i></div></div>
+    <div class="fragment"><div class="n">2</div><div class="t">Drift on long tasks</div><div class="d">12 hours at 50% success is 2–3 hours at 80%. Small early errors compound. <b>Defense:</b> milestones, checkpoints, a human at the gates. <i>Systems, project management.</i></div></div>
+    <div class="fragment"><div class="n">3</div><div class="t">Prompt injection</div><div class="d">Any text it reads is a potential instruction: a web page, an email, a README in a dependency. <b>Defense:</b> the rule of two (next slide). <i>Security.</i></div></div>
+    <div class="fragment"><div class="n">4</div><div class="t">Cost and sprawl</div><div class="d">Gartner: 40% of agent projects cancelled by 2027; 97% of firms deployed one, 23% scaled one. <b>Defense:</b> measure before scaling. <i>Software economics.</i></div></div>
+  </div>
+  <div class="takeaway fragment" style="font-size:.8em;margin-top:.6em">None of these is a model problem waiting for a bigger model. Each is an engineering problem with a course number.</div>
+  <aside class="notes">~1 min. The bridge to the injection slide and to Part 4. If someone asks "what should we teach": this list.</aside>
 </section>
 
 <section data-ch="3">
@@ -645,7 +860,7 @@ svg text{font-family:"Fira Sans",sans-serif}
   <aside class="notes">~1.5 min. Three panels: the setup, the hidden instruction, the leak. Same mechanism as the one-string slide: instructions and data share the string. A security-course lab waiting to be written.</aside>
 </section>
 
-<section data-ch="4"><div class="divider"><div class="num">4</div><div class="t">The classroom</div><div class="s">What the evidence says, what other departments did, what we do Monday</div></div></section>
+<section data-ch="4"><div class="divider"><div class="num">4</div><div class="t">The classroom</div><div class="s">What the evidence says, what other departments did, what we do Monday</div><div class="map"></div></div></section>
 
 <section data-ch="4">
   <h2>The rung that taught judgment is gone</h2>
@@ -817,8 +1032,13 @@ Reveal.initialize({hash:true, center:false, progress:true, width:1280, height:72
     document.getElementById('fnum').textContent=(i+1)+' / '+n;
     var h=secs[i].querySelector('h2'); if(h) h.style.setProperty('--progress',Math.round(100*(i+1)/n)+'%');
     // restart one-shot CSS animations on the current slide
-    secs[i].querySelectorAll('.ctxbars .b,.price .line,.price .pt,.hb .b').forEach(function(el){el.style.animation='none';void el.offsetWidth;el.style.animation='';});
+    secs[i].querySelectorAll('.ctxbars .b,.price .line,.price .pt,.hb .b,.term .ln').forEach(function(el){el.style.animation='none';void el.offsetWidth;el.style.animation='';});
   }
+  var PARTS=[['1','What it is','AI → ML → LLMs; fourteen years; the word "GPT"; the engine; how a model is trained','~8 min'],['2','The curve','task length, price, context; what is hot; what it still gets wrong; open vs. closed','~8 min'],['3','Agents','the loop, a student\'s laptop, the harness, MCP, agent teams, how they fail, the hole','~8 min'],['4','The classroom','can it do our assignments; does it help learning; what departments changed; Monday','~8 min']];
+  document.querySelectorAll('.map').forEach(function(m){
+    var here=m.closest('section').getAttribute('data-ch'), road=m.classList.contains('road');
+    m.innerHTML=PARTS.map(function(p){var st=road?'fragment':(p[0]<here?'done':(p[0]===here?'here':''));return '<div class="'+st+'"><div class="n">'+p[0]+' · '+p[1]+'</div><div class="d">'+p[2]+'</div><div class="m">'+p[3]+'</div></div>';}).join('');
+  });
   Reveal.on('ready',update); Reveal.on('slidechanged',update);
 })();
 
@@ -835,7 +1055,7 @@ Reveal.initialize({hash:true, center:false, progress:true, width:1280, height:72
    gpt4:'<svg viewBox="0 0 120 120"><g class="a1"><rect x="8" y="30" width="48" height="24" rx="12" fill="#fdf1d6" stroke="#b9861a"/><text x="32" y="46" font-size="10" fill="#111" text-anchor="middle">tools</text></g><g class="a2"><rect x="64" y="30" width="48" height="24" rx="12" fill="#e2f2e6" stroke="#3b8a55"/><text x="88" y="46" font-size="10" fill="#111" text-anchor="middle">RAG</text></g><g class="a3"><rect x="8" y="64" width="48" height="24" rx="12" fill="#e6ebef" stroke="#8a949c"/><text x="32" y="80" font-size="10" fill="#111" text-anchor="middle">128K ctx</text></g><g class="a4"><rect x="64" y="64" width="48" height="24" rx="12" fill="#fff1e6" stroke="#F76902"/><text x="88" y="80" font-size="10" fill="#111" text-anchor="middle">open</text></g><text class="a5" x="60" y="110" font-size="10" fill="#5b6770" text-anchor="middle">the plumbing arrives</text></svg>',
    reasoning:'<svg viewBox="0 0 120 120"><ellipse class="a1" cx="50" cy="40" rx="40" ry="26" fill="#efe6f8" stroke="#7d55b3"/><g class="a1" fill="#7d55b3"><circle cx="36" cy="40" r="4" class="bl"/><circle cx="50" cy="40" r="4" class="bl" style="animation-delay:.3s"/><circle cx="64" cy="40" r="4" class="bl" style="animation-delay:.6s"/></g><circle class="a1" cx="24" cy="72" r="4" fill="#efe6f8" stroke="#7d55b3"/><circle class="a1" cx="16" cy="82" r="2.5" fill="#efe6f8" stroke="#7d55b3"/><g class="a3"><rect x="40" y="76" width="72" height="26" rx="6" fill="#e2f2e6" stroke="#3b8a55"/><text x="76" y="93" font-size="11" fill="#111" text-anchor="middle">answer ✓</text></g><text class="a4" x="60" y="116" font-size="10" fill="#5b6770" text-anchor="middle">thinks first, in text</text></svg>',
    deepseek:'<svg viewBox="0 0 120 120"><rect class="a1" x="20" y="20" width="26" height="70" fill="#8a949c"/><text class="a1" x="33" y="104" font-size="10" fill="#5b6770" text-anchor="middle">closed</text><rect class="a2" x="74" y="76" width="26" height="14" fill="#F76902"/><text class="a2" x="87" y="104" font-size="10" fill="#5b6770" text-anchor="middle">R1</text><text class="a3" x="87" y="66" font-size="11" fill="#F76902" text-anchor="middle" font-weight="600">~1/20 cost</text><text class="a4" x="60" y="116" font-size="10" fill="#5b6770" text-anchor="middle">weights free to download</text></svg>',
-   agents:'<svg viewBox="0 0 120 120"><g class="sp"><path d="M60 22 A30 30 0 1 1 34 37" fill="none" stroke="#F76902" stroke-width="4" marker-end="url(#ah)"/></g><g font-size="8" fill="#111" text-anchor="middle"><text class="a1" x="60" y="56">think</text><text class="a2" x="60" y="66">act</text><text class="a3" x="60" y="76">check</text></g><text class="a4" x="60" y="112" font-size="10" fill="#5b6770" text-anchor="middle">runs for hours, unattended</text></svg>',
+   agents:'<svg viewBox="0 0 120 120"><g class="sp"><path d="M60 22 A30 30 0 1 1 34 37" fill="none" stroke="#F76902" stroke-width="4" marker-end="url(#ahs)"/></g><g font-size="8" fill="#111" text-anchor="middle"><text class="a1" x="60" y="56">think</text><text class="a2" x="60" y="66">act</text><text class="a3" x="60" y="76">check</text></g><text class="a4" x="60" y="112" font-size="10" fill="#5b6770" text-anchor="middle">runs for hours, unattended</text></svg>',
    ctx:'<svg viewBox="0 0 120 120"><text class="a1" x="8" y="38" font-size="9" fill="#5b6770">2023: 128K tokens</text><rect class="a1" x="8" y="42" width="14" height="12" fill="#8a949c"/><text class="a2" x="8" y="76" font-size="9" fill="#5b6770">2026: 1,000,000 tokens</text><rect class="a2 ww" x="8" y="80" width="104" height="12" fill="#F76902"/><text class="a4" x="60" y="112" font-size="10" fill="#5b6770" text-anchor="middle">a codebase in one prompt</text></svg>',
    rsi:'<svg viewBox="0 0 120 120"><g class="a1"><rect x="10" y="30" width="40" height="40" rx="8" fill="#4C5B66"/><circle cx="24" cy="46" r="4" fill="#fff"/><circle cx="36" cy="46" r="4" fill="#fff"/><rect x="22" y="58" width="16" height="3" fill="#fff"/></g><path class="a2" d="M54 50 h14" stroke="#F76902" stroke-width="3" marker-end="url(#ah)"/><g class="a3 gr"><rect x="74" y="34" width="32" height="32" rx="6" fill="#F76902"/><circle cx="85" cy="47" r="3" fill="#fff"/><circle cx="95" cy="47" r="3" fill="#fff"/><rect x="84" y="56" width="12" height="2.5" fill="#fff"/></g><text class="a4" x="60" y="92" font-size="10" fill="#5b6770" text-anchor="middle">models write ~80% of</text><text class="a4" x="60" y="106" font-size="10" fill="#5b6770" text-anchor="middle">the labs\' own code</text></svg>'
   };
