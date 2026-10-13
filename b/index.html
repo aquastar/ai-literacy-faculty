@@ -369,8 +369,8 @@ svg text{font-family:"Fira Sans",sans-serif}
 <section data-ch="1">
   <h2>Model 3 · Three places an answer can come from</h2>
   <div class="cols" style="align-items:flex-start">
-    <div style="flex:1.5">
-      <svg viewBox="0 0 760 350" class="src3" style="width:100%">
+    <div style="flex:1.9">
+      <svg viewBox="0 0 760 365" class="src3" style="width:100%">
         <defs><marker id="arB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#4C5B66"/></marker></defs>
         <rect x="20" y="20" width="220" height="110" rx="12" fill="#e6ebef"/><text x="130" y="50" text-anchor="middle" font-size="18" font-weight="600">Weights</text><text x="130" y="74" text-anchor="middle" font-size="13" fill="#5b6770">what it absorbed in training</text><text x="130" y="94" text-anchor="middle" font-size="13" fill="#5b6770">fuzzy · frozen at Jun 2026</text><text x="130" y="114" text-anchor="middle" font-size="13" fill="#5b6770">can't tell knowing from guessing</text>
         <rect x="270" y="20" width="220" height="110" rx="12" fill="#dcebfa"/><text x="380" y="50" text-anchor="middle" font-size="18" font-weight="600">Context window</text><text x="380" y="74" text-anchor="middle" font-size="13" fill="#5b6770">what is in the string right now</text><text x="380" y="94" text-anchor="middle" font-size="13" fill="#5b6770">exact · limited · you control it</text><text x="380" y="114" text-anchor="middle" font-size="13" fill="#5b6770">(1M tokens; quality fades as it fills)</text>
@@ -378,18 +378,18 @@ svg text{font-family:"Fira Sans",sans-serif}
         <!-- Q1 under Weights -->
         <g class="fragment" data-fragment-index="1"><rect x="20" y="190" width="220" height="40" rx="8" fill="#fff" stroke="#c4cacf"/><text x="130" y="216" text-anchor="middle" font-size="15">"Capital of France?"</text>
           <path d="M130 188 L130 136" stroke="#2e7d32" stroke-width="3" fill="none" marker-end="url(#arB)"/>
-          <text x="130" y="258" text-anchor="middle" font-size="13" fill="#2e7d32" font-weight="600">✓ weights are fine for common facts</text></g>
+          <text x="130" y="256" text-anchor="middle" font-size="13" fill="#2e7d32" font-weight="600">✓ weights are fine</text><text x="130" y="274" text-anchor="middle" font-size="13" fill="#2e7d32" font-weight="600">for common facts</text></g>
         <!-- Q2 under Context -->
         <g class="fragment" data-fragment-index="2"><rect x="270" y="190" width="220" height="40" rx="8" fill="#fff" stroke="#c4cacf"/><text x="380" y="216" text-anchor="middle" font-size="15">"Week 6 of our syllabus?"</text>
           <path d="M300 188 L225 136" stroke="#c62828" stroke-width="2.5" fill="none" marker-end="url(#arB)" stroke-dasharray="5 4"/>
-          <text x="380" y="258" text-anchor="middle" font-size="13" fill="#c62828" font-weight="600">✗ from weights: a plausible week 6 is invented</text></g>
+          <text x="380" y="256" text-anchor="middle" font-size="13" fill="#c62828" font-weight="600">✗ from weights: a plausible</text><text x="380" y="274" text-anchor="middle" font-size="13" fill="#c62828" font-weight="600">week 6 is invented</text></g>
         <g class="fragment" data-fragment-index="3"><path d="M380 188 L380 136" stroke="#2e7d32" stroke-width="3" fill="none" marker-end="url(#arB)"/>
-          <text x="380" y="278" text-anchor="middle" font-size="13" fill="#2e7d32" font-weight="600">✓ paste the syllabus → exact, with a quote</text></g>
+          <text x="380" y="298" text-anchor="middle" font-size="13" fill="#2e7d32" font-weight="600">✓ paste the syllabus →</text><text x="380" y="316" text-anchor="middle" font-size="13" fill="#2e7d32" font-weight="600">exact, with a quote</text></g>
         <!-- Q3 under Tools -->
         <g class="fragment" data-fragment-index="4"><rect x="520" y="190" width="220" height="40" rx="8" fill="#fff" stroke="#c4cacf"/><text x="630" y="216" text-anchor="middle" font-size="15">"Is the build passing now?"</text>
           <path d="M630 188 L630 136" stroke="#2e7d32" stroke-width="3" fill="none" marker-end="url(#arB)"/>
-          <text x="630" y="258" text-anchor="middle" font-size="13" fill="#2e7d32" font-weight="600">✓ only a tool can know; it must call one</text></g>
-        <text x="380" y="330" text-anchor="middle" font-size="15" fill="#111" font-weight="600" class="fragment" data-fragment-index="5">"Hallucination" = answering from weights what should have come from context or a tool.</text>
+          <text x="630" y="256" text-anchor="middle" font-size="13" fill="#2e7d32" font-weight="600">✓ only a tool can know;</text><text x="630" y="274" text-anchor="middle" font-size="13" fill="#2e7d32" font-weight="600">it must call one</text></g>
+        <text x="380" y="352" text-anchor="middle" font-size="15" fill="#111" font-weight="600" class="fragment" data-fragment-index="5">"Hallucination" = answering from weights what should have come from context or a tool.</text>
       </svg>
     </div>
     <div>
