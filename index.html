@@ -11,14 +11,14 @@
 :root{
   --ink:#111; --muted:#5b6770; --accent:#F76902; --accent2:#4C5B66; --soft:#f2f3f4; --line:#d3d7da; --paper:#fff;
   --sys:#e4e7ea; --sysb:#8a949c; --usr:#dcebfa; --usrb:#3b7ac2; --think:#efe6f8; --thinkb:#7d55b3;
-  --tool:#fdf1d6; --toolb:#b9861a; --res:#e2f2e6; --resb:#3b8a55; --out:#fff1e6; --outb:#F76902; --bad:#c62828;
+  --tool:#fdf1d6; --toolb:#b9861a; --res:#e2f2e6; --resb:#3b8a55; --out:#fff1e6; --outb:#F76902; --bad:#c62828; --good:#2e7d32;
 }
 html,body{background:var(--paper)}
 .reveal{font-family:"Fira Sans",system-ui,sans-serif;color:var(--ink);font-size:34px}
 .reveal .slides{text-align:left}
 .reveal .slides>section{padding:0 !important;height:100%;box-sizing:border-box}
 .reveal h2{font-family:"Fira Sans",sans-serif;font-weight:600;font-size:1.12em;text-transform:none;letter-spacing:0;color:#fff;background:var(--ink);
-  margin:0 0 .6em 0;padding:.35em 1.1em;text-align:left;position:relative}
+  margin:0 0 .55em 0;padding:.35em 1.1em;text-align:left;position:relative}
 .reveal h2::after{content:"";position:absolute;left:0;bottom:-6px;height:6px;width:var(--progress,0%);background:var(--accent)}
 .reveal h1{font-family:"Fira Sans",sans-serif;font-weight:600;font-size:1.9em;line-height:1.15;color:var(--ink);text-transform:none;letter-spacing:0;margin:0 0 .2em 0}
 .reveal section>*:not(h2){margin-left:1.1em;margin-right:1.1em}
@@ -40,9 +40,9 @@ html,body{background:var(--paper)}
 .reveal .kv{display:flex;gap:.8em;margin:.3em 1.1em}
 .reveal .kv>div{flex:1;background:var(--soft);border-radius:8px;padding:.5em .7em}
 .reveal .kv .n{font-size:1.7em;font-weight:600;color:var(--accent);line-height:1.05}
-.reveal .kv .l{font-size:.6em;color:var(--muted);margin-top:.25em;line-height:1.3}
+.reveal .kv .l{font-size:.62em;color:var(--muted);margin-top:.25em;line-height:1.3}
 .reveal .kv .l b{color:var(--ink)}
-.reveal .bigline{font-size:1.25em;font-weight:600;line-height:1.3;margin:.5em 1.1em}
+.reveal .bigline{font-size:1.15em;font-weight:600;line-height:1.3;margin:.5em 1.1em}
 .reveal .bigline .o{color:var(--accent)}
 
 #foot{position:fixed;left:0;right:0;bottom:0;height:34px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;
@@ -97,14 +97,14 @@ body.on-title #foot{display:none}
 .legend{display:flex;flex-wrap:wrap;gap:14px 20px;font-size:.5em;color:var(--muted);margin-top:.5em}
 .legend i{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-2px;margin-right:5px}
 
-.tl{position:relative;height:440px;margin-top:16px !important}
-.tl .axis{position:absolute;left:0;right:0;top:215px;height:4px;background:var(--line)}
-.tl .ev{position:absolute;width:190px;font-size:.5em;line-height:1.3}
-.tl .ev .y{font-weight:600;color:var(--accent);font-size:1.25em}
-.tl .ev .h{font-weight:600;margin:.1em 0}
-.tl .ev.up{bottom:245px}.tl .ev.dn{top:240px}
-.tl .ev .dot{position:absolute;left:0;width:14px;height:14px;border-radius:50%;background:var(--accent)}
-.tl .ev.up .dot{bottom:-21px}.tl .ev.dn .dot{top:-30px}
+/* dense timeline */
+.tl2{display:grid;grid-template-columns:1fr 1fr;gap:.35em 1.4em;margin:0 1.1em;font-size:.66em}
+.tl2 .e{display:flex;gap:.6em;align-items:flex-start;padding:.3em .4em;border-radius:6px;line-height:1.3}
+.tl2 .e:nth-child(odd){background:var(--soft)}
+.tl2 .y{flex:0 0 78px;font-weight:600;color:var(--accent);font-size:1.05em}
+.tl2 .e b{color:var(--ink)}
+.tl2 .e.now .y{color:var(--accent2)}
+.tl2 .e.now{background:#fff1e6}
 
 /* horizon bars */
 .hz{margin:.4em 1.1em}
@@ -119,12 +119,77 @@ body.on-title #foot{display:none}
 .hz .row.visible .bar{width:var(--w)}
 .hz .row.visible .lab{opacity:1}
 
-/* trend board */
-.board{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:0 1.1em}
-.board>div{background:var(--soft);border-radius:10px;padding:.5em .7em;min-height:150px}
-.board .h{font-size:.85em;font-weight:600;color:var(--accent);line-height:1.2}
-.board .d{font-size:.58em;color:var(--ink);margin-top:.35em;line-height:1.35}
+/* pipeline with animated panels */
+.pipe{display:flex;gap:16px;align-items:stretch;margin-top:.1em}
+.pipe>div{flex:1;border-radius:10px;padding:.45em .6em;font-size:.56em;line-height:1.35;position:relative}
+.pipe>div .h{font-weight:600;font-size:1.25em;margin-bottom:.1em}
+.pipe>div .sub{color:var(--muted);font-size:.92em;margin-bottom:.2em}
+.pipe>div svg{width:100%;height:185px;display:block;background:#fff;border-radius:8px;margin:.25em 0}
+.pipe>div .buy{color:#1e5c33;margin-top:.3em}
+.pipe>div .cost{color:#9a2f00;margin-top:.1em}
+.pipe>div+div::before{content:"→";position:absolute;left:-17px;top:38%;font-size:1.4em;color:var(--accent2)}
+svg text{font-family:"Fira Sans",sans-serif}
+/* pretraining: next word cycles */
+@keyframes blink{0%,45%{opacity:0}55%,100%{opacity:1}}
+.a-pre .ans{animation:blink 2.4s infinite}
+@keyframes flow{0%{transform:translateX(0)}100%{transform:translateX(-230px)}}
+.a-pre .stream{animation:flow 6s linear infinite}
+/* sft: dialogue slides into model */
+@keyframes slidein{0%{transform:translate(0,0);opacity:0}15%{opacity:1}70%{transform:translate(0,62px);opacity:1}85%{opacity:0}100%{opacity:0}}
+.a-sft .dlg{animation:slidein 3s ease-in-out infinite}
+/* rlhf: thumb picks B */
+@keyframes thumb{0%,35%{opacity:0;transform:scale(.6)}50%,85%{opacity:1;transform:scale(1)}100%{opacity:0}}
+.a-rlhf .thumb{animation:thumb 3.2s infinite;transform-origin:center}
+@keyframes glow{0%,45%{stroke:#c4cacf;stroke-width:2}55%,90%{stroke:#F76902;stroke-width:4}100%{stroke:#c4cacf}}
+.a-rlhf .boxB{animation:glow 3.2s infinite}
+@keyframes arrowin{0%,55%{opacity:0}70%,90%{opacity:1}100%{opacity:0}}
+.a-rlhf .nudge{animation:arrowin 3.2s infinite}
+/* rlvr: attempts x x check */
+@keyframes pop{0%{opacity:0;transform:scale(.4)}8%{opacity:1;transform:scale(1)}92%{opacity:1}100%{opacity:0}}
+.a-rlvr .t1{animation:pop 6s infinite;transform-origin:center}
+.a-rlvr .t2{animation:pop 6s infinite .9s;transform-origin:center}
+.a-rlvr .t3{animation:pop 6s infinite 1.8s;transform-origin:center}
+.a-rlvr .rew{animation:pop 6s infinite 2.5s;transform-origin:center}
+
+/* context + price animations */
+@keyframes growh{from{width:0}to{width:var(--w)}}
+.ctxbars .r{display:flex;align-items:center;gap:12px;margin:9px 0;font-size:.62em}
+.ctxbars .r .y{flex:0 0 150px;text-align:right;color:var(--muted)}
+.ctxbars .r .y b{color:var(--ink)}
+.ctxbars .r .b{height:26px;border-radius:5px;background:var(--accent2);animation:growh 1.4s cubic-bezier(.2,.7,.2,1) both}
+.ctxbars .r.hot .b{background:var(--accent)}
+.ctxbars .r .v{font-weight:600}
+@keyframes draw{to{stroke-dashoffset:0}}
+.price .line{stroke-dasharray:900;stroke-dashoffset:900;animation:draw 2.2s ease-out forwards}
+@keyframes fadein{to{opacity:1}}
+.price .pt{opacity:0;animation:fadein .4s forwards}
+
+/* trend board with mini-visuals */
+.board{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 1.1em}
+.board>div{background:var(--soft);border-radius:10px;padding:.35em .6em .4em}
+.board .h{font-size:.7em;font-weight:600;color:var(--accent);line-height:1.2}
+.board svg{width:100%;height:90px;display:block;margin:.15em 0}
+.board .d{font-size:.48em;color:var(--ink);line-height:1.3}
 .board .d b{color:var(--accent2)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.b-loop .ring{animation:spin 6s linear infinite;transform-origin:52px 48px}
+.b-bars rect.g{animation:growh2 1.6s cubic-bezier(.2,.7,.2,1) both}
+@keyframes growh2{from{width:0}}
+@keyframes fixline{0%,30%{fill:#fde0d2;stroke:#c62828}45%,100%{fill:#e2f2e6;stroke:#2e7d32}}
+.b-fix .bug{animation:fixline 4s infinite}
+@keyframes patch{0%,35%{opacity:0}50%,100%{opacity:1}}
+.b-fix .ok{animation:patch 4s infinite}
+@keyframes catchup{from{width:150px}to{width:172px}}
+.b-gap .cn{animation:catchup 2s ease-out both}
+.b-lines .up,.b-lines .dn{stroke-dasharray:400;stroke-dashoffset:400;animation:draw 2s ease-out forwards}
+
+/* jobs pipeline */
+.pipeline{display:flex;align-items:center;gap:10px;margin:.2em 1.1em;font-size:.58em}
+.pipeline .node{background:var(--soft);border-radius:8px;padding:.5em .7em;text-align:center;line-height:1.25;flex:1}
+.pipeline .node b{display:block;font-size:1.1em}
+.pipeline .arr{color:var(--accent2);font-size:1.6em}
+.pipeline .node.x{background:#fde0d2;color:#7a1b1b;text-decoration:line-through}
+.pipeline .node.ai{background:#fff1e6;border:2px solid var(--accent)}
 
 /* ladder */
 .ladder{display:flex;align-items:flex-end;gap:12px;height:400px;margin-top:4px !important}
@@ -133,16 +198,6 @@ body.on-title #foot{display:none}
 .ladder .rung .t{font-weight:600;font-size:1.15em;margin:.2em 0 .3em}
 .ladder .rung .you{margin-top:auto;font-style:italic;opacity:.9;border-top:1px solid rgba(255,255,255,.4);padding-top:.35em}
 
-/* pipeline */
-.pipe{display:flex;gap:18px;align-items:stretch;margin-top:.2em}
-.pipe>div{flex:1;border-radius:10px;padding:.5em .7em;font-size:.58em;line-height:1.35;position:relative}
-.pipe>div .h{font-weight:600;font-size:1.2em;margin-bottom:.15em}
-.pipe>div .sub{color:var(--muted);font-size:.9em;margin-bottom:.3em}
-.pipe>div .buy{color:#1e5c33;margin-top:.4em}
-.pipe>div .cost{color:#9a2f00;margin-top:.2em}
-.pipe>div+div::before{content:"→";position:absolute;left:-19px;top:42%;font-size:1.5em;color:var(--accent2)}
-
-/* trace */
 .trace{font-size:.55em;line-height:1.45}
 .trace .st{display:flex;gap:12px;margin:5px 0;align-items:flex-start}
 .trace .st .lab{flex:0 0 92px;font-weight:600;text-align:right;font-size:.85em;padding-top:3px}
@@ -152,16 +207,11 @@ body.on-title #foot{display:none}
 .trace .st.tr .lab{color:var(--resb)}.trace .st.tr .bx{background:var(--res);font-family:"Fira Mono",monospace;font-size:.92em}
 .trace .st.ou .lab{color:var(--outb)}.trace .st.ou .bx{background:var(--out)}
 
-/* three big steps */
 .steps{display:flex;gap:18px;margin:.3em 1.1em}
 .steps>div{flex:1;background:var(--soft);border-radius:10px;padding:.6em .8em;border-top:8px solid var(--accent)}
 .steps .n{font-size:1.8em;font-weight:600;color:var(--accent);line-height:1}
 .steps .t{font-weight:600;font-size:.9em;margin:.3em 0 .2em}
 .steps .d{font-size:.62em;color:var(--muted);line-height:1.35}
-
-svg text{font-family:"Fira Sans",sans-serif}
-.reveal .grid2{display:grid;grid-template-columns:1fr 1fr;gap:.5em .8em;margin:0 1.1em}
-.reveal .grid2 .card{margin:0}
 .pulse{animation:pulse 1.2s ease-in-out infinite}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(198,40,40,.0)}50%{box-shadow:0 0 0 8px rgba(198,40,40,.25)}}
 </style>
@@ -185,11 +235,12 @@ svg text{font-family:"Fira Sans",sans-serif}
 <section data-ch="1">
   <h2>Three claims in twenty minutes</h2>
   <div class="kv" style="margin-top:.8em">
-    <div class="fragment"><div class="n">1</div><div class="l" style="font-size:.8em"><b>The engine is simple.</b><br>One string, one loop.</div></div>
-    <div class="fragment"><div class="n">2</div><div class="l" style="font-size:.8em"><b>The curve is steep.</b><br>Task length doubles every ~4–7 months.</div></div>
-    <div class="fragment"><div class="n">3</div><div class="l" style="font-size:.8em"><b>The classroom has to move.</b><br>AI already does almost every assignment we give.</div></div>
+    <div class="fragment"><div class="n">1</div><div class="l" style="font-size:.85em"><b>The engine is simple.</b><br>One string, one loop. Everything else is training and plumbing.</div></div>
+    <div class="fragment"><div class="n">2</div><div class="l" style="font-size:.85em"><b>The curve is steep.</b><br>The length of task an AI can finish doubles every ~4–7 months.</div></div>
+    <div class="fragment"><div class="n">3</div><div class="l" style="font-size:.85em"><b>The classroom has to move.</b><br>AI already completes almost every assignment we give.</div></div>
   </div>
-  <aside class="notes">~30 s. Assumes everyone knows what a neural net is; we skip the math.</aside>
+  <div class="takeaway fragment" style="margin-top:1.2em">Assumed: you know what a neural network is. We skip the math and spend the time on what changed in the last 18 months.</div>
+  <aside class="notes">~30 s.</aside>
 </section>
 
 <!-- PART 1 -->
@@ -227,43 +278,83 @@ svg text{font-family:"Fira Sans",sans-serif}
   </div>
   <div class="legend"><span><i style="background:var(--sys)"></i>system prompt</span><span><i style="background:var(--usr)"></i>user</span><span><i style="background:var(--think)"></i>thinking (hidden)</span><span><i style="background:var(--tool)"></i>tool call, written by the model</span><span><i style="background:var(--res)"></i>tool result, pasted by the harness</span><span><i style="background:var(--out)"></i>shown to user</span></div>
   <div class="cols" style="margin-top:.6em">
-    <div class="card fragment" data-fragment-index="1"><b>Reasoning</b> = more tokens before answering.</div>
-    <div class="card fragment" data-fragment-index="2"><b>Tool use</b> = the model only <i>asks</i>. The harness acts.</div>
-    <div class="card warn fragment" data-fragment-index="3"><b>Agent</b> = this, in a loop, until done.</div>
+    <div class="card fragment" data-fragment-index="1"><b>Reasoning</b> = more tokens before answering. More compute on hard problems.</div>
+    <div class="card fragment" data-fragment-index="2"><b>Tool use</b> = the model only <i>asks</i>. The harness acts. Permissions live here.</div>
+    <div class="card warn fragment" data-fragment-index="3"><b>Agent</b> = this, in a loop, until done. RAG, MCP, Copilot, Claude Code: all this string.</div>
   </div>
-  <aside class="notes">~1.5 min. No second mechanism: reasoning models, RAG, agents, MCP are all ways of putting more text into this string. Tool descriptions (MCP) are just prompt text.</aside>
+  <div class="takeaway fragment" data-fragment-index="4">There is no second mechanism. Every "feature" is more text in this window.</div>
+  <aside class="notes">~1.5 min. Reasoning models, RAG, agents, MCP are all ways of putting more text into this string. Tool descriptions (MCP) are just prompt text.</aside>
 </section>
 
-<!-- pipeline -->
+<!-- pipeline animated -->
 <section data-ch="1">
   <h2>How a 2026 model is made: four stages, four side effects</h2>
   <div class="pipe">
-    <div class="fragment" style="background:#e6ebef"><div class="h">1 · Pretraining</div><div class="sub">next-token prediction on ~10<sup>13</sup> tokens</div><div class="buy">✓ knowledge, grammar, code</div><div class="cost">✗ autocomplete, not an assistant</div></div>
-    <div class="fragment" style="background:#dcebfa"><div class="h">2 · SFT</div><div class="sub"><b>Supervised fine-tuning</b> on ~10<sup>5</sup> example dialogues</div><div class="buy">✓ speaks the chat format</div><div class="cost">✗ imitates, mistakes included</div></div>
-    <div class="fragment" style="background:#fde3cf"><div class="h">3 · RLHF</div><div class="sub"><b>RL from human feedback</b>: people rank answers</div><div class="buy">✓ helpful, polite</div><div class="cost">✗ <b>sycophancy</b>: optimizes for approval</div></div>
-    <div class="fragment" style="background:#e2f2e6"><div class="h">4 · RLVR</div><div class="sub"><b>RL with verifiable rewards</b>: unit tests, math answers</div><div class="buy">✓ the 2025 jump in code and math</div><div class="cost">✗ <b>reward hacking</b>: edits the tests</div></div>
+    <div class="fragment" style="background:#e6ebef"><div class="h">1 · Pretraining</div><div class="sub">guess the next word, 10<sup>13</sup> times</div>
+      <svg viewBox="0 0 300 150" class="a-pre">
+        <g font-family="Fira Mono" font-size="15" fill="#111">
+          <text x="14" y="34">The cat sat on the</text><rect x="182" y="20" width="44" height="20" rx="4" fill="#fff1e6" stroke="#F76902" stroke-dasharray="3 2"/><text x="204" y="35" text-anchor="middle" class="ans" fill="#F76902" font-weight="600">mat</text>
+          <text x="14" y="64">def add(a, b): return</text><rect x="208" y="50" width="52" height="20" rx="4" fill="#fff1e6" stroke="#F76902" stroke-dasharray="3 2"/><text x="234" y="65" text-anchor="middle" class="ans" fill="#F76902" font-weight="600">a + b</text>
+          <text x="14" y="94">E = m c</text><rect x="86" y="80" width="30" height="20" rx="4" fill="#fff1e6" stroke="#F76902" stroke-dasharray="3 2"/><text x="101" y="95" text-anchor="middle" class="ans" fill="#F76902" font-weight="600">²</text>
+        </g>
+        <text x="150" y="122" text-anchor="middle" font-size="12" fill="#5b6770">the whole web, all of GitHub, every book</text>
+        <rect x="80" y="134" width="140" height="40" rx="8" fill="#4C5B66"/><text x="150" y="160" text-anchor="middle" fill="#fff" font-size="15" font-weight="600">model</text>
+      </svg>
+      <div class="buy">✓ knowledge, grammar, code</div><div class="cost">✗ autocomplete, not an assistant</div></div>
+    <div class="fragment" style="background:#dcebfa"><div class="h">2 · Supervised fine-tuning</div><div class="sub">show it 10<sup>5</sup> example conversations</div>
+      <svg viewBox="0 0 300 150" class="a-sft">
+        <text x="150" y="18" text-anchor="middle" font-size="12" fill="#5b6770">written by humans, or by last year's model</text>
+        <g class="dlg"><rect x="30" y="28" width="240" height="22" rx="8" fill="#dcebfa"/><text x="40" y="44" font-size="13">User: Capital of France?</text>
+          <rect x="30" y="54" width="240" height="22" rx="8" fill="#fff1e6"/><text x="40" y="70" font-size="13">Assistant: Paris.</text></g>
+        <rect x="80" y="140" width="140" height="40" rx="8" fill="#4C5B66"/><text x="150" y="166" text-anchor="middle" fill="#fff" font-size="15" font-weight="600">model</text>
+      </svg>
+      <div class="buy">✓ speaks the chat format</div><div class="cost">✗ imitates, mistakes included</div></div>
+    <div class="fragment" style="background:#fde3cf"><div class="h">3 · RL from human feedback</div><div class="sub">people pick the better of two answers</div>
+      <svg viewBox="0 0 300 150" class="a-rlhf">
+        <text x="150" y="18" text-anchor="middle" font-size="12" fill="#5b6770">same question, two answers</text>
+        <rect x="15" y="28" width="125" height="64" rx="8" fill="#fff" stroke="#c4cacf" stroke-width="2"/><text x="77" y="54" text-anchor="middle" font-size="13" font-weight="600">Answer A</text><text x="77" y="76" text-anchor="middle" font-size="11" fill="#5b6770">curt, correct</text>
+        <rect class="boxB" x="160" y="28" width="125" height="64" rx="8" fill="#fff" stroke="#c4cacf" stroke-width="2"/><text x="222" y="54" text-anchor="middle" font-size="13" font-weight="600">Answer B</text><text x="222" y="76" text-anchor="middle" font-size="11" fill="#5b6770">warm, agrees with you</text>
+        <text class="thumb" x="222" y="126" text-anchor="middle" font-size="30">👍</text>
+        <path class="nudge" d="M222 96 L222 104" stroke="#F76902" stroke-width="3" fill="none"/>
+        <rect x="80" y="140" width="140" height="40" rx="8" fill="#4C5B66"/><text x="150" y="165" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">model → more like B</text>
+      </svg>
+      <div class="buy">✓ helpful, polite</div><div class="cost">✗ <b>sycophancy</b>: learns to please</div></div>
+    <div class="fragment" style="background:#e2f2e6"><div class="h">4 · RL with verifiable rewards</div><div class="sub">try thousands of times; keep what passes the test</div>
+      <svg viewBox="0 0 300 150" class="a-rlvr">
+        <rect x="15" y="12" width="270" height="36" rx="8" fill="#fff" stroke="#c4cacf"/><text x="25" y="35" font-size="13">Task: make the unit tests pass</text>
+        <text x="150" y="68" text-anchor="middle" font-size="12" fill="#5b6770">automatic checker, no human in the loop</text>
+        <g class="t1"><rect x="20" y="80" width="78" height="32" rx="6" fill="#fde0d2"/><text x="59" y="102" text-anchor="middle" font-size="14" fill="#c62828" font-weight="600">try 1 ✗</text></g>
+        <g class="t2"><rect x="111" y="80" width="78" height="32" rx="6" fill="#fde0d2"/><text x="150" y="102" text-anchor="middle" font-size="14" fill="#c62828" font-weight="600">try 2 ✗</text></g>
+        <g class="t3"><rect x="202" y="80" width="78" height="32" rx="6" fill="#e2f2e6"/><text x="241" y="102" text-anchor="middle" font-size="14" fill="#2e7d32" font-weight="600">try 3 ✓</text></g>
+        <g class="rew"><rect x="80" y="134" width="140" height="40" rx="8" fill="#2e7d32"/><text x="150" y="159" text-anchor="middle" fill="#fff" font-size="14" font-weight="600">reward +1 → learn</text></g>
+      </svg>
+      <div class="buy">✓ the 2025 jump in code and math</div><div class="cost">✗ <b>reward hacking</b>: edits the tests</div></div>
   </div>
-  <div class="takeaway fragment">Gains are biggest where answers can be <b>checked</b>. That is our field.</div>
-  <aside class="notes">~1.5 min. Stage 4 is why 2025 was the year coding agents started working. Reward hacking is real: models caught special-casing expected outputs, same instinct as students gaming a rubric. 10^26 FLOPs of pretraining is also the legal line in NY and CA frontier-model laws.</aside>
+  <div class="takeaway fragment">Gains are biggest where answers can be <b>checked</b>. Code and math first. That is our field.</div>
+  <aside class="notes">~2 min. Four panels animate. 1: pretraining is literally this, at web scale. 2: SFT teaches the format. 3: RLHF: people prefer answers that agree with them, hence sycophancy. 4: RLVR is why 2025 was the year coding agents started working; reward hacking = models caught editing tests to pass.</aside>
 </section>
 
 <!-- PART 2 -->
 <section data-ch="2"><div class="divider"><div class="num">2</div><div class="t">The curve</div><div class="s">What the numbers look like in October 2026</div></div></section>
 
-<!-- timeline -->
+<!-- dense timeline -->
 <section data-ch="2">
-  <h2>Ten years, five shifts</h2>
-  <div class="tl">
-    <div class="axis"></div>
-    <div class="ev up" style="left:0"><div class="dot"></div><div class="y">2017</div><div class="h">Transformer</div>Attention replaces recurrence.</div>
-    <div class="ev dn" style="left:160px"><div class="dot"></div><div class="y">2020–21</div><div class="h">Scale</div>GPT-3: few-shot from size alone.</div>
-    <div class="ev up" style="left:320px"><div class="dot"></div><div class="y">Late 2022</div><div class="h">ChatGPT</div>RLHF turns autocomplete into an assistant.</div>
-    <div class="ev dn" style="left:480px"><div class="dot"></div><div class="y">2023</div><div class="h">Tools + RAG</div>GPT-4, Claude, Gemini. Function calling.</div>
-    <div class="ev up" style="left:640px"><div class="dot"></div><div class="y">2024</div><div class="h">Reasoning</div>o1, then DeepSeek-R1. MCP (Nov).</div>
-    <div class="ev dn" style="left:800px"><div class="dot"></div><div class="y">2025</div><div class="h">Agents</div>RLVR. Claude Code, Codex. Hours-long tasks.</div>
-    <div class="ev up" style="left:960px"><div class="dot" style="background:#4C5B66"></div><div class="y" style="color:#4C5B66">2026</div><div class="h">Models build models</div>1M context everywhere. Labs automate their own research.</div>
+  <h2>How we got here: fourteen years in twelve lines</h2>
+  <div class="tl2">
+    <div class="e"><span class="y">2012</span><span><b>AlexNet.</b> Deep learning on GPUs beats everything at image recognition.</span></div>
+    <div class="e"><span class="y">2017</span><span><b>Transformer.</b> "Attention is all you need." Every model since uses it.</span></div>
+    <div class="e"><span class="y">2018–19</span><span><b>GPT-1, BERT, GPT-2.</b> Pretrain on the web, then fine-tune. Scale starts to matter.</span></div>
+    <div class="e"><span class="y">2020</span><span><b>GPT-3.</b> 175B parameters. Few-shot learning appears from size alone.</span></div>
+    <div class="e"><span class="y">2021</span><span><b>Codex, Copilot.</b> AI writes code inside the IDE.</span></div>
+    <div class="e"><span class="y">Nov 2022</span><span><b>ChatGPT.</b> RLHF turns autocomplete into an assistant. 100M users in two months.</span></div>
+    <div class="e"><span class="y">2023</span><span><b>GPT-4, Claude, Gemini, Llama (open weights).</b> Tool calling, RAG, 128K context.</span></div>
+    <div class="e"><span class="y">2024</span><span><b>Reasoning.</b> o1 thinks before answering. MCP standard (Nov). Computer use.</span></div>
+    <div class="e"><span class="y">Jan 2025</span><span><b>DeepSeek-R1.</b> Open reasoning model from China at a fraction of the cost.</span></div>
+    <div class="e"><span class="y">2025</span><span><b>Agents.</b> RLVR training. Claude Code, Codex. Tasks of hours, not minutes.</span></div>
+    <div class="e now"><span class="y">Sep 2026</span><span><b>1M context everywhere.</b> GPT-6, Claude 5.5, Gemini 3.8, DeepSeek V4.1 ship within weeks of each other.</span></div>
+    <div class="e now"><span class="y">Oct 2026</span><span><b>Models build models.</b> Labs automate their own research; Argon finds and patches vulnerabilities.</span></div>
   </div>
-  <aside class="notes">~45 s. Same engine, new training or new plumbing each step.</aside>
+  <aside class="notes">~1 min. Don't read every line. Rhythm: same engine (2017) + more scale (2020) + better training (2022, 2025) + plumbing (2023–24). The last two lines are this fall.</aside>
 </section>
 
 <!-- horizon -->
@@ -272,53 +363,109 @@ svg text{font-family:"Fira Sans",sans-serif}
   <div class="hz">
     <div class="row fragment" style="--w:13%"><div class="yr">2023<small>GPT-4</small></div><div class="track"><div class="bar"></div><div class="lab">5 min</div></div><div class="eg">fix a typo, write one function</div></div>
     <div class="row fragment" style="--w:24%"><div class="yr">2024<small>o1, Claude 3.5</small></div><div class="track"><div class="bar"></div><div class="lab">30 min</div></div><div class="eg">a function with tests; a lab exercise</div></div>
-    <div class="row fragment" style="--w:55%"><div class="yr">2025<small>GPT-5, Opus 4.5</small></div><div class="track"><div class="bar"></div><div class="lab">2–5 hours</div></div><div class="eg">a CS2 homework; a bug across files</div></div>
-    <div class="row fragment last" style="--w:100%"><div class="yr">2026<small>Opus 4.6 and later</small></div><div class="track"><div class="bar"></div><div class="lab">~12 hours (a full workday)</div></div><div class="eg">a course project, start to finish</div></div>
+    <div class="row fragment" style="--w:55%"><div class="yr">2025<small>GPT-5, Opus 4.5</small></div><div class="track"><div class="bar"></div><div class="lab">2–5 hours</div></div><div class="eg">a data-structures homework; a bug across files</div></div>
+    <div class="row fragment last" style="--w:100%"><div class="yr">2026<small>Opus 4.6 and later</small></div><div class="track"><div class="bar"></div><div class="lab">~12 hours (a full workday)</div></div><div class="eg">a semester project, start to finish</div></div>
   </div>
-  <div class="bigline fragment">Doubling every <span class="o">~4–7 months</span>. By graduation, your freshmen's tools will do <span class="o">week-long</span> tasks.</div>
+  <div class="bigline fragment">Doubling every <span class="o">~4–7 months</span>. By graduation, this year's freshmen will have tools that finish <span class="o">week-long</span> tasks.</div>
   <p class="foot">METR "Time Horizon 1.1" (Jan 2026): length of a human task the AI completes with 50% success. Bar widths on a log scale; 2026 values have wide error bars.</p>
-  <aside class="notes">~1.5 min. "Task length" = how long a human expert would take. Click through: each generation roughly 4× the last. The 2026 numbers are shaky because METR's test suite is saturating, but even half the slope gives week-long tasks by 2028.</aside>
+  <aside class="notes">~1.5 min. "Task length" = how long a human expert would take. Each generation roughly 4× the last. METR's suite is saturating so the 2026 point is shaky; even half the slope gives week-long tasks by 2028.</aside>
 </section>
 
-<!-- cheaper -->
+<!-- cheaper + longer, animated -->
 <section data-ch="2">
   <h2>…and cheaper, with a million-token memory</h2>
-  <div class="kv" style="margin-top:.6em">
-    <div class="fragment"><div class="n">1M tokens</div><div class="l">context window of <b>every</b> frontier model since Sept 2026: GPT-6, Claude 5.5, Gemini 3.8, DeepSeek V4.1. ≈ 2,500 pages. (2022: 4K.)</div></div>
-    <div class="fragment"><div class="n">$0.10</div><div class="l">per million input tokens, Claude Haiku 5.5 (Oct 2026). Top model: $10. A homework run costs cents.</div></div>
-    <div class="fragment"><div class="n">10–40× / yr</div><div class="l">price drop for a <b>fixed</b> capability level (Epoch AI). GPT-4-class went from $30 to under $1.50.</div></div>
+  <div class="cols">
+    <div>
+      <p class="small" style="margin:0 0 .2em"><b>Context window</b> (how much text the model sees at once)</p>
+      <div class="ctxbars">
+        <div class="r"><span class="y"><b>2020</b> GPT-3</span><span class="b" style="--w:40px;animation-delay:.1s"></span><span class="v">2K</span></div>
+        <div class="r"><span class="y"><b>2022</b> ChatGPT</span><span class="b" style="--w:80px;animation-delay:.4s"></span><span class="v">4K</span></div>
+        <div class="r"><span class="y"><b>2023</b> GPT-4 Turbo</span><span class="b" style="--w:200px;animation-delay:.7s"></span><span class="v">128K</span></div>
+        <div class="r"><span class="y"><b>2024</b> Gemini 1.5</span><span class="b" style="--w:290px;animation-delay:1s"></span><span class="v">1M</span></div>
+        <div class="r hot"><span class="y"><b>2026</b> every lab</span><span class="b" style="--w:290px;animation-delay:1.3s"></span><span class="v">1M</span></div>
+      </div>
+      <p class="tiny">1M tokens ≈ 2,500 pages. Log scale. GPT-6, Claude 5.5, Gemini 3.8, DeepSeek V4.1 (Sept 2026).</p>
+    </div>
+    <div>
+      <p class="small" style="margin:0 0 .2em"><b>Price of GPT-4-level answers</b>, $ per million tokens</p>
+      <svg viewBox="0 0 520 250" class="price" style="width:100%">
+        <g font-size="13" fill="#5b6770"><text x="38" y="30" text-anchor="end">$30</text><text x="38" y="120" text-anchor="end">$3</text><text x="38" y="210" text-anchor="end">$0.3</text>
+          <text x="80" y="238" text-anchor="middle">2023</text><text x="230" y="238" text-anchor="middle">2024</text><text x="380" y="238" text-anchor="middle">2025</text><text x="500" y="238" text-anchor="middle">2026</text></g>
+        <g stroke="#e3e6e8"><line x1="50" y1="25" x2="510" y2="25"/><line x1="50" y1="115" x2="510" y2="115"/><line x1="50" y1="205" x2="510" y2="205"/></g>
+        <path class="line" d="M80 25 C 150 40, 200 110, 260 120 S 400 180, 500 195" fill="none" stroke="#F76902" stroke-width="4"/>
+        <g class="pt" style="animation-delay:.2s"><circle cx="80" cy="25" r="6" fill="#F76902"/><text x="92" y="22" font-size="13">GPT-4: $30</text></g>
+        <g class="pt" style="animation-delay:1.2s"><circle cx="260" cy="120" r="6" fill="#F76902"/><text x="272" y="117" font-size="13">GPT-4o-mini class: ~$1</text></g>
+        <g class="pt" style="animation-delay:2.1s"><circle cx="500" cy="195" r="7" fill="#F76902"/><text x="490" y="222" font-size="13" text-anchor="end" font-weight="600">Haiku 5.5: $0.10</text></g>
+      </svg>
+      <p class="tiny">Epoch AI: price for a fixed capability falls 10–40× per year. Log scale.</p>
+    </div>
   </div>
-  <div class="takeaway fragment">Cost is no longer the reason a student wouldn't use an agent.</div>
-  <p class="foot">platform.claude.com model table; OpenAI GPT-6 (Sept 2026); Epoch AI, "LLM inference price trends".</p>
-  <aside class="notes">~45 s. Quality still degrades as the window fills ("smart zone / dumb zone"), which is why harnesses summarize and spawn sub-agents.</aside>
+  <div class="takeaway fragment">A homework-sized agent run costs cents. Cost is no longer why a student wouldn't use one.</div>
+  <aside class="notes">~1 min. Left: window grew 500×. Right: same capability, 300× cheaper in three years. Quality still degrades as the window fills, which is why harnesses summarize and spawn sub-agents.</aside>
 </section>
 
-<!-- trend board -->
+<!-- trend board with visuals -->
 <section data-ch="2">
-  <h2>What's hot right now (October 2026)</h2>
+  <h2>What's hot right now (October 2026): six things</h2>
   <div class="board">
-    <div class="fragment"><div class="h">Models build models</div><div class="d">Anthropic: Claude writes <b>~80%</b> of its production code. OpenAI target: automated AI researcher by <b>2028</b>. New word: RSI.</div></div>
-    <div class="fragment"><div class="h">Always-on agents</div><div class="d">OpenAI "Dots": agents with their own cloud computer. <b>97%</b> of execs say they deployed agents; <b>23%</b> have scaled one (McKinsey).</div></div>
-    <div class="fragment"><div class="h">AI finds and fixes vulnerabilities</div><div class="d">Gemini 4 Argon (Sept 30) released to <b>vetted defenders only</b>, without cyber guardrails. GPT-6 crossed OpenAI's "critical" cyber line.</div></div>
-    <div class="fragment"><div class="h">China: 3% behind</div><div class="d">Bloomberg Intelligence gap estimate, down from 15% in January. DeepSeek V4.1, Qwen 3.8, GLM 5.3 all at 1M context; Mistral Large 4 open weights.</div></div>
-    <div class="fragment"><div class="h">$650B+ on compute</div><div class="d">Hyperscaler capex 2026, roughly <b>3×</b> 2024. Bottleneck is now <b>power</b> (gigawatts), not money. Stargate: ~8 GW announced.</div></div>
-    <div class="fragment"><div class="h">The entry-level squeeze</div><div class="d">Workers 22–25 in AI-exposed jobs: <b>19% below</b> trend (Stanford, Aug 2026). Our graduates are the canaries. Next slide.</div></div>
+    <div class="fragment"><div class="h">1 · Models build models</div>
+      <svg viewBox="0 0 300 96" class="b-loop"><g class="ring"><path d="M52 18 A30 30 0 1 1 22 48" fill="none" stroke="#F76902" stroke-width="5" stroke-linecap="round"/><path d="M22 48 L30 38 M22 48 L12 40" stroke="#F76902" stroke-width="5" fill="none" stroke-linecap="round"/></g>
+        <text x="52" y="53" text-anchor="middle" font-size="12" font-weight="600">AI</text>
+        <text x="100" y="35" font-size="13">writes <tspan font-weight="600" fill="#F76902">~80%</tspan> of Anthropic's code</text><text x="100" y="58" font-size="13">and trains the next model.</text><text x="100" y="80" font-size="12" fill="#5b6770">OpenAI: automated researcher by 2028</text></svg>
+      <div class="d">"Recursive self-improvement" went from sci-fi word to lab KPI. Skeptics: "just faster coding."</div></div>
+    <div class="fragment"><div class="h">2 · Agents: everyone has one, few scaled</div>
+      <svg viewBox="0 0 300 96" class="b-bars"><text x="4" y="30" font-size="12">deployed an agent</text><rect class="g" x="135" y="18" width="155" height="18" rx="4" fill="#4C5B66"/><text x="240" y="32" font-size="12" fill="#fff" font-weight="600">97%</text>
+        <text x="4" y="68" font-size="12">scaled it company-wide</text><rect class="g" x="135" y="56" width="37" height="18" rx="4" fill="#F76902" style="animation-delay:.5s"/><text x="178" y="70" font-size="12" font-weight="600">23%</text></svg>
+      <div class="d">Executive surveys (WRITER, McKinsey). OpenAI's always-on "Dots" agents get their own cloud computer. Gartner: 40% of agent projects cancelled by 2027.</div></div>
+    <div class="fragment"><div class="h">3 · AI finds and patches vulnerabilities</div>
+      <svg viewBox="0 0 300 96" class="b-fix"><g font-family="Fira Mono" font-size="11"><text x="8" y="22" fill="#5b6770">if (len &lt; MAX)</text>
+        <rect class="bug" x="4" y="30" width="180" height="20" rx="4" stroke-width="1.5"/><text x="8" y="44">  memcpy(buf, src, len);</text>
+        <text x="8" y="68" fill="#5b6770">return ok;</text></g>
+        <g class="ok"><text x="200" y="45" font-size="13" fill="#2e7d32" font-weight="600">✓ patched</text><text x="200" y="64" font-size="11" fill="#5b6770">by the model</text></g></svg>
+      <div class="d">Gemini 4 Argon (Sept 30): finds, validates, fixes critical bugs; released to <b>vetted defenders only</b>, no guardrails. GPT-6 crossed OpenAI's "critical" cyber threshold.</div></div>
+    <div class="fragment"><div class="h">4 · China is 3% behind</div>
+      <svg viewBox="0 0 300 96" class="b-gap"><text x="4" y="28" font-size="12">US best</text><rect x="70" y="16" width="172" height="18" rx="4" fill="#4C5B66"/>
+        <text x="4" y="66" font-size="12">China best</text><foreignObject x="70" y="54" width="180" height="20"><div xmlns="http://www.w3.org/1999/xhtml" class="cn" style="height:18px;border-radius:4px;background:#F76902;width:150px"></div></foreignObject>
+        <text x="250" y="30" font-size="11" fill="#5b6770">Jan: −15%</text><text x="250" y="68" font-size="11" fill="#F76902" font-weight="600">Oct: −3%</text></svg>
+      <div class="d">Bloomberg Intelligence benchmark gap. DeepSeek V4.1, Qwen 3.8, GLM 5.3: 1M context, mostly open weights.</div></div>
+    <div class="fragment"><div class="h">5 · $650B+ a year on compute</div>
+      <svg viewBox="0 0 300 96" class="b-bars"><g font-size="12"><text x="4" y="26">2024</text><rect class="g" x="50" y="14" width="75" height="16" rx="3" fill="#4C5B66"/><text x="130" y="27">$226B</text>
+        <text x="4" y="54">2025</text><rect class="g" x="50" y="42" width="136" height="16" rx="3" fill="#4C5B66" style="animation-delay:.3s"/><text x="191" y="55">$410B</text>
+        <text x="4" y="82">2026</text><rect class="g" x="50" y="70" width="230" height="16" rx="3" fill="#F76902" style="animation-delay:.6s"/><text x="200" y="83" fill="#fff" font-weight="600">~$700B</text></g></svg>
+      <div class="d">Big-four hyperscaler capital spending. Bottleneck is now <b>electricity</b>: gigawatts, permits. Stargate: ~8 GW announced.</div></div>
+    <div class="fragment"><div class="h">6 · Entry-level jobs squeezed</div>
+      <svg viewBox="0 0 300 96" class="b-lines"><g stroke="#e3e6e8"><line x1="40" y1="50" x2="260" y2="50"/></g><text x="4" y="54" font-size="11" fill="#5b6770">2022</text><text x="266" y="54" font-size="11" fill="#5b6770">2026</text>
+        <path class="up" d="M40 50 C 120 48, 200 38, 260 30" fill="none" stroke="#4C5B66" stroke-width="3"/><text x="40" y="16" font-size="11" fill="#4C5B66">age 22–25, jobs AI can't do much of: +10%</text>
+        <path class="dn" d="M40 50 C 120 54, 200 66, 260 74" fill="none" stroke="#F76902" stroke-width="3"/><text x="40" y="92" font-size="11" fill="#F76902" font-weight="600">age 22–25, jobs AI does well (software dev): −11%</text></svg>
+      <div class="d">Stanford, ADP payroll data (Aug 2026). Gap: <b>19%</b>. Mechanism is fewer hires, not layoffs. Next slide.</div></div>
   </div>
-  <p class="foot">TIME (Aug 7 2026); McKinsey State of AI; Google blog (Sept 30 2026); Bloomberg Intelligence; Epoch AI; Stanford Digital Economy Lab (Aug 12 2026).</p>
-  <aside class="notes">~2 min. Six tiles, ten seconds each. The ones to linger on for this room: Argon (security faculty), RSI (research), and the jobs tile (everyone).</aside>
+  <p class="foot">TIME (Aug 7 2026); WRITER, McKinsey, Gartner; Google blog (Sep 30 2026); Bloomberg Intelligence; Epoch AI; Stanford (Aug 12 2026).</p>
+  <aside class="notes">~2.5 min. Six tiles, each with its own picture. For this room, linger on 3 (security faculty), 1 (research), 6 (everyone).</aside>
 </section>
 
 <!-- jobs -->
 <section data-ch="2">
-  <h2>Our graduates are the test case</h2>
-  <div class="kv" style="margin-top:.6em">
-    <div class="fragment"><div class="n">−19%</div><div class="l">employment of 22–25-year-olds in the most AI-exposed jobs, vs. less-exposed peers (ADP payroll data, Nov 2022 → Jun 2026). Software development is the top-exposed group.</div></div>
-    <div class="fragment"><div class="n">42%</div><div class="l">underemployment among recent college grads; unemployment 5.6% (NY Fed, 2026 Q2). CS and computer engineering sit <b>above</b> the average.</div></div>
-    <div class="fragment"><div class="n">×3</div><div class="l">IBM's 2026 entry-level hiring. The counter-trend: juniors who can <b>supervise</b> agents are wanted; juniors who <b>are</b> the agent are not.</div></div>
+  <h2>Why the squeeze lands on our graduates</h2>
+  <p class="small" style="margin:0 1.1em"><b>How a junior developer used to be made</b></p>
+  <div class="pipeline">
+    <div class="node fragment"><b>our courses</b>syntax, data structures, projects</div><div class="arr fragment">→</div>
+    <div class="node fragment"><b>first job: small tickets</b>fix a bug, add a field, write a test</div><div class="arr fragment">→</div>
+    <div class="node fragment"><b>two years later</b>judgment, design, debugging instinct</div>
   </div>
-  <div class="bigline fragment">The tickets that used to train juniors are the tickets AI does best. <span class="o">We now have to teach what the first job used to teach.</span></div>
-  <p class="foot">Brynjolfsson, Chandar, Chen, "Canaries in the Coal Mine" (rev. Aug 2026); NY Fed "Labor Market for Recent College Graduates"; Fortune (Sep 17 2026). Stanford authors: no economy-wide displacement; effect is reduced hiring, not layoffs.</p>
-  <aside class="notes">~1.5 min. Be careful: Stanford says no evidence of widespread displacement; mechanism is hiring, not firing; a Danish study found near-zero. But the direction is consistent and it is concentrated exactly in our majors.</aside>
+  <p class="small fragment" style="margin:.3em 1.1em 0"><b>2026</b></p>
+  <div class="pipeline">
+    <div class="node fragment"><b>our courses</b>same as before</div><div class="arr fragment">→</div>
+    <div class="node ai fragment"><b>an agent does the small tickets</b>in minutes, for cents</div><div class="arr fragment">→</div>
+    <div class="node x fragment"><b>first job</b>the rung that taught judgment is gone</div>
+  </div>
+  <div class="kv fragment" style="margin-top:.5em;font-size:.85em">
+    <div><div class="n">19%</div><div class="l">gap in employment for 22–25-year-olds in AI-exposed jobs (Stanford, Aug 2026)</div></div>
+    <div><div class="n">42%</div><div class="l">of recent grads underemployed; 5.6% unemployed (NY Fed, 2026 Q2)</div></div>
+    <div><div class="n">×3</div><div class="l">IBM's entry-level hiring in 2026: it wants juniors who can <b>supervise</b> agents</div></div>
+  </div>
+  <div class="takeaway fragment">The judgment that the first job used to teach now has to be taught <b>in our courses</b>.</div>
+  <p class="foot">Stanford "Canaries in the Coal Mine" (rev. Aug 2026): no economy-wide displacement; effect is reduced hiring. NY Fed recent-grad data. Fortune (Sep 17 2026).</p>
+  <aside class="notes">~1.5 min. Top row: the old apprenticeship. Bottom row: the middle rung is automated. Stanford is careful: no mass layoffs; the hiring door narrowed. But it narrowed most in exactly our majors.</aside>
 </section>
 
 <!-- government -->
@@ -326,7 +473,7 @@ svg text{font-family:"Fira Sans",sans-serif}
   <h2>Washington, Albany, Brussels: three things to know</h2>
   <div class="steps">
     <div class="fragment"><div class="n">$</div><div class="t">Genesis Mission (DOE)</div><div class="d">Federal "AI for science" platform: 17 national labs, 26 challenges, <b>$800M+</b> in partner commitments, open calls for proposals. NAIRR now permanent (NSF, Sept 2026): free compute for academic AI research.</div></div>
-    <div class="fragment"><div class="n">§</div><div class="t">New York RAISE Act</div><div class="d">In force <b>Jan 1, 2027</b>: frontier = &gt;10<sup>26</sup> FLOPs; 72-hour incident reporting. Washington is trying to preempt it (EO 14365, Dec 2025); Congress hasn't. EU AI Act enforcement began Aug 2026.</div></div>
+    <div class="fragment"><div class="n">§</div><div class="t">New York RAISE Act</div><div class="d">In force <b>Jan 1, 2027</b>: "frontier" = trained with &gt;10<sup>26</sup> operations; 72-hour incident reporting. Washington is trying to preempt it (EO 14365, Dec 2025); Congress hasn't acted. EU AI Act enforcement began Aug 2026.</div></div>
     <div class="fragment"><div class="n">SI</div><div class="t">"Super Intelligence"</div><div class="d">EO 14434 (Sept 29, 2026): federal agencies must say <b>"Super Intelligence"</b> instead of "AI." NIST is updating its communications. Expect it in solicitations.</div></div>
   </div>
   <div class="takeaway fragment">For us: money is available for AI-for-science, and our graduates will ship under disclosure and incident-reporting law.</div>
@@ -358,6 +505,7 @@ svg text{font-family:"Fira Sans",sans-serif}
       <div class="card"><b>Plan mode</b> = same model, read-only tools.</div>
       <div class="card"><b>Sub-agents</b> = fresh context, short brief, return a summary.</div>
       <div class="card warn"><b>Done</b> = whatever the checker accepts. Bad checker, bad fix.</div>
+      <div class="card"><b>Cost</b> of this run: a few cents. <b>Time:</b> under a minute.</div>
     </div>
   </div>
   <aside class="notes">~1 min. Click through fast. This is also the fallback if the live demo fails.</aside>
@@ -388,9 +536,9 @@ svg text{font-family:"Fira Sans",sans-serif}
       </svg>
     </div>
     <div>
-      <div class="card fragment"><b>Context engineering:</b> what goes in the window, when.</div>
-      <div class="card fragment"><b>Serving:</b> KV cache, prompt cache (0.05× price), speculative decoding.</div>
-      <div class="card fragment"><b>Verification:</b> the agent is only as good as its checker.</div>
+      <div class="card fragment"><b>Context engineering:</b> what goes in the window, when. Summaries when it fills; sub-agents for side quests.</div>
+      <div class="card fragment"><b>Serving:</b> KV cache (n² → n per token), prompt cache (cached tokens cost 5–10%), speculative decoding (2–3× faster).</div>
+      <div class="card fragment"><b>Verification:</b> tests, type checkers, a second model as reviewer. The agent is only as good as its checker.</div>
       <div class="takeaway fragment" style="margin-top:.5em">Every box is a CS research area: systems, PL, SE, HCI, security.</div>
     </div>
   </div>
@@ -415,7 +563,7 @@ svg text{font-family:"Fira Sans",sans-serif}
   </div>
   <div class="takeaway fragment" data-fragment-index="5">Rule of two: an agent gets at most <b>two</b> of {private data, untrusted input, a way to send}. Never all three unsupervised.</div>
   <p class="foot">Simon Willison, "the lethal trifecta" (2025); Meta, "Agents Rule of Two" (2025); OWASP GenAI exploit round-up Q1 2026.</p>
-  <aside class="notes">~1.5 min. Click: the email arrives; the hidden text; the model obeys; the user sees a clean summary. Same mechanism as the "one string" slide. This is a security-course lab waiting to be written.</aside>
+  <aside class="notes">~1.5 min. Click: the email arrives; the hidden text; the model obeys; the user sees a clean summary. Same mechanism as the "one string" slide. A security-course lab waiting to be written.</aside>
 </section>
 
 <!-- PART 4 -->
@@ -431,7 +579,7 @@ svg text{font-family:"Fira Sans",sans-serif}
     <div class="fragment"><div class="n">3</div><div class="t">Teach the tool</div><div class="d">AI use from orientation on; "AI-intensive in the major" courses. Two-thirds of students expect AI to matter to careers; 25% feel prepared.</div></div>
   </div>
   <p class="foot">aiandeducation.mit.edu/report</p>
-  <aside class="notes">~1.5 min. This is the most thorough institutional answer so far, from a place where every student codes. The menu idea is the cheapest win: it ends the per-course ambiguity students exploit.</aside>
+  <aside class="notes">~1.5 min. The most thorough institutional answer so far, from a place where every student codes. The menu idea is the cheapest win: it ends the per-course ambiguity students exploit.</aside>
 </section>
 
 <!-- ladder -->
@@ -444,7 +592,7 @@ svg text{font-family:"Fira Sans",sans-serif}
     <div class="rung fragment" style="height:84%;background:#c75605"><div class="n">4</div><div class="t">Parallel agents</div>You launch, you review.<div class="you">decompose, design checkers</div></div>
     <div class="rung fragment" style="height:100%;background:#F76902"><div class="n">5</div><div class="t">Agent teams</div>They review each other.<div class="you">set goals, own the risk</div></div>
   </div>
-  <div class="takeaway fragment">CS1–CS2 homework is level 3 today. What survives: <b>specification, verification, systems thinking, security.</b></div>
+  <div class="takeaway fragment">Intro-programming and data-structures homework is level 3 today. What survives: <b>specification, verification, systems thinking, security.</b></div>
   <aside class="notes">~1 min. Most of us are at 1–2; many students at 3–4; industry moving 3→5. The things we always said mattered are exactly what levels 3–5 require.</aside>
 </section>
 
@@ -452,7 +600,7 @@ svg text{font-family:"Fira Sans",sans-serif}
 <section data-ch="4">
   <h2>Live: hand one of our assignments to an agent</h2>
   <div class="kv" style="margin-top:.8em">
-    <div><div class="n">paste</div><div class="l">the spec of a current CS2 / data-structures assignment into Claude Code or Codex</div></div>
+    <div><div class="n">paste</div><div class="l">the spec of a current intro-programming or data-structures assignment into Claude Code or Codex</div></div>
     <div><div class="n">wait</div><div class="l">~3 minutes. It reads the starter code, writes tests, runs them, fixes, writes the report. Under a dollar.</div></div>
     <div><div class="n">ask</div><div class="l">what was this assignment measuring, and does it still measure that?</div></div>
   </div>
@@ -480,7 +628,7 @@ svg text{font-family:"Fira Sans",sans-serif}
     <div class="who">Sources in speaker notes (press S). AI Committee, Fall 2026.</div>
   </div>
   <aside class="notes">
-Sources: METR Time Horizon 1.1 (Jan 29 2026); platform.claude.com models table; Epoch AI inference price trends; TIME "What Happens When AI Starts Building AI?" (Aug 7 2026); McKinsey State of AI 2025; Google blog, Gemini 4 Argon (Sep 30 2026); Bloomberg Intelligence China gap; Stanford Digital Economy Lab "Canaries" rev. Aug 12 2026; NY Fed recent-grad labor market (2026 Q2); DOE Genesis Mission (Jul 22 2026); NSF NAIRR Operations Center (Sep 1 2026); NY RAISE Act chapter amendment (Mar 27 2026); EO 14434 (Sep 29 2026) via Wiley; EC AI Act enforcement (Aug 2 2026); Simon Willison, lethal trifecta; Meta Rule of Two; OWASP GenAI Q1 2026; MIT AI and Education report (Aug 13 2026).
+Sources: METR Time Horizon 1.1 (Jan 29 2026); platform.claude.com models table; Epoch AI inference price trends; TIME "What Happens When AI Starts Building AI?" (Aug 7 2026); WRITER and McKinsey agent surveys; Gartner forecast; Google blog, Gemini 4 Argon (Sep 30 2026); Bloomberg Intelligence China gap; hyperscaler capex via Epoch AI; Stanford Digital Economy Lab "Canaries" rev. Aug 12 2026; NY Fed recent-grad labor market (2026 Q2); DOE Genesis Mission (Jul 22 2026); NSF NAIRR Operations Center (Sep 1 2026); NY RAISE Act chapter amendment (Mar 27 2026); EO 14434 (Sep 29 2026) via Wiley; EC AI Act enforcement (Aug 2 2026); Simon Willison, lethal trifecta; Meta Rule of Two; OWASP GenAI Q1 2026; MIT AI and Education report (Aug 13 2026).
   </aside>
 </section>
 
@@ -504,6 +652,8 @@ Reveal.initialize({hash:true, center:false, progress:true, width:1280, height:72
     Array.from(rail.children).forEach(function(el){var c=el.dataset.ch; el.className=c<ch?'done':(c===ch?'here':'');});
     document.getElementById('fnum').textContent=(i+1)+' / '+n;
     var h=secs[i].querySelector('h2'); if(h) h.style.setProperty('--progress',Math.round(100*(i+1)/n)+'%');
+    // restart one-shot CSS animations on the current slide
+    secs[i].querySelectorAll('.ctxbars .b,.price .line,.price .pt').forEach(function(el){el.style.animation='none';void el.offsetWidth;el.style.animation='';});
   }
   Reveal.on('ready',update); Reveal.on('slidechanged',update);
 })();
