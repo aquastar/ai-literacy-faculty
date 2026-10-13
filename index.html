@@ -212,6 +212,14 @@ svg text{font-family:"Fira Sans",sans-serif}
 .steps .n{font-size:1.8em;font-weight:600;color:var(--accent);line-height:1}
 .steps .t{font-weight:600;font-size:.9em;margin:.3em 0 .2em}
 .steps .d{font-size:.62em;color:var(--muted);line-height:1.35}
+.doc .har{display:block;width:fit-content;margin:3px 0;background:#eceff1;box-shadow:inset 0 -2px 0 #78909c;color:#37474f;font-style:italic;font-family:"Fira Sans"}
+.doc .file{background:#f1f8e9;box-shadow:inset 0 -2px 0 #7cb342}
+/* animated timeline */
+@keyframes popin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes drawx{from{stroke-dashoffset:1200}to{stroke-dashoffset:0}}
+.tl3{width:100%;height:520px;display:block}
+.tl3 .axis{stroke-dasharray:1200;stroke-dashoffset:1200;animation:drawx 5.5s linear forwards}
+.tl3 .ev{opacity:0;animation:popin .5s ease-out forwards}
 .pulse{animation:pulse 1.2s ease-in-out infinite}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(198,40,40,.0)}50%{box-shadow:0 0 0 8px rgba(198,40,40,.25)}}
 </style>
@@ -337,24 +345,11 @@ svg text{font-family:"Fira Sans",sans-serif}
 <!-- PART 2 -->
 <section data-ch="2"><div class="divider"><div class="num">2</div><div class="t">The curve</div><div class="s">What the numbers look like in October 2026</div></div></section>
 
-<!-- dense timeline -->
+<!-- animated timeline -->
 <section data-ch="2">
-  <h2>How we got here: fourteen years in twelve lines</h2>
-  <div class="tl2">
-    <div class="e"><span class="y">2012</span><span><b>AlexNet.</b> Deep learning on GPUs beats everything at image recognition.</span></div>
-    <div class="e"><span class="y">2017</span><span><b>Transformer.</b> "Attention is all you need." Every model since uses it.</span></div>
-    <div class="e"><span class="y">2018–19</span><span><b>GPT-1, BERT, GPT-2.</b> Pretrain on the web, then fine-tune. Scale starts to matter.</span></div>
-    <div class="e"><span class="y">2020</span><span><b>GPT-3.</b> 175B parameters. Few-shot learning appears from size alone.</span></div>
-    <div class="e"><span class="y">2021</span><span><b>Codex, Copilot.</b> AI writes code inside the IDE.</span></div>
-    <div class="e"><span class="y">Nov 2022</span><span><b>ChatGPT.</b> RLHF turns autocomplete into an assistant. 100M users in two months.</span></div>
-    <div class="e"><span class="y">2023</span><span><b>GPT-4, Claude, Gemini, Llama (open weights).</b> Tool calling, RAG, 128K context.</span></div>
-    <div class="e"><span class="y">2024</span><span><b>Reasoning.</b> o1 thinks before answering. MCP standard (Nov). Computer use.</span></div>
-    <div class="e"><span class="y">Jan 2025</span><span><b>DeepSeek-R1.</b> Open reasoning model from China at a fraction of the cost.</span></div>
-    <div class="e"><span class="y">2025</span><span><b>Agents.</b> RLVR training. Claude Code, Codex. Tasks of hours, not minutes.</span></div>
-    <div class="e now"><span class="y">Sep 2026</span><span><b>1M context everywhere.</b> GPT-6, Claude 5.5, Gemini 3.8, DeepSeek V4.1 ship within weeks of each other.</span></div>
-    <div class="e now"><span class="y">Oct 2026</span><span><b>Models build models.</b> Labs automate their own research; Argon finds and patches vulnerabilities.</span></div>
-  </div>
-  <aside class="notes">~1 min. Don't read every line. Rhythm: same engine (2017) + more scale (2020) + better training (2022, 2025) + plumbing (2023–24). The last two lines are this fall.</aside>
+  <h2>How we got here: fourteen years, twelve moments</h2>
+  <svg class="tl3" id="tl3" viewBox="0 0 1200 520"></svg>
+  <aside class="notes">~1 min. Plays by itself (~6 s). Rhythm: same engine (2017) + more scale (2020) + better training (2022, 2025) + plumbing (2023–24). The last two are this fall.</aside>
 </section>
 
 <!-- horizon -->
@@ -423,11 +418,12 @@ svg text{font-family:"Fira Sans",sans-serif}
         <text x="8" y="68" fill="#5b6770">return ok;</text></g>
         <g class="ok"><text x="200" y="45" font-size="13" fill="#2e7d32" font-weight="600">✓ patched</text><text x="200" y="64" font-size="11" fill="#5b6770">by the model</text></g></svg>
       <div class="d">Gemini 4 Argon (Sept 30): finds, validates, fixes critical bugs; released to <b>vetted defenders only</b>, no guardrails. GPT-6 crossed OpenAI's "critical" cyber threshold.</div></div>
-    <div class="fragment"><div class="h">4 · China is 3% behind</div>
-      <svg viewBox="0 0 300 96" class="b-gap"><text x="4" y="28" font-size="12">US best</text><rect x="70" y="16" width="172" height="18" rx="4" fill="#4C5B66"/>
-        <text x="4" y="66" font-size="12">China best</text><foreignObject x="70" y="54" width="180" height="20"><div xmlns="http://www.w3.org/1999/xhtml" class="cn" style="height:18px;border-radius:4px;background:#F76902;width:150px"></div></foreignObject>
-        <text x="250" y="30" font-size="11" fill="#5b6770">Jan: −15%</text><text x="250" y="68" font-size="11" fill="#F76902" font-weight="600">Oct: −3%</text></svg>
-      <div class="d">Bloomberg Intelligence benchmark gap. DeepSeek V4.1, Qwen 3.8, GLM 5.3: 1M context, mostly open weights.</div></div>
+    <div class="fragment"><div class="h">4 · Open weights: ~4 months behind</div>
+      <svg viewBox="0 0 300 96" class="b-bars"><g font-size="12"><text x="4" y="27">closed frontier</text><rect class="g" x="112" y="15" width="178" height="18" rx="4" fill="#4C5B66"/><text x="200" y="28" fill="#fff" font-weight="600" text-anchor="middle">GPT-6, Claude 5.5, Gemini</text>
+        <text x="4" y="63">best open weights</text><rect class="g" x="112" y="51" width="148" height="18" rx="4" fill="#F76902" style="animation-delay:.4s"/><text x="186" y="64" fill="#fff" font-weight="600" text-anchor="middle">Kimi, GLM, DeepSeek</text>
+        <text x="264" y="64" fill="#F76902" font-weight="600" font-size="11">−4 mo</text>
+        <text x="4" y="88" fill="#5b6770" font-size="11">Epoch AI capability index, May 2026: gap ≈ 8 points</text></g></svg>
+      <div class="d">You can run a frontier-class model on campus, free, a few months late. Mistral Large 4 weights out this month.</div></div>
     <div class="fragment"><div class="h">5 · $650B+ a year on compute</div>
       <svg viewBox="0 0 300 96" class="b-bars"><g font-size="12"><text x="4" y="26">2024</text><rect class="g" x="50" y="14" width="75" height="16" rx="3" fill="#4C5B66"/><text x="130" y="27">$226B</text>
         <text x="4" y="54">2025</text><rect class="g" x="50" y="42" width="136" height="16" rx="3" fill="#4C5B66" style="animation-delay:.3s"/><text x="191" y="55">$410B</text>
@@ -437,35 +433,10 @@ svg text{font-family:"Fira Sans",sans-serif}
       <svg viewBox="0 0 300 96" class="b-lines"><g stroke="#e3e6e8"><line x1="40" y1="50" x2="260" y2="50"/></g><text x="4" y="54" font-size="11" fill="#5b6770">2022</text><text x="266" y="54" font-size="11" fill="#5b6770">2026</text>
         <path class="up" d="M40 50 C 120 48, 200 38, 260 30" fill="none" stroke="#4C5B66" stroke-width="3"/><text x="40" y="16" font-size="11" fill="#4C5B66">age 22–25, jobs AI can't do much of: +10%</text>
         <path class="dn" d="M40 50 C 120 54, 200 66, 260 74" fill="none" stroke="#F76902" stroke-width="3"/><text x="40" y="92" font-size="11" fill="#F76902" font-weight="600">age 22–25, jobs AI does well (software dev): −11%</text></svg>
-      <div class="d">Stanford, ADP payroll data (Aug 2026). Gap: <b>19%</b>. Mechanism is fewer hires, not layoffs. Next slide.</div></div>
+      <div class="d">Stanford, ADP payroll (Aug 2026): gap <b>19%</b>; fewer hires, not layoffs. The small tickets that trained juniors are what agents do best: <b>our courses now have to teach what the first job used to.</b></div></div>
   </div>
-  <p class="foot">TIME (Aug 7 2026); WRITER, McKinsey, Gartner; Google blog (Sep 30 2026); Bloomberg Intelligence; Epoch AI; Stanford (Aug 12 2026).</p>
-  <aside class="notes">~2.5 min. Six tiles, each with its own picture. For this room, linger on 3 (security faculty), 1 (research), 6 (everyone).</aside>
-</section>
-
-<!-- jobs -->
-<section data-ch="2">
-  <h2>Why the squeeze lands on our graduates</h2>
-  <p class="small" style="margin:0 1.1em"><b>How a junior developer used to be made</b></p>
-  <div class="pipeline">
-    <div class="node fragment"><b>our courses</b>syntax, data structures, projects</div><div class="arr fragment">→</div>
-    <div class="node fragment"><b>first job: small tickets</b>fix a bug, add a field, write a test</div><div class="arr fragment">→</div>
-    <div class="node fragment"><b>two years later</b>judgment, design, debugging instinct</div>
-  </div>
-  <p class="small fragment" style="margin:.3em 1.1em 0"><b>2026</b></p>
-  <div class="pipeline">
-    <div class="node fragment"><b>our courses</b>same as before</div><div class="arr fragment">→</div>
-    <div class="node ai fragment"><b>an agent does the small tickets</b>in minutes, for cents</div><div class="arr fragment">→</div>
-    <div class="node x fragment"><b>first job</b>the rung that taught judgment is gone</div>
-  </div>
-  <div class="kv fragment" style="margin-top:.5em;font-size:.85em">
-    <div><div class="n">19%</div><div class="l">gap in employment for 22–25-year-olds in AI-exposed jobs (Stanford, Aug 2026)</div></div>
-    <div><div class="n">42%</div><div class="l">of recent grads underemployed; 5.6% unemployed (NY Fed, 2026 Q2)</div></div>
-    <div><div class="n">×3</div><div class="l">IBM's entry-level hiring in 2026: it wants juniors who can <b>supervise</b> agents</div></div>
-  </div>
-  <div class="takeaway fragment">The judgment that the first job used to teach now has to be taught <b>in our courses</b>.</div>
-  <p class="foot">Stanford "Canaries in the Coal Mine" (rev. Aug 2026): no economy-wide displacement; effect is reduced hiring. NY Fed recent-grad data. Fortune (Sep 17 2026).</p>
-  <aside class="notes">~1.5 min. Top row: the old apprenticeship. Bottom row: the middle rung is automated. Stanford is careful: no mass layoffs; the hiring door narrowed. But it narrowed most in exactly our majors.</aside>
+  <p class="foot">TIME (Aug 7 2026); WRITER, McKinsey, Gartner; Google blog (Sep 30 2026); Epoch AI open-closed gap (May 29 2026) and capex data; Stanford (Aug 12 2026).</p>
+  <aside class="notes">~2.5 min. Six tiles, each with its own picture. For this room, linger on 3 (security faculty), 4 (we can run these on campus), 6 (everyone: Stanford says no mass layoffs, but the hiring door narrowed most in our majors).</aside>
 </section>
 
 <!-- government -->
@@ -484,65 +455,51 @@ svg text{font-family:"Fira Sans",sans-serif}
 <!-- PART 3 -->
 <section data-ch="3"><div class="divider"><div class="num">3</div><div class="t">Agents, the engineering, and the hole</div><div class="s">What a CS department should know that a chatbot user doesn't</div></div></section>
 
-<!-- agent trace -->
+<!-- agent trace as one string -->
 <section data-ch="3">
-  <h2>An agent is the loop, run until a checker says done</h2>
-  <div class="cols">
-    <div style="flex:1.5">
-      <div class="trace">
-        <div class="st" style="font-size:1.05em"><div class="lab" style="color:var(--usrb)">Task</div><div class="bx" style="background:var(--usr)">"The course's test script started failing this week. Find out why and fix it."</div></div>
-        <div class="st th fragment"><div class="lab">thinks</div><div class="bx">Run the tests first; see the real error.</div></div>
-        <div class="st tc fragment"><div class="lab">tool call</div><div class="bx">run("pytest tests/")</div></div>
-        <div class="st tr fragment"><div class="lab">result</div><div class="bx">FAILED test_grades.py: ImportError: cannot import 'mean' from 'stats_utils'</div></div>
-        <div class="st tc fragment"><div class="lab">tool call</div><div class="bx">run("git log -3 -p stats_utils.py")</div></div>
-        <div class="st tr fragment"><div class="lab">result</div><div class="bx">commit 9f2c… "rename mean → average"</div></div>
-        <div class="st tc fragment"><div class="lab">tool call</div><div class="bx">edit("test_grades.py", mean → average); run("pytest tests/")</div></div>
-        <div class="st tr fragment"><div class="lab">result</div><div class="bx">42 passed</div></div>
-        <div class="st ou fragment"><div class="lab">reports</div><div class="bx">Fixed: a rename on Oct 9 broke one import. 42/42 pass.</div></div>
-      </div>
-    </div>
-    <div>
-      <div class="card"><b>Plan mode</b> = same model, read-only tools.</div>
-      <div class="card"><b>Sub-agents</b> = fresh context, short brief, return a summary.</div>
-      <div class="card warn"><b>Done</b> = whatever the checker accepts. Bad checker, bad fix.</div>
-      <div class="card"><b>Cost</b> of this run: a few cents. <b>Time:</b> under a minute.</div>
-    </div>
+  <h2>An agent is the same string, looped until a checker says done</h2>
+  <div class="doc" style="font-size:.55em">
+    <span class="sys">&lt;system&gt; You are a coding agent in repo <b>cs242-grader</b>. Tools: <b>run(cmd)</b>, <b>read(path)</b>, <b>edit(path, old, new)</b>. Stop when tests pass. &lt;/system&gt;</span>
+    <span class="usr">&lt;user&gt; The test script started failing this week. Find out why and fix it. &lt;/user&gt;</span>
+    <span class="think fragment" data-fragment-index="1">&lt;thinking&gt; Run the tests first; see the real error. &lt;/thinking&gt;</span>
+    <span class="tool fragment" data-fragment-index="1">&lt;tool_call&gt; run("pytest tests/") &lt;/tool_call&gt;</span>
+    <span class="res fragment" data-fragment-index="2">&lt;tool_result&gt; FAILED test_grades.py: ImportError: cannot import 'mean' from 'stats_utils' &lt;/tool_result&gt;</span>
+    <span class="think fragment" data-fragment-index="3">&lt;thinking&gt; Something was renamed. Check recent commits. &lt;/thinking&gt;</span>
+    <span class="tool fragment" data-fragment-index="3">&lt;tool_call&gt; run("git log -3 -p stats_utils.py") &lt;/tool_call&gt;</span>
+    <span class="res fragment" data-fragment-index="4">&lt;tool_result&gt; commit 9f2c… Oct 9 "rename mean → average" &lt;/tool_result&gt;</span>
+    <span class="tool fragment" data-fragment-index="5">&lt;tool_call&gt; edit("test_grades.py", "mean", "average") &lt;/tool_call&gt;</span>
+    <span class="tool fragment" data-fragment-index="5">&lt;tool_call&gt; run("pytest tests/") &lt;/tool_call&gt;</span>
+    <span class="res fragment" data-fragment-index="6">&lt;tool_result&gt; 42 passed &lt;/tool_result&gt;</span>
+    <span class="out fragment" data-fragment-index="7">Fixed: a rename on Oct 9 broke one import. 42/42 tests pass. &lt;end&gt;</span>
   </div>
-  <aside class="notes">~1 min. Click through fast. This is also the fallback if the live demo fails.</aside>
+  <div class="cols" style="margin-top:.5em">
+    <div class="card fragment" data-fragment-index="2" style="font-size:.7em"><b>Each round:</b> model writes a tool call → harness runs it → result pasted back → model continues. Nobody typed in between.</div>
+    <div class="card fragment" data-fragment-index="6" style="font-size:.7em"><b>"Done"</b> is whatever the checker accepts. Here: tests pass. A bad checker gets a bad fix (tests edited instead of code).</div>
+    <div class="card warn fragment" data-fragment-index="7" style="font-size:.7em"><b>This run:</b> ~40 seconds, a few cents, 8 tokens of human input. Real agents loop hundreds of times for hours.</div>
+  </div>
+  <aside class="notes">~1.5 min. Same colored string as before. Click: think, call, result, repeat. Point out that the user typed one sentence; everything else the model wrote or the harness pasted. This is also the fallback if the live demo fails.</aside>
 </section>
 
-<!-- harness -->
+<!-- harness as one string -->
 <section data-ch="3">
-  <h2>Most of the product is the harness, not the model</h2>
-  <div class="cols" style="align-items:center">
-    <div style="flex:1.2">
-      <svg viewBox="0 0 640 400" style="width:100%">
-        <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#4C5B66"/></marker></defs>
-        <rect x="20" y="20" width="600" height="360" rx="16" fill="#f2f3f4" stroke="#a9b3ba" stroke-width="2"/>
-        <text x="40" y="52" font-size="18" font-weight="600" fill="#4C5B66">Harness (Claude Code, Codex, Cursor, Copilot agent)</text>
-        <rect x="230" y="150" width="180" height="100" rx="12" fill="#F76902"/>
-        <text x="320" y="192" text-anchor="middle" font-size="22" font-weight="600" fill="#fff">Model</text>
-        <text x="320" y="218" text-anchor="middle" font-size="13" fill="#fff">next-token predictor</text>
-        <g font-size="14" fill="#111">
-          <rect x="40" y="90" width="160" height="56" rx="8" fill="#fff" stroke="#c4cacf"/><text x="120" y="113" text-anchor="middle" font-weight="600">Context builder</text><text x="120" y="133" text-anchor="middle" font-size="12" fill="#5b6770">compaction, retrieval</text>
-          <rect x="440" y="90" width="160" height="56" rx="8" fill="#fff" stroke="#c4cacf"/><text x="520" y="113" text-anchor="middle" font-weight="600">Tool runtime</text><text x="520" y="133" text-anchor="middle" font-size="12" fill="#5b6770">sandbox, permissions</text>
-          <rect x="40" y="260" width="160" height="56" rx="8" fill="#fff" stroke="#c4cacf"/><text x="120" y="283" text-anchor="middle" font-weight="600">Sub-agents</text><text x="120" y="303" text-anchor="middle" font-size="12" fill="#5b6770">fresh context each</text>
-          <rect x="440" y="260" width="160" height="56" rx="8" fill="#fff" stroke="#c4cacf"/><text x="520" y="283" text-anchor="middle" font-weight="600">Verifier</text><text x="520" y="303" text-anchor="middle" font-size="12" fill="#5b6770">tests, linters, reviewer</text>
-          <rect x="230" y="320" width="180" height="44" rx="8" fill="#fff" stroke="#c4cacf"/><text x="320" y="347" text-anchor="middle" font-weight="600">MCP servers</text>
-        </g>
-        <g stroke="#4C5B66" stroke-width="2" fill="none" marker-end="url(#ar)">
-          <path d="M200 118 L228 165"/><path d="M412 165 L440 118"/><path d="M200 288 L228 235"/><path d="M412 235 L440 288"/><path d="M320 318 L320 254"/>
-        </g>
-      </svg>
-    </div>
-    <div>
-      <div class="card fragment"><b>Context engineering:</b> what goes in the window, when. Summaries when it fills; sub-agents for side quests.</div>
-      <div class="card fragment"><b>Serving:</b> KV cache (n² → n per token), prompt cache (cached tokens cost 5–10%), speculative decoding (2–3× faster).</div>
-      <div class="card fragment"><b>Verification:</b> tests, type checkers, a second model as reviewer. The agent is only as good as its checker.</div>
-      <div class="takeaway fragment" style="margin-top:.5em">Every box is a CS research area: systems, PL, SE, HCI, security.</div>
-    </div>
+  <h2>What the harness does around the string (the part nobody sees)</h2>
+  <div class="doc" style="font-size:.52em;line-height:1.75">
+    <span class="har fragment" data-fragment-index="1">harness: build the system prompt — tool list + project rules file + 3-line summary of yesterday's session</span>
+    <span class="sys fragment" data-fragment-index="1">&lt;system&gt; Coding agent. Tools: run, read, edit. Rules: never push to main. Yesterday: migrated grader to pytest… &lt;/system&gt;</span>
+    <span class="har fragment" data-fragment-index="2">harness: search the repo for files relevant to the task and paste them in (retrieval)</span>
+    <span class="file fragment" data-fragment-index="2">&lt;file stats_utils.py&gt; def average(xs): … &lt;/file&gt; &lt;file test_grades.py&gt; from stats_utils import mean … &lt;/file&gt;</span>
+    <span class="usr fragment" data-fragment-index="2">&lt;user&gt; Fix the failing tests. &lt;/user&gt;</span>
+    <span class="tool fragment" data-fragment-index="3">&lt;tool_call&gt; edit("test_grades.py", "mean", "average") &lt;/tool_call&gt;</span>
+    <span class="har fragment" data-fragment-index="3">harness: permission check — edit inside repo: allowed. (rm -rf, git push, network: ask the human.) Run in sandbox.</span>
+    <span class="har fragment" data-fragment-index="4">harness: run the verifier automatically after every edit — tests + linter — and paste the result</span>
+    <span class="res fragment" data-fragment-index="4">&lt;tool_result&gt; 42 passed · lint: 0 errors &lt;/tool_result&gt;</span>
+    <span class="har fragment" data-fragment-index="5">harness: window 80% full → compact: replace the 30 oldest turns with a 5-line summary. Side quest ("check all 12 other tests") → spawn a sub-agent with a fresh window; it returns one line.</span>
+    <span class="har fragment" data-fragment-index="6">harness: everything above this line is unchanged since last call → served from cache at 5–10% of the price</span>
+    <span class="out fragment" data-fragment-index="6">Fixed. 42/42 pass. &lt;end&gt;</span>
   </div>
-  <aside class="notes">~1 min. Open problems in agents are classic CS problems wearing a new hat: context scheduling is memory hierarchy; verifiers are testing/PL; permissions are OS/security; MCP is API design.</aside>
+  <div class="legend" style="margin-top:.4em"><span><i style="background:#eceff1"></i>harness actions (code, not model)</span><span><i style="background:#f1f8e9"></i>files pasted by the harness</span><span><i style="background:var(--tool)"></i>model's tool call</span><span><i style="background:var(--res)"></i>result</span></div>
+  <div class="takeaway fragment" data-fragment-index="7">Context building, permissions, sandboxing, verification, compaction, caching: <b>systems, PL, SE, security.</b> The harness is where our research fits.</div>
+  <aside class="notes">~1.5 min. Gray lines are code, not the model. The model only ever sees the colored string. Each gray line is an open CS problem: what to retrieve (IR), what to allow (OS/security), how to verify (testing/PL), what to forget (memory hierarchy), what to cache (systems).</aside>
 </section>
 
 <!-- injection story -->
@@ -653,9 +610,41 @@ Reveal.initialize({hash:true, center:false, progress:true, width:1280, height:72
     document.getElementById('fnum').textContent=(i+1)+' / '+n;
     var h=secs[i].querySelector('h2'); if(h) h.style.setProperty('--progress',Math.round(100*(i+1)/n)+'%');
     // restart one-shot CSS animations on the current slide
-    secs[i].querySelectorAll('.ctxbars .b,.price .line,.price .pt').forEach(function(el){el.style.animation='none';void el.offsetWidth;el.style.animation='';});
+    secs[i].querySelectorAll('.ctxbars .b,.price .line,.price .pt,.tl3 .axis,.tl3 .ev').forEach(function(el){el.style.animation='none';void el.offsetWidth;el.style.animation='';});
   }
   Reveal.on('ready',update); Reveal.on('slidechanged',update);
+})();
+
+// ---- animated timeline ----
+(function(){
+  var svg=document.getElementById('tl3'), NS='http://www.w3.org/2000/svg';
+  var E=[
+    ['2012','AlexNet','Deep learning on GPUs wins','image recognition'],
+    ['2017','Transformer','"Attention is all you need."','Every model since uses it'],
+    ['2018–19','GPT-1, BERT, GPT-2','Pretrain on the web,','then fine-tune'],
+    ['2020','GPT-3','175B parameters: few-shot','learning from size alone'],
+    ['2021','Codex, Copilot','AI writes code','inside the IDE'],
+    ['Nov 2022','ChatGPT','RLHF makes an assistant;','100M users in 2 months'],
+    ['2023','GPT-4, Claude, Llama','Tool calling, RAG,','open weights, 128K context'],
+    ['2024','Reasoning','o1 thinks before answering;','MCP standard; computer use'],
+    ['Jan 2025','DeepSeek-R1','Open reasoning model','at a fraction of the cost'],
+    ['2025','Agents','RLVR training; Claude Code,','Codex: tasks of hours'],
+    ['Sep 2026','1M context everywhere','GPT-6, Claude 5.5, Gemini 3.8','ship within weeks'],
+    ['Oct 2026','Models build models','Labs automate research;','Argon patches vulnerabilities']];
+  function el(t,a,txt,parent){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;(parent||svg).appendChild(e);return e;}
+  var y0=262, x0=70, step=96;
+  el('line',{x1:40,y1:y0,x2:1180,y2:y0,stroke:'#c4cacf','stroke-width':4,'class':'axis'});
+  E.forEach(function(e,i){
+    var x=x0+i*step, up=i%2===0, hot=i>=10;
+    var g=el('g',{'class':'ev',style:'animation-delay:'+(0.4+i*0.45)+'s'});
+    el('circle',{cx:x,cy:y0,r:hot?10:8,fill:hot?'#F76902':'#4C5B66'},null,g);
+    el('line',{x1:x,y1:up?y0-14:y0+14,x2:x,y2:up?y0-60:y0+60,stroke:'#c4cacf','stroke-width':2},null,g);
+    var ty=up?y0-150:y0+86;
+    el('text',{x:x,y:ty,'text-anchor':'middle','font-size':18,'font-weight':600,fill:hot?'#F76902':'#F76902'},e[0],g);
+    el('text',{x:x,y:ty+26,'text-anchor':'middle','font-size':16,'font-weight':600,fill:'#111'},e[1],g);
+    el('text',{x:x,y:ty+48,'text-anchor':'middle','font-size':13,fill:'#5b6770'},e[2],g);
+    el('text',{x:x,y:ty+66,'text-anchor':'middle','font-size':13,fill:'#5b6770'},e[3],g);
+  });
 })();
 
 // ---- next-token demo: prefix tree; every path ends in a grammatical sentence ----
