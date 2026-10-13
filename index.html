@@ -59,7 +59,11 @@ body.on-title #foot{display:none}
 .titlewrap h1{font-size:2.3em;max-width:760px}
 .titlewrap .sub{font-size:.95em;color:var(--accent2);margin:.3em 0 1.2em;max-width:720px}
 .titlewrap .who{font-size:.7em;color:var(--muted);line-height:1.5}
-.divider{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 90px !important;margin:0 !important;background:var(--ink);color:#fff}
+.divider{position:absolute;inset:0;display:grid;grid-template-columns:1.1fr 1fr;grid-template-rows:auto auto auto;align-content:center;align-items:center;column-gap:60px;row-gap:0;padding:0 90px !important;margin:0 !important;background:var(--ink);color:#fff}
+.divider>.num,.divider>.t,.divider>.s{grid-column:1}
+.divider>.map{grid-column:2;grid-row:1/4;align-self:center;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0}
+.divider .map>div{font-size:.55em;padding:.7em .8em;min-height:5.2em}
+.divider .map>div.here{flex:none}
 .divider .num{font-size:3.4em;font-weight:600;color:var(--accent);line-height:1}
 .divider .t{font-size:1.6em;font-weight:600;margin:.15em 0}
 .divider .s{font-size:.8em;color:#c9ced2}
@@ -376,6 +380,33 @@ svg text{font-family:"Fira Sans",sans-serif}
 .fail .late{opacity:0}
 .stair{width:100%;height:440px;display:block;margin:0 1.1em}
 .stair text{font-family:"Fira Sans",sans-serif}
+.map.road{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:.8em 1.1em 0}
+.map.road>div{font-size:.8em;padding:.8em 1em;border-top:10px solid var(--accent2)}
+.map.road>div .n{font-size:1.35em}
+.map.road>div .d{margin-top:.2em;font-size:.85em}
+.map.road>div .m{margin-top:.3em}
+.map>div .d{display:none}.map>div.here .d{display:block}.map.road>div .d{display:block}
+.map>div .m{display:none}.map>div.here .m{display:block}.map.road>div .m{display:block}
+
+.uni{display:inline-block;font-weight:700;font-size:.82em;padding:.08em .45em;border-radius:4px;color:#fff;margin-right:.35em;letter-spacing:.02em;vertical-align:1px;white-space:nowrap}
+.uni.cal{background:#003262;color:#FDB515}.uni.uiuc{background:#13294B;color:#FF5F05}.uni.syd{background:#E64626}.uni.mit{background:#750014}.uni.usu{background:#0F2439;color:#fff}.uni.umd{background:#E21833;color:#FFD200}.uni.ucsd{background:#182B49;color:#FFCD00}.uni.auck{background:#00467F}
+.trial{display:flex;gap:14px;margin:.3em 1.1em 0}
+.trial>div{flex:1;background:var(--soft);border-radius:10px;padding:.5em .7em;font-size:.6em;line-height:1.3}
+.trial .t{font-weight:600;font-size:1.2em;margin-bottom:.1em}
+.trial svg{width:100%;height:190px;display:block;background:#fff;border-radius:8px;margin:.3em 0}
+.trial .bar{transform-box:fill-box;transform-origin:bottom;transform:scaleY(0)}
+.trial .bar.dn{transform-origin:top}
+.trial .fragment.visible .bar{animation:growy .8s .2s ease-out forwards}
+.trial .fragment.visible .late{animation:fadein .4s 1s forwards}
+.trial .late{opacity:0}
+.team .pb{transform-box:fill-box;transform-origin:left;transform:scaleX(0)}
+.team .fragment.visible .pb{animation:growx1 1.6s .2s ease-out forwards}
+@keyframes growx1{to{transform:scaleX(1)}}
+.team .fragment.visible .late{animation:fadein .4s 1.6s forwards}
+.team .late{opacity:0}
+.team .fragment.visible .late2{animation:fadein .4s 2.4s forwards}
+.team .late2{opacity:0}
+.team .fragment.visible .msg{animation:dashmove 1s linear infinite}
 .pulse{animation:pulse 1.2s ease-in-out infinite}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(198,40,40,.0)}50%{box-shadow:0 0 0 8px rgba(198,40,40,.25)}}
 </style>
@@ -387,24 +418,18 @@ svg text{font-family:"Fira Sans",sans-serif}
 <section data-ch="0">
   <div class="titlewrap">
     <div class="bar"></div>
-    <div class="kicker">AI Literacy for CS Faculty</div>
-    <h1>The engine, the curve, and the classroom</h1>
-    <div class="sub">What's inside today's AI, how fast it is moving, and what it means for how we teach computing</div>
-    <div class="who">Fall 2026 Faculty Meeting · Department of Computer Science<br>Builds on the AI Committee's <i>AI Literacy Tutorial</i> draft</div>
+    <div class="kicker">Fall 2026 Faculty Meeting · Department of Computer Science</div>
+    <h1>AI Literacy for CS Faculty</h1>
+    <div class="who">AI Committee</div>
   </div>
   <aside class="notes">~30 s. Three parts: engine (short), curve (the 2026 numbers), classroom (what we do about it).</aside>
 </section>
 
 <section data-ch="1">
-  <h2>Four parts, outside in: ~30 minutes</h2>
+  <h2>Four parts, outside in</h2>
   <div class="map road"></div>
-  <div class="kv" style="margin-top:.7em">
-    <div class="fragment"><div class="n" style="font-size:1.2em">Claim 1</div><div class="l" style="font-size:.78em"><b>The engine is simple.</b> One string, one loop. Everything else is training and plumbing.</div></div>
-    <div class="fragment"><div class="n" style="font-size:1.2em">Claim 2</div><div class="l" style="font-size:.78em"><b>The curve is steep.</b> The length of task an AI can finish doubles every ~4–7 months.</div></div>
-    <div class="fragment"><div class="n" style="font-size:1.2em">Claim 3</div><div class="l" style="font-size:.78em"><b>The classroom has to move.</b> AI already completes almost every assignment we give.</div></div>
-  </div>
-  <div class="takeaway fragment" style="margin-top:.6em;font-size:.78em">Assumed: you know what a neural network is. We skip the math and spend the time on what changed in the last 18 months.</div>
-  <aside class="notes">~30 s. The four tiles come back at each part boundary with a check mark on what's done.</aside>
+  <p class="foot">Assumed: you know what a neural network is. We skip the math and spend the time on what changed in the last 18 months.</p>
+  <aside class="notes">~20 s. The four tiles come back at each part boundary with a check mark on what's done.</aside>
 </section>
 
 <section data-ch="1"><div class="divider"><div class="num">1</div><div class="t">What it is</div><div class="s">From the outside in: the field, the history, the word "GPT", the engine</div><div class="map"></div></div></section>
@@ -630,7 +655,7 @@ svg text{font-family:"Fira Sans",sans-serif}
   <h2>Two kinds of model, two jobs: commercial vs. open weights</h2>
   <div class="ow">
     <div class="c1 fragment" data-fragment-index="1">
-      <div class="t">Commercial, closed weights</div><div class="w">GPT-6 · Claude 5.5 · Gemini 4 (Meta went closed, Apr 2026)</div>
+      <div class="t">Commercial, closed weights</div><div class="w">GPT-6 · Claude 5.5 · Gemini 4</div>
       <svg viewBox="0 0 560 120">
         <rect x="10" y="35" width="120" height="60" rx="8" fill="#fff" stroke="#8a949c"/><text x="70" y="70" text-anchor="middle" font-size="14">your laptop</text>
         <path class="flow" d="M135 55 L400 55" stroke="#4C5B66" stroke-width="3" fill="none" marker-end="url(#ahd)"/><text x="268" y="44" text-anchor="middle" font-size="12" fill="#5b6770">your prompt, your students' code</text>
@@ -641,7 +666,7 @@ svg text{font-family:"Fira Sans",sans-serif}
       <span class="pill">the frontier, <b>first</b></span><span class="pill"><b>$ per token</b>, falling 10–40× a year</span><span class="pill">you can change: <b>the prompt</b></span><span class="pill">agents, MCP, computer use: <b>here first</b></span>
     </div>
     <div class="c2 fragment" data-fragment-index="2">
-      <div class="t">Open weights</div><div class="w">DeepSeek V4 · Qwen 3.5 · Kimi · GLM · Mistral (mostly China, one in France)</div>
+      <div class="t">Open weights</div><div class="w">DeepSeek V4 · Qwen 3.5 · Kimi · GLM · Mistral</div>
       <svg viewBox="0 0 560 120">
         <rect x="10" y="35" width="120" height="60" rx="8" fill="#fff" stroke="#8a949c"/><text x="70" y="70" text-anchor="middle" font-size="14">your laptop</text>
         <path class="flow" d="M135 55 L300 55" stroke="#F76902" stroke-width="3" fill="none" marker-end="url(#ahu)"/>
@@ -654,7 +679,7 @@ svg text{font-family:"Fira Sans",sans-serif}
     </div>
   </div>
   <div class="takeaway fragment" data-fragment-index="3" style="font-size:.78em;margin-top:.45em"><b>Teach</b> with the commercial ones (the newest tools). <b>Research</b> on the open ones, and run them for any course where student work must stay home. "Open vs. closed" matters more to us than "US vs. China."</div>
-  <aside class="notes">~1 min. Two clicks. The animated arrows are the point: left, the text leaves campus; right, it doesn't. Four pills each. A department can run a frontier-class open model on its own cluster this semester.</aside>
+  <aside class="notes">~1 min. Two clicks. The animated arrows are the point: left, the text leaves campus; right, it doesn't. Four pills each. Meta went closed in April 2026; the open side is now mostly Chinese labs plus Mistral. A department can run a frontier-class open model on its own cluster this semester.</aside>
 </section>
 
 <section data-ch="2">
@@ -796,36 +821,42 @@ svg text{font-family:"Fira Sans",sans-serif}
 
 
 <section data-ch="3">
-  <h2>Agent teams: when one window is not enough</h2>
-  <div class="cols" style="align-items:flex-start;gap:1em">
-    <div style="flex:1.4">
-      <svg class="dg" viewBox="0 0 700 360" style="height:360px;margin:0">
-        <rect x="250" y="20" width="200" height="70" rx="10" fill="#F76902"/><text x="350" y="50" text-anchor="middle" font-size="18" font-weight="600" fill="#fff">lead agent</text><text x="350" y="74" text-anchor="middle" font-size="13" fill="#fff">plans, splits, merges</text>
-        <g class="fragment" data-fragment-index="1">
-          <rect x="260" y="98" width="180" height="12" rx="6" fill="#e6ebef"/><rect x="260" y="98" width="170" height="12" rx="6" fill="#c62828"/><text x="350" y="128" text-anchor="middle" font-size="12" fill="#c62828">its window: 94% full</text>
-        </g>
+  <h2>Agent teams: split the work, then let one agent check the others</h2>
+  <div class="cols team" style="align-items:flex-start;gap:.8em">
+    <div style="flex:1.5">
+      <svg class="dg" viewBox="0 0 700 400" style="height:400px;margin:0">
+        <rect x="230" y="14" width="240" height="64" rx="10" fill="#F76902"/><text x="350" y="40" text-anchor="middle" font-size="16" font-weight="600" fill="#fff">lead agent</text><text x="350" y="60" text-anchor="middle" font-size="12" fill="#fff">"build the grading service"</text>
+        <g class="fragment" data-fragment-index="1"><rect x="240" y="86" width="220" height="10" rx="5" fill="#e6ebef"/><rect x="240" y="86" width="206" height="10" rx="5" fill="#c62828"/><text x="350" y="108" text-anchor="middle" font-size="11" fill="#c62828">its own window: 94% full; it cannot hold the whole job</text></g>
         <g class="fragment" data-fragment-index="2">
-          <path d="M300 90 L130 170" stroke="#8a949c" stroke-width="2" fill="none" marker-end="url(#ahd)"/><path d="M350 90 L350 170" stroke="#8a949c" stroke-width="2" fill="none" marker-end="url(#ahd)"/><path d="M400 90 L570 170" stroke="#8a949c" stroke-width="2" fill="none" marker-end="url(#ahd)"/>
-          <g font-size="13" fill="#111">
-            <rect x="40" y="170" width="180" height="90" rx="10" fill="#dcebfa" stroke="#3b7ac2"/><text x="130" y="196" text-anchor="middle" font-weight="600">agent: parser</text><rect x="55" y="210" width="150" height="10" rx="5" fill="#e6ebef"/><rect x="55" y="210" width="30" height="10" rx="5" fill="#3b7ac2"/><text x="130" y="244" text-anchor="middle" font-size="12" fill="#5b6770">fresh window</text>
-            <rect x="260" y="170" width="180" height="90" rx="10" fill="#dcebfa" stroke="#3b7ac2"/><text x="350" y="196" text-anchor="middle" font-weight="600">agent: database</text><rect x="275" y="210" width="150" height="10" rx="5" fill="#e6ebef"/><rect x="275" y="210" width="40" height="10" rx="5" fill="#3b7ac2"/><text x="350" y="244" text-anchor="middle" font-size="12" fill="#5b6770">fresh window</text>
-            <rect x="480" y="170" width="180" height="90" rx="10" fill="#dcebfa" stroke="#3b7ac2"/><text x="570" y="196" text-anchor="middle" font-weight="600">agent: tests</text><rect x="495" y="210" width="150" height="10" rx="5" fill="#e6ebef"/><rect x="495" y="210" width="25" height="10" rx="5" fill="#3b7ac2"/><text x="570" y="244" text-anchor="middle" font-size="12" fill="#5b6770">fresh window</text>
+          <path d="M290 78 L120 150" stroke="#8a949c" stroke-width="2" fill="none" marker-end="url(#ahd)"/><path d="M350 78 L350 150" stroke="#8a949c" stroke-width="2" fill="none" marker-end="url(#ahd)"/><path d="M410 78 L580 150" stroke="#8a949c" stroke-width="2" fill="none" marker-end="url(#ahd)"/>
+          <text x="150" y="140" font-size="10" fill="#5b6770">"parse submissions"</text><text x="356" y="140" font-size="10" fill="#5b6770">"store grades"</text><text x="520" y="140" font-size="10" fill="#5b6770">"write the tests"</text>
+          <g font-size="12" fill="#111">
+            <rect x="30" y="150" width="180" height="78" rx="10" fill="#dcebfa" stroke="#3b7ac2"/><text x="120" y="172" text-anchor="middle" font-weight="600">worker A · parser</text><rect x="45" y="184" width="150" height="10" rx="5" fill="#e6ebef"/><rect class="pb" x="45" y="184" width="150" height="10" rx="5" fill="#3b7ac2"/><text x="120" y="216" text-anchor="middle" font-size="11" fill="#5b6770">fresh window, own copy of repo</text>
+            <rect x="260" y="150" width="180" height="78" rx="10" fill="#dcebfa" stroke="#3b7ac2"/><text x="350" y="172" text-anchor="middle" font-weight="600">worker B · database</text><rect x="275" y="184" width="150" height="10" rx="5" fill="#e6ebef"/><rect class="pb" x="275" y="184" width="150" height="10" rx="5" fill="#3b7ac2" style="animation-delay:.5s"/><text x="350" y="216" text-anchor="middle" font-size="11" fill="#5b6770">in parallel</text>
+            <rect x="490" y="150" width="180" height="78" rx="10" fill="#dcebfa" stroke="#3b7ac2"/><text x="580" y="172" text-anchor="middle" font-weight="600">worker C · tests</text><rect x="505" y="184" width="150" height="10" rx="5" fill="#e6ebef"/><rect class="pb" x="505" y="184" width="150" height="10" rx="5" fill="#3b7ac2" style="animation-delay:.9s"/><text x="580" y="216" text-anchor="middle" font-size="11" fill="#5b6770">in parallel</text>
           </g>
         </g>
         <g class="fragment" data-fragment-index="3">
-          <rect x="200" y="290" width="300" height="56" rx="10" fill="#e2f2e6" stroke="#3b8a55"/><text x="350" y="313" text-anchor="middle" font-size="14" font-weight="600" fill="#1e5c33">reviewer agent</text><text x="350" y="333" text-anchor="middle" font-size="12" fill="#333">reads the others' diffs, runs the checker, sends work back</text>
-          <path d="M130 260 L250 290 M350 260 L350 290 M570 260 L450 290" stroke="#3b8a55" stroke-width="2" fill="none"/>
+          <path class="msg" d="M120 228 L300 290" stroke="#3b8a55" stroke-width="2" fill="none" stroke-dasharray="6 5" marker-end="url(#ahd)"/><path class="msg" d="M350 228 L350 290" stroke="#3b8a55" stroke-width="2" fill="none" stroke-dasharray="6 5" marker-end="url(#ahd)"/><path class="msg" d="M580 228 L400 290" stroke="#3b8a55" stroke-width="2" fill="none" stroke-dasharray="6 5" marker-end="url(#ahd)"/>
+          <text x="190" y="252" font-size="10" fill="#3b8a55">diff A</text><text x="356" y="252" font-size="10" fill="#3b8a55">diff B</text><text x="490" y="252" font-size="10" fill="#3b8a55">diff C</text>
+          <rect x="190" y="290" width="320" height="64" rx="10" fill="#e2f2e6" stroke="#3b8a55" stroke-width="2"/><text x="350" y="312" text-anchor="middle" font-size="15" font-weight="600" fill="#1e5c33">reviewer agent</text><text x="350" y="332" text-anchor="middle" font-size="11" fill="#333">reads each diff, runs the checker (tests + linter)</text>
+          <text class="late" x="350" y="348" text-anchor="middle" font-size="11" font-weight="600"><tspan fill="#2e7d32">✓ A</tspan>  <tspan fill="#2e7d32">✓ B</tspan>  <tspan fill="#c62828">✗ C: 2 tests fail on empty input</tspan></text>
+        </g>
+        <g class="fragment" data-fragment-index="4">
+          <path d="M510 322 C 640 320, 660 260, 600 232" stroke="#c62828" stroke-width="2.5" fill="none" marker-end="url(#ahr)"/><text x="640" y="372" text-anchor="end" font-size="11" fill="#c62828" font-weight="600">back to C: "handle empty input"</text>
+          <text class="late" x="350" y="396" text-anchor="middle" font-size="13" font-weight="600" fill="#2e7d32">round 2: ✓ C  →  lead merges  →  done. 4 agents, ~6× the tokens of one.</text>
         </g>
       </svg>
     </div>
     <div style="flex:1">
-      <div class="card fragment" data-fragment-index="1" style="font-size:.7em"><b>Why:</b> one window fills up. Big tasks get split, like in any organization.</div>
-      <div class="card fragment" data-fragment-index="2" style="font-size:.7em"><b>Split:</b> fresh windows, in parallel, each on its own copy of the repo. Claude Code, Codex, Windsurf all shipped this in Feb 2026 (2–16 agents).</div>
-      <div class="card fragment" data-fragment-index="3" style="font-size:.7em"><b>Review:</b> one agent checks another. Cheap, not independent: same training, same blind spots.</div>
-      <div class="card warn fragment" data-fragment-index="4" style="font-size:.7em"><b>The bill</b> multiplies by the number of agents. Shared files, locking, who says "done": distributed systems, now on every student's laptop.</div>
+      <div class="card fragment" data-fragment-index="1" style="font-size:.5em;margin:.2em 0;padding:.3em .7em"><b>Why split:</b> one window fills up. Claude Code, Codex, Windsurf all shipped agent teams in Feb 2026: 2–16 agents, each with a fresh window and its own copy of the repo.</div>
+      <div class="card fragment" data-fragment-index="2" style="font-size:.5em;margin:.2em 0;padding:.3em .7em"><b>Does it help?</b> Anthropic's research system (Jun 2025): lead + parallel sub-agents beat one agent by <b>90%</b> on research tasks, at ~15× the tokens. Works when the task splits cleanly; worse when parts depend on each other.</div>
+      <div class="card fragment" data-fragment-index="3" style="font-size:.5em;margin:.2em 0;padding:.3em .7em"><b>The reviewer = the checker from slide 18, promoted to an agent.</b> At the limit: <b>AlphaEvolve</b> (DeepMind, 2025). Gemini proposes code variants, an evaluator scores them, the best survive and mutate. Result: 4×4 complex matrix multiply in <b>48</b> multiplications, beating Strassen's 49 from 1969; a 23% faster Gemini training kernel.</div>
+      <div class="card warn fragment" data-fragment-index="4" style="font-size:.5em;margin:.2em 0;padding:.3em .7em"><b>The catch:</b> the reviewer shares the workers' blind spots, and the bill multiplies. Shared files, locking, who says "done": distributed systems, on every student's laptop.</div>
     </div>
   </div>
-  <aside class="notes">~1.5 min. Four clicks. This is levels 4 and 5 of the ladder in Part 4: the human sets goals and designs the checks. The OpenAI "Dots" always-on agents and Anthropic's C-compiler demo are this picture at scale.</aside>
+  <p class="foot">Anthropic, "How we built our multi-agent research system" (Jun 2025); Novikov et al., "AlphaEvolve: a coding agent for scientific and algorithmic discovery" (DeepMind, May 2025, arXiv 2506.13131); Claude Code agent teams (Feb 2026).</p>
+  <aside class="notes">~2 min. Four clicks. 1: the lead's window is full. 2: three workers in parallel, bars fill. 3: diffs flow to a reviewer that runs the checker; C fails. 4: C gets sent back with a message, round two passes, merge. The AlphaEvolve card is the same picture with evolution instead of a lead: propose, evaluate, keep the best.</aside>
 </section>
 
 <section data-ch="3">
@@ -922,7 +953,7 @@ svg text{font-family:"Fira Sans",sans-serif}
 
 <section data-ch="4">
   <h2>Can the model do our assignments? Since 2023, yes</h2>
-  <p class="small" style="margin:.2em 1.1em 0"><b>Score on the same first-year programming exam</b> (University of Auckland CS1, two papers)</p>
+  <p class="small" style="margin:.2em 1.1em 0"><span class="uni auck">Auckland</span><b>Score on the same first-year programming exam</b> (CS1, two papers)</p>
   <div style="margin:.2em 1.1em 0">
     <div class="hb fragment" data-fragment-index="1"><div class="l">2021 · Codex (the first Copilot)</div><div class="b" style="--w:390px"></div><div class="v">78%</div></div>
     <div class="hb fragment" data-fragment-index="2"><div class="l">2023 · GPT-4</div><div class="b hot" style="--w:497px"></div><div class="v">99.5%</div></div>
@@ -939,28 +970,56 @@ svg text{font-family:"Fira Sans",sans-serif}
 </section>
 
 <section data-ch="4">
-  <h2>Does using it help them learn? What the trials say</h2>
-  <div class="kv" style="margin-top:.5em;font-size:.86em">
-    <div class="fragment" data-fragment-index="1"><div class="n" style="color:var(--bad)">−17%</div><div class="l"><b>Unrestricted ChatGPT</b>, randomized trial, ~1,000 students (PNAS 2025). Practice scores up 48%; the exam, with AI removed, <b>17% lower</b> than no AI. Students believed they had learned more. A tutor version that gives hints but <b>no answers</b>: no harm.</div></div>
-    <div class="fragment" data-fragment-index="2"><div class="n" style="color:var(--bad)">−0.37 SD</div><div class="l"><b>AI tutor built into the LMS</b>, randomized across 2,379 students and 30 instructors incl. CS (U. Maryland, Oct 2026). Final grades down ~4 points; first-generation students hurt twice as much. <b>74%</b> of requests asked for answers; <b>8%</b> asked for feedback on their own work.</div></div>
-    <div class="fragment" data-fragment-index="3"><div class="n" style="color:var(--good)">= 0</div><div class="l"><b>AI allowed in CS1 + a 15-minute oral code review</b> after every weekly assignment, worth 70% of its grade (Utah State, Fall 2025). AI use went <b>up</b>; exam scores <b>unchanged</b> vs. 2023–24; 90% said it pushed them to understand their own code.</div></div>
+  <h2>Does using it help them learn? Three trials, three pictures</h2>
+  <div class="trial">
+    <div class="fragment" data-fragment-index="1"><div class="t">Unrestricted ChatGPT</div>
+      <svg viewBox="0 0 300 190">
+        <line x1="20" y1="100" x2="280" y2="100" stroke="#c4cacf"/>
+        <rect class="bar" x="40" y="46" width="50" height="54" fill="#2e7d32"/><text x="65" y="40" text-anchor="middle" font-size="13" font-weight="600" fill="#2e7d32">+48%</text><text x="65" y="118" text-anchor="middle" font-size="11" fill="#5b6770">practice,</text><text x="65" y="131" text-anchor="middle" font-size="11" fill="#5b6770">with AI</text>
+        <rect class="bar dn" x="125" y="100" width="50" height="34" fill="#c62828"/><text x="150" y="150" text-anchor="middle" font-size="13" font-weight="600" fill="#c62828">−17%</text><text x="150" y="164" text-anchor="middle" font-size="11" fill="#5b6770">exam, AI</text><text x="150" y="177" text-anchor="middle" font-size="11" fill="#5b6770">taken away</text>
+        <rect class="bar" x="210" y="98" width="50" height="2" fill="#8a949c"/><text x="235" y="90" text-anchor="middle" font-size="13" font-weight="600" fill="#4C5B66">≈ 0</text><text x="235" y="118" text-anchor="middle" font-size="11" fill="#5b6770">tutor version:</text><text x="235" y="131" text-anchor="middle" font-size="11" fill="#5b6770">hints, no answers</text>
+        <text class="late" x="150" y="16" text-anchor="middle" font-size="11" fill="#c62828" font-weight="600">and they believed they had learned more</text>
+      </svg>
+      <div class="d">Randomized, ~1,000 students. <b>PNAS 2025</b> (Bastani et al.)</div></div>
+    <div class="fragment" data-fragment-index="2"><div class="t"><span class="uni umd">Maryland</span>AI tutor in the LMS</div>
+      <svg viewBox="0 0 300 190">
+        <line x1="20" y1="60" x2="130" y2="60" stroke="#c4cacf"/>
+        <rect class="bar dn" x="50" y="60" width="50" height="56" fill="#c62828"/><text x="75" y="132" text-anchor="middle" font-size="13" font-weight="600" fill="#c62828">−0.37 SD</text><text x="75" y="146" text-anchor="middle" font-size="11" fill="#5b6770">final grade</text><text x="75" y="159" text-anchor="middle" font-size="11" fill="#5b6770">(~4 points)</text>
+        <text x="215" y="30" text-anchor="middle" font-size="11" fill="#5b6770">what students asked it for</text>
+        <rect x="160" y="40" width="110" height="22" fill="#e6ebef"/><rect class="bar" x="160" y="40" width="81" height="22" fill="#c62828" style="transform-origin:left;transform:scaleX(0)"/><text x="215" y="56" text-anchor="middle" font-size="12" fill="#fff" font-weight="600">74% "the answer"</text>
+        <rect x="160" y="70" width="110" height="22" fill="#e6ebef"/><rect class="bar" x="160" y="70" width="9" height="22" fill="#2e7d32" style="transform-origin:left;transform:scaleX(0)"/><text x="175" y="86" font-size="12" fill="#111">8% "feedback on my work"</text>
+        <text class="late" x="215" y="122" text-anchor="middle" font-size="11" fill="#c62828" font-weight="600">first-generation students:</text><text class="late" x="215" y="136" text-anchor="middle" font-size="11" fill="#c62828" font-weight="600">twice the loss</text>
+      </svg>
+      <div class="d">Randomized, <b>2,379 students, 30 instructors</b>, incl. CS. Oct 2026 (not yet peer-reviewed)</div></div>
+    <div class="fragment" data-fragment-index="3"><div class="t"><span class="uni usu">Utah State</span>AI allowed + oral review</div>
+      <svg viewBox="0 0 300 190">
+        <text x="80" y="26" text-anchor="middle" font-size="11" fill="#5b6770">pasted code (AI use)</text>
+        <rect class="bar" x="45" y="80" width="30" height="60" fill="#8a949c"/><text x="60" y="155" text-anchor="middle" font-size="11" fill="#5b6770">2024</text><text x="60" y="72" text-anchor="middle" font-size="12" font-weight="600">61%</text>
+        <rect class="bar" x="95" y="68" width="30" height="72" fill="#F76902"/><text x="110" y="155" text-anchor="middle" font-size="11" fill="#5b6770">2025</text><text x="110" y="60" text-anchor="middle" font-size="12" font-weight="600" fill="#F76902">68% ↑</text>
+        <text x="220" y="26" text-anchor="middle" font-size="11" fill="#5b6770">exam scores</text>
+        <rect class="bar" x="185" y="70" width="30" height="70" fill="#8a949c"/><text x="200" y="155" text-anchor="middle" font-size="11" fill="#5b6770">2024</text>
+        <rect class="bar" x="235" y="70" width="30" height="70" fill="#2e7d32"/><text x="250" y="155" text-anchor="middle" font-size="11" fill="#5b6770">2025</text><text x="225" y="62" text-anchor="middle" font-size="12" font-weight="600" fill="#2e7d32">unchanged</text>
+        <text class="late" x="150" y="180" text-anchor="middle" font-size="11" fill="#2e7d32" font-weight="600">15-min code interview every week, 70% of the grade</text>
+      </svg>
+      <div class="d">96 students, Fall 2025. 90% said it pushed them to understand their own code (Fowles et al., 2026)</div></div>
   </div>
-  <div class="takeaway fragment" data-fragment-index="4" style="font-size:.8em">Pattern: <b>unrestricted access → they feel they learned, and didn't.</b> Structure that forces explanation → no loss. The variable is the assignment design, not the tool.</div>
-  <p class="foot">Bastani et al., PNAS 122(26) 2025; Liu et al., EdWorkingPaper 26-1598 (Oct 2026, not yet peer-reviewed); Fowles et al., arXiv 2605.21374 (2026). Also: Fan et al., "metacognitive laziness," BJET 2025.</p>
-  <aside class="notes">~1.5 min. Two randomized trials with a negative sign, one CS1 field study with a flat line. The UMD study is the first big US university RCT; not peer reviewed yet. The Utah State design is the one to copy: AI allowed, but you sit with a TA and explain your code every week.</aside>
+  <div class="takeaway fragment" data-fragment-index="4" style="font-size:.78em;margin-top:.4em"><b>Unrestricted access: they feel they learned, and didn't. Forced to explain: no loss.</b> The variable is the assignment design, not the tool.</div>
+  <p class="foot">Bastani et al., PNAS 122(26) 2025; Liu et al., EdWorkingPaper 26-1598 (U. Maryland, Oct 2026); Fowles et al., arXiv 2605.21374 (Utah State, 2026).</p>
+  <aside class="notes">~1.5 min. Three clicks, bars grow. Left: the two bars that matter are opposite signs. Middle: a tutor that answers questions lowers grades, because 74% of the questions were "give me the answer". Right: the design to copy: AI allowed, but you sit with a TA and explain your code every week.</aside>
 </section>
 
 <section data-ch="4">
   <h2>Five ways students use it, and what a grade can still measure</h2>
   <svg class="stair" viewBox="0 0 1180 452">
-  <g class="fragment" data-fragment-index="1"><rect x="10" y="384" width="226" height="40" fill="#fde3cf" stroke="#F76902" stroke-width="2"/><rect x="10" y="204" width="226" height="176" rx="8" fill="#fff" stroke="#F76902" stroke-width="2"/><text x="20" y="226" font-size="16" font-weight="600" fill="#c75605">1 · Chatbot</text><text x="226" y="226" text-anchor="end" font-size="10" fill="#5b6770">since 2022</text><text x="20" y="246" font-size="9.5" font-weight="600" fill="#3b7ac2">STUDENT</text><text x="20" y="259" font-size="11.5" fill="#111">pastes the question, copies</text><text x="20" y="272" font-size="11.5" fill="#111">the answer</text><text x="20" y="290" font-size="9.5" font-weight="600" fill="#F76902">AI</text><text x="20" y="303" font-size="11.5" fill="#111">writes the code; 99.5% on a</text><text x="20" y="316" font-size="11.5" fill="#111">CS1 exam (2023)</text><text x="20" y="334" font-size="9.5" font-weight="600" fill="#2e7d32">GRADE CAN STILL MEASURE</text><text x="20" y="347" font-size="11.5" fill="#111" font-weight="600">nothing, unless it happens in</text><text x="20" y="360" font-size="11.5" fill="#111" font-weight="600">the room</text></g>
-  <g class="fragment" data-fragment-index="2"><rect x="242" y="344" width="226" height="80" fill="#fde3cf" stroke="#F76902" stroke-width="2"/><rect x="242" y="164" width="226" height="176" rx="8" fill="#fff" stroke="#F76902" stroke-width="2"/><text x="252" y="186" font-size="16" font-weight="600" fill="#c75605">2 · IDE assistant</text><text x="458" y="186" text-anchor="end" font-size="10" fill="#5b6770">since 2021</text><text x="252" y="206" font-size="9.5" font-weight="600" fill="#3b7ac2">STUDENT</text><text x="252" y="219" font-size="11.5" fill="#111">types; accepts completions</text><text x="252" y="237" font-size="9.5" font-weight="600" fill="#F76902">AI</text><text x="252" y="250" font-size="11.5" fill="#111">finishes every line and</text><text x="252" y="263" font-size="11.5" fill="#111">function</text><text x="252" y="281" font-size="9.5" font-weight="600" fill="#2e7d32">GRADE CAN STILL MEASURE</text><text x="252" y="294" font-size="11.5" fill="#111" font-weight="600">can they read and judge code?</text></g>
-  <g class="fragment" data-fragment-index="3"><rect x="474" y="304" width="226" height="120" fill="#fde3cf" stroke="#F76902" stroke-width="2"/><rect x="474" y="124" width="226" height="176" rx="8" fill="#fff" stroke="#F76902" stroke-width="2"/><text x="484" y="146" font-size="16" font-weight="600" fill="#c75605">3 · One agent</text><text x="690" y="146" text-anchor="end" font-size="10" fill="#5b6770">since 2025</text><text x="484" y="166" font-size="9.5" font-weight="600" fill="#3b7ac2">STUDENT</text><text x="484" y="179" font-size="11.5" fill="#111">pastes the spec, submits the</text><text x="484" y="192" font-size="11.5" fill="#111">result</text><text x="484" y="210" font-size="9.5" font-weight="600" fill="#F76902">AI</text><text x="484" y="223" font-size="11.5" fill="#111">reads, writes, tests, fixes,</text><text x="484" y="236" font-size="11.5" fill="#111">writes the report; 3 min,</text><text x="484" y="249" font-size="11.5" fill="#111">under $1</text><text x="484" y="267" font-size="9.5" font-weight="600" fill="#2e7d32">GRADE CAN STILL MEASURE</text><text x="484" y="280" font-size="11.5" fill="#111" font-weight="600">can they specify, verify,</text><text x="484" y="293" font-size="11.5" fill="#111" font-weight="600">debug the agent?</text></g>
-  <g class="fragment" data-fragment-index="4"><rect x="706" y="264" width="226" height="160" fill="#e6ebef" stroke="#8a949c" stroke-width="2"/><rect x="706" y="84" width="226" height="176" rx="8" fill="#fff" stroke="#8a949c" stroke-width="2"/><text x="716" y="106" font-size="16" font-weight="600" fill="#4C5B66">4 · Parallel agents</text><text x="922" y="106" text-anchor="end" font-size="10" fill="#5b6770">2026, industry</text><text x="716" y="126" font-size="9.5" font-weight="600" fill="#3b7ac2">STUDENT</text><text x="716" y="139" font-size="11.5" fill="#111">launches several, reviews what</text><text x="716" y="152" font-size="11.5" fill="#111">comes back</text><text x="716" y="170" font-size="9.5" font-weight="600" fill="#F76902">AI</text><text x="716" y="183" font-size="11.5" fill="#111">whole features, in parallel</text><text x="716" y="201" font-size="9.5" font-weight="600" fill="#2e7d32">GRADE CAN STILL MEASURE</text><text x="716" y="214" font-size="11.5" fill="#111" font-weight="600">decomposition; designing the</text><text x="716" y="227" font-size="11.5" fill="#111" font-weight="600">checkers</text></g>
-  <g class="fragment" data-fragment-index="5"><rect x="938" y="224" width="226" height="200" fill="#e6ebef" stroke="#8a949c" stroke-width="2"/><rect x="938" y="44" width="226" height="176" rx="8" fill="#fff" stroke="#8a949c" stroke-width="2"/><text x="948" y="66" font-size="16" font-weight="600" fill="#4C5B66">5 · Agent teams</text><text x="1154" y="66" text-anchor="end" font-size="10" fill="#5b6770">2026, frontier</text><text x="948" y="86" font-size="9.5" font-weight="600" fill="#3b7ac2">STUDENT</text><text x="948" y="99" font-size="11.5" fill="#111">sets goals, owns the result</text><text x="948" y="117" font-size="9.5" font-weight="600" fill="#F76902">AI</text><text x="948" y="130" font-size="11.5" fill="#111">agents review each other</text><text x="948" y="148" font-size="9.5" font-weight="600" fill="#2e7d32">GRADE CAN STILL MEASURE</text><text x="948" y="161" font-size="11.5" fill="#111" font-weight="600">judgment; owning the risk</text></g>
-  <text class="fragment" data-fragment-index="3" x="355" y="444" text-anchor="middle" font-size="12.5" fill="#c75605" font-weight="600">an intro assignment is fully done on these three steps; the student's own share shrinks: paste → accept → nothing</text>
+  <path d="M10 410 L10 372 L236 372 L242 334 L468 334 L474 296 L700 296 L706 258 L932 258 L938 220 L1164 220 L1164 410" fill="#f2f3f4" stroke="#c4cacf" stroke-width="2"/>
+  <g class="fragment" data-fragment-index="3"><path d="M10 416 L700 416" stroke="#F76902" stroke-width="6"/><text x="358" y="440" text-anchor="middle" font-size="12.5" fill="#c75605" font-weight="600">an intro assignment is fully done on these three steps; the student's own share: copy → accept → nothing</text></g>
+  <g class="fragment" data-fragment-index="1"><rect x="14" y="192" width="218" height="172" rx="8" fill="#fff" stroke="#F76902" stroke-width="2"/><text x="24" y="216" font-size="16" font-weight="600" fill="#c75605">1 · Chatbot</text><text x="222" y="216" text-anchor="end" font-size="10" fill="#5b6770">2022</text><text x="24" y="238" font-size="10" font-weight="600" fill="#3b7ac2">THE STUDENT</text><text x="24" y="254" font-size="14" font-weight="700" fill="#F76902">copies the answer</text><text x="24" y="274" font-size="10" font-weight="600" fill="#8a949c">THE AI</text><text x="24" y="288" font-size="11.5" fill="#333">writes it; 99.5% on a CS1</text><text x="24" y="301" font-size="11.5" fill="#333">exam (2023)</text><text x="24" y="320" font-size="10" font-weight="600" fill="#2e7d32">A GRADE CAN STILL MEASURE</text><text x="24" y="334" font-size="11.5" font-weight="600" fill="#1e5c33">nothing, unless it happens</text><text x="24" y="347" font-size="11.5" font-weight="600" fill="#1e5c33">in the room</text></g>
+  <g class="fragment" data-fragment-index="2"><rect x="246" y="154" width="218" height="172" rx="8" fill="#fff" stroke="#F76902" stroke-width="2"/><text x="256" y="178" font-size="16" font-weight="600" fill="#c75605">2 · IDE assistant</text><text x="454" y="178" text-anchor="end" font-size="10" fill="#5b6770">2021</text><text x="256" y="200" font-size="10" font-weight="600" fill="#3b7ac2">THE STUDENT</text><text x="256" y="216" font-size="14" font-weight="700" fill="#F76902">accepts completions</text><text x="256" y="236" font-size="10" font-weight="600" fill="#8a949c">THE AI</text><text x="256" y="250" font-size="11.5" fill="#333">finishes every line</text><text x="256" y="269" font-size="10" font-weight="600" fill="#2e7d32">A GRADE CAN STILL MEASURE</text><text x="256" y="283" font-size="11.5" font-weight="600" fill="#1e5c33">can they read code?</text></g>
+  <g class="fragment" data-fragment-index="3"><rect x="478" y="116" width="218" height="172" rx="8" fill="#fff" stroke="#F76902" stroke-width="2"/><text x="488" y="140" font-size="16" font-weight="600" fill="#c75605">3 · One agent</text><text x="686" y="140" text-anchor="end" font-size="10" fill="#5b6770">2025</text><text x="488" y="162" font-size="10" font-weight="600" fill="#3b7ac2">THE STUDENT</text><text x="488" y="178" font-size="14" font-weight="700" fill="#F76902">pastes the spec</text><text x="488" y="198" font-size="10" font-weight="600" fill="#8a949c">THE AI</text><text x="488" y="212" font-size="11.5" fill="#333">reads, writes, tests,</text><text x="488" y="225" font-size="11.5" fill="#333">reports: 3 min, $1</text><text x="488" y="244" font-size="10" font-weight="600" fill="#2e7d32">A GRADE CAN STILL MEASURE</text><text x="488" y="258" font-size="11.5" font-weight="600" fill="#1e5c33">can they specify and verify?</text></g>
+  <g class="fragment" data-fragment-index="4"><rect x="710" y="78" width="218" height="172" rx="8" fill="#fff" stroke="#8a949c" stroke-width="2"/><text x="720" y="102" font-size="16" font-weight="600" fill="#4C5B66">4 · Parallel agents</text><text x="918" y="102" text-anchor="end" font-size="10" fill="#5b6770">2026</text><text x="720" y="124" font-size="10" font-weight="600" fill="#3b7ac2">THE STUDENT</text><text x="720" y="140" font-size="14" font-weight="700" fill="#F76902">decomposes, reviews</text><text x="720" y="160" font-size="10" font-weight="600" fill="#8a949c">THE AI</text><text x="720" y="174" font-size="11.5" fill="#333">whole features, in parallel</text><text x="720" y="193" font-size="10" font-weight="600" fill="#2e7d32">A GRADE CAN STILL MEASURE</text><text x="720" y="207" font-size="11.5" font-weight="600" fill="#1e5c33">decomposition; designing</text><text x="720" y="220" font-size="11.5" font-weight="600" fill="#1e5c33">checkers</text></g>
+  <g class="fragment" data-fragment-index="5"><rect x="942" y="40" width="218" height="172" rx="8" fill="#fff" stroke="#8a949c" stroke-width="2"/><text x="952" y="64" font-size="16" font-weight="600" fill="#4C5B66">5 · Agent teams</text><text x="1150" y="64" text-anchor="end" font-size="10" fill="#5b6770">2026</text><text x="952" y="86" font-size="10" font-weight="600" fill="#3b7ac2">THE STUDENT</text><text x="952" y="102" font-size="14" font-weight="700" fill="#F76902">sets goals, owns the risk</text><text x="952" y="122" font-size="10" font-weight="600" fill="#8a949c">THE AI</text><text x="952" y="136" font-size="11.5" fill="#333">agents review each other</text><text x="952" y="155" font-size="10" font-weight="600" fill="#2e7d32">A GRADE CAN STILL MEASURE</text><text x="952" y="169" font-size="11.5" font-weight="600" fill="#1e5c33">judgment</text></g>
   </svg>
-  <div class="takeaway fragment" data-fragment-index="5" style="font-size:.76em;margin-top:.1em">The steps are about <b>what the student still does</b>, not model capability. Where the student does less, the grade has to measure something else: <b>in the room, or the process</b>.</div>
+  <div class="takeaway fragment" data-fragment-index="5" style="font-size:.76em;margin-top:.1em">Each step up, <b>the student does less of the work</b> and the grade has to measure something else: in the room, or the process.</div>
   <aside class="notes">~1.5 min. Five clicks up the stairs. Answer to "why is intro at level 3": it isn't; a chatbot was already enough for CS1 in 2023. Level 3 just removes the last step where the student read the output. Most of us are at 1–2; many students at 3; industry is moving to 4–5. The green lines are the syllabus for the next five years.</aside>
 </section>
 
@@ -983,9 +1042,9 @@ svg text{font-family:"Fira Sans",sans-serif}
     </div>
     <div style="flex:1">
       <p class="small" style="margin:.2em 0 .1em;font-size:.6em"><b>Three examples, Fall 2026</b></p>
-      <div class="card fragment" data-fragment-index="3" style="font-size:.6em;padding:.35em .7em"><b>Berkeley CS 61A</b> (CS1): code written by hand; the process on take-home work is <b>recorded and reviewed</b>; students explain it in a conversation with staff <b>or an LLM tutor</b>; proctored quizzes confirm it. Plus a two-week unit on agents.</div>
-      <div class="card warn fragment" data-fragment-index="4" style="font-size:.6em;padding:.35em .7em"><b>UIUC CS 124</b> (CS1): on the project, "an AI coding agent will write most of your code, <b>and we expect it to</b>" (Claude Code required). Homework and quizzes: written by you, in a proctored test center.</div>
-      <div class="card fragment" data-fragment-index="5" style="font-size:.6em;padding:.35em .7em"><b>University of Sydney</b> (whole university): <b>two lanes</b>. Lane 1, supervised, measures learning; Lane 2, open, AI allowed, supports it. "Any take-home assessment can be completed to a high level by AI."</div>
+      <div class="card fragment" data-fragment-index="3" style="font-size:.6em;padding:.35em .7em"><span class="uni cal">Berkeley</span><b>CS 61A</b> (CS1): code written by hand; the process on take-home work is <b>recorded and reviewed</b>; students explain it in a conversation with staff <b>or an LLM tutor</b>; proctored quizzes confirm it. Plus a two-week unit on agents.</div>
+      <div class="card warn fragment" data-fragment-index="4" style="font-size:.6em;padding:.35em .7em"><span class="uni uiuc">Illinois</span><b>CS 124</b> (CS1): on the project, "an AI coding agent will write most of your code, <b>and we expect it to</b>" (Claude Code required). Homework and quizzes: written by you, in a proctored test center.</div>
+      <div class="card fragment" data-fragment-index="5" style="font-size:.6em;padding:.35em .7em"><span class="uni syd">Sydney</span><b>whole university</b>: <b>two lanes</b>. Lane 1, supervised, measures learning; Lane 2, open, AI allowed, supports it. "Any take-home assessment can be completed to a high level by AI."</div>
     </div>
   </div>
   <p class="foot">ACM Task Force on Generative AI and Programming Assessment, final report Feb 16 2026 (survey May–Oct 2025); cs61a.org/fa26; cs124.org/syllabus/Fall2026; Sydney policy Nov 2024, Liu &amp; Bridgeman.</p>
@@ -993,7 +1052,7 @@ svg text{font-family:"Fira Sans",sans-serif}
 </section>
 
 <section data-ch="4">
-  <h2>MIT, August 13, 2026: three things we can copy</h2>
+  <h2><span class="uni mit" style="font-size:.7em;vertical-align:middle">MIT</span> August 13, 2026: three things we can copy</h2>
   <div class="quote" style="font-size:.78em">"These technologies can produce credible solutions and provide reasonable responses to almost any written assignment in our undergraduate curriculum."<span class="src">MIT Ad Hoc Committee on AI in Teaching, Learning, and Research Training. 26 recommendations; no detection tools, no blanket ban.</span></div>
   <div class="steps" style="margin-top:.4em">
     <div class="fragment"><div class="n">1</div><div class="t">One line per syllabus</div><div class="d">Every course picks from a standard menu: AI <b>required</b> / <b>allowed</b> / <b>limited</b> / <b>forbidden</b>, and says why. Ends the per-course ambiguity students exploit.</div></div>
@@ -1006,13 +1065,13 @@ svg text{font-family:"Fira Sans",sans-serif}
 
 <section data-ch="4">
   <h2>Next semester: two lanes for every course</h2>
-  <div class="quote" style="font-size:.62em;margin:.15em 1.1em .25em;padding:.2em .8em"><b>The principle</b> (University of Sydney, Liu &amp; Bridgeman, 2024): if any unsupervised task can be completed to a high level by AI, an unsupervised task can no longer <i>prove</i> anything. So proof moves to a supervised lane, and the unsupervised lane stops pretending and becomes practice with feedback.<span class="src">Lane 1 "secure": assessment <i>of</i> learning. Lane 2 "open": assessment <i>for</i> learning. Adopted university-wide from 2025.</span></div>
+  <div class="quote" style="font-size:.62em;margin:.15em 1.1em .25em;padding:.2em .8em"><span class="uni syd">Sydney</span><b>The principle</b> (Liu &amp; Bridgeman, 2024): if any unsupervised task can be completed to a high level by AI, an unsupervised task can no longer <i>prove</i> anything. So proof moves to a supervised lane, and the unsupervised lane stops pretending and becomes practice with feedback.<span class="src">Lane 1 "secure": assessment <i>of</i> learning. Lane 2 "open": assessment <i>for</i> learning. Adopted university-wide from 2025.</span></div>
   <div class="lanes" style="margin-top:.2em">
     <div class="l1 fragment" data-fragment-index="1">
       <div class="t">Lane 1 · Secure</div><div class="s">measures what the student can do alone</div>
       <ul>
-        <li><b>Proctored quizzes</b>, short and frequent; paper or test center (UIUC, Berkeley)</li>
-        <li><b>Oral code review</b>: 15 min with a TA on the student's own submission, every week or two (Utah State: 70% of the grade)</li>
+        <li><b>Proctored quizzes</b>, short and frequent; paper or test center <span class="uni uiuc">Illinois</span><span class="uni cal">Berkeley</span></li>
+        <li><b>Oral code review</b>: 15 min with a TA on the student's own submission, every week or two; 70% of the grade <span class="uni usu">Utah State</span></li>
         <li><b>In-class checkpoints</b> on the fundamentals, weighted early in the course</li>
         <li>No detection tools: ruled out by MIT, ACM, SIGCSE for false positives</li>
       </ul>
@@ -1020,7 +1079,7 @@ svg text{font-family:"Fira Sans",sans-serif}
     <div class="l2 fragment" data-fragment-index="2">
       <div class="t">Lane 2 · Open</div><div class="s">AI required and disclosed; grade the process</div>
       <ul>
-        <li><b>Process evidence</b>: git history, session transcripts, a 5-minute video walkthrough of one function (UC San Diego)</li>
+        <li><b>Process evidence</b>: git history, session transcripts, a 5-minute video walkthrough of one function <span class="uni ucsd">UC San Diego</span></li>
         <li><b>Critique and fix</b> AI output; find the bug it planted; argue with its design</li>
         <li><b>Prompt problems</b>: the deliverable is the specification; the tool writes the code; the tests decide</li>
         <li><b>Bigger specs</b>: what a student plus an agent can build in a week, not what a student can type in a week</li>
@@ -1068,7 +1127,7 @@ Reveal.initialize({hash:true, center:false, progress:true, width:1280, height:72
     // restart one-shot CSS animations on the current slide
     secs[i].querySelectorAll('.ctxbars .b,.price .line,.price .pt,.hb .b,.term .ln').forEach(function(el){el.style.animation='none';void el.offsetWidth;el.style.animation='';});
   }
-  var PARTS=[['1','What it is','AI → ML → LLMs; fourteen years; the word "GPT"; the engine; how a model is trained','~8 min'],['2','The curve','task length, price, context; what is hot; what it still gets wrong; open vs. closed','~8 min'],['3','Agents','the loop, a student\'s laptop, the harness, agent teams, how they fail, the hole','~8 min'],['4','The classroom','can it do our assignments; does it help learning; what departments changed; two lanes','~8 min']];
+  var PARTS=[['1','What it is','From the field to the engine: what is actually inside ChatGPT','~8 min'],['2','The curve','How fast it is moving, and how to read the numbers','~8 min'],['3','Agents','What a CS department should know that a chatbot user doesn\'t','~8 min'],['4','The classroom','The evidence, what other departments did, what we do next','~8 min']];
   document.querySelectorAll('.map').forEach(function(m){
     var here=m.closest('section').getAttribute('data-ch'), road=m.classList.contains('road');
     m.innerHTML=PARTS.map(function(p){var st=road?'fragment':(p[0]<here?'done':(p[0]===here?'here':''));return '<div class="'+st+'"><div class="n">'+p[0]+' · '+p[1]+'</div><div class="d">'+p[2]+'</div><div class="m">'+p[3]+'</div></div>';}).join('');
