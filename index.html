@@ -220,6 +220,10 @@ svg text{font-family:"Fira Sans",sans-serif}
 .tl3{width:100%;height:520px;display:block}
 .tl3 .axis{stroke-dasharray:1200;stroke-dashoffset:1200;animation:drawx 5.5s linear forwards}
 .tl3 .ev{opacity:0;animation:popin .5s ease-out forwards}
+.steps>div{min-width:0}
+.typebox{background:#fff;border-radius:8px;height:110px;margin:.3em 0;display:flex;align-items:center;padding:0 .6em;font-family:"Fira Mono";font-size:.55em;overflow:hidden}
+.type{display:inline-block;overflow:hidden;white-space:nowrap;border-right:3px solid #F76902;animation:typing 4s steps(38) infinite}
+@keyframes typing{0%{width:0}70%{width:100%}100%{width:100%}}
 .pulse{animation:pulse 1.2s ease-in-out infinite}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(198,40,40,.0)}50%{box-shadow:0 0 0 8px rgba(198,40,40,.25)}}
 </style>
@@ -227,7 +231,6 @@ svg text{font-family:"Fira Sans",sans-serif}
 <body class="on-title">
 <div class="reveal"><div class="slides">
 
-<!-- 0 TITLE -->
 <section data-ch="0">
   <div class="titlewrap">
     <div class="bar"></div>
@@ -239,9 +242,8 @@ svg text{font-family:"Fira Sans",sans-serif}
   <aside class="notes">~30 s. Three parts: engine (short), curve (the 2026 numbers), classroom (what we do about it).</aside>
 </section>
 
-<!-- 1 claims -->
 <section data-ch="1">
-  <h2>Three claims in twenty minutes</h2>
+  <h2>Three claims, outside in</h2>
   <div class="kv" style="margin-top:.8em">
     <div class="fragment"><div class="n">1</div><div class="l" style="font-size:.85em"><b>The engine is simple.</b><br>One string, one loop. Everything else is training and plumbing.</div></div>
     <div class="fragment"><div class="n">2</div><div class="l" style="font-size:.85em"><b>The curve is steep.</b><br>The length of task an AI can finish doubles every ~4–7 months.</div></div>
@@ -251,12 +253,74 @@ svg text{font-family:"Fira Sans",sans-serif}
   <aside class="notes">~30 s.</aside>
 </section>
 
-<!-- PART 1 -->
-<section data-ch="1"><div class="divider"><div class="num">1</div><div class="t">The engine</div><div class="s">One string, one loop</div></div></section>
+<section data-ch="1"><div class="divider"><div class="num">1</div><div class="t">What it is</div><div class="s">From the outside in: the field, the history, the word "GPT", the engine</div></div></section>
 
-<!-- next token -->
 <section data-ch="1">
-  <h2>Tokens in, one probability distribution out, sample, repeat</h2>
+  <h2>When the news says "AI," it almost always means one small circle</h2>
+  <div class="cols" style="align-items:center">
+    <div style="flex:1.15">
+      <svg viewBox="0 0 640 420" style="width:100%;max-height:440px">
+        <g class="fragment" data-fragment-index="1"><circle cx="300" cy="215" r="200" fill="#f2f3f4" stroke="#c4cacf" stroke-width="2"/>
+        <text x="300" y="45" text-anchor="middle" font-size="22" font-weight="600" fill="#4C5B66">Artificial Intelligence</text>
+        <text x="300" y="70" text-anchor="middle" font-size="15" fill="#5b6770">search, planning, robotics, game-playing, …</text></g>
+        <g class="fragment" data-fragment-index="2"><circle cx="300" cy="235" r="150" fill="#e6ebef" stroke="#a9b3ba" stroke-width="2"/>
+        <text x="300" y="118" text-anchor="middle" font-size="20" font-weight="600" fill="#4C5B66">Machine Learning</text>
+        <text x="300" y="140" text-anchor="middle" font-size="14" fill="#5b6770">spam filters, recommenders, image classifiers</text></g>
+        <g class="fragment" data-fragment-index="3"><circle cx="300" cy="262" r="100" fill="#fde3cf" stroke="#F76902" stroke-width="2"/>
+        <text x="300" y="195" text-anchor="middle" font-size="18" font-weight="600" fill="#b84e00">Generative AI</text>
+        <text x="300" y="215" text-anchor="middle" font-size="13" fill="#7a3c10">images, audio, video, text</text></g>
+        <g class="fragment" data-fragment-index="4"><circle cx="300" cy="285" r="58" fill="#F76902"/>
+        <text x="300" y="280" text-anchor="middle" font-size="19" font-weight="600" fill="#fff">LLMs</text>
+        <text x="300" y="301" text-anchor="middle" font-size="12" fill="#fff">GPT, Claude,</text>
+        <text x="300" y="316" text-anchor="middle" font-size="12" fill="#fff">Gemini, Llama</text>
+        <line x1="358" y1="285" x2="520" y2="285" stroke="#F76902" stroke-width="2"/>
+        <text x="528" y="262" font-size="15" fill="#111">chatbots</text><text x="528" y="282" font-size="15" fill="#111">coding tools</text><text x="528" y="302" font-size="15" fill="#111">agents</text><text x="528" y="322" font-size="15" fill="#111">"AI features"</text></g>
+        <text x="620" y="412" text-anchor="end" font-size="12" fill="#8a949c">not to scale</text>
+      </svg>
+    </div>
+    <div>
+      <div class="card fragment" data-fragment-index="1"><b>AI</b>, 1956: any program that does something we'd call intelligent. Chess engines count.</div>
+      <div class="card fragment" data-fragment-index="2"><b>Machine learning</b>: don't write the rules, fit them from data. Most of the last 30 years.</div>
+      <div class="card fragment" data-fragment-index="3"><b>Generative AI</b>: models whose output is new content, not a label.</div>
+      <div class="card warn fragment" data-fragment-index="4"><b>Large language models</b>: generative models of text. Today's talk, and ~90% of the news.</div>
+    </div>
+  </div>
+  <aside class="notes">~45 s. Click four times, outside in. Everything in this talk lives in the orange circle. If someone says "AI will…", first ask which circle they mean.</aside>
+</section>
+
+<section data-ch="1">
+  <h2>How we got here: fourteen years, twelve moments</h2>
+  <svg class="tl3" id="tl3" viewBox="0 0 1200 520"></svg>
+  <aside class="notes">~1 min. Plays by itself (~6 s). Rhythm: same engine (2017) + more scale (2020) + better training (2022, 2025) + plumbing (2023–24). The last two are this fall.</aside>
+</section>
+
+<section data-ch="1">
+  <h2>"GPT": three words that explain most of it</h2>
+  <div class="steps">
+    <div class="fragment"><div class="n">G</div><div class="t">Generative</div>
+      <div class="typebox"><span class="type">The students opened their laptops…</span></div>
+      <div class="d">It <b>produces</b> text, one piece at a time. A spam filter says "spam"; a generative model writes the email.</div></div>
+    <div class="fragment"><div class="n">P</div><div class="t">Pre-trained</div>
+      <svg viewBox="0 0 300 110" style="width:100%;height:110px;background:#fff;border-radius:8px;margin:.3em 0">
+        <g font-size="13" fill="#5b6770"><text x="20" y="30">the web</text><text x="20" y="60">GitHub</text><text x="20" y="90">books, papers</text></g>
+        <g stroke="#4C5B66" stroke-width="2" fill="none"><path d="M120 26 L180 55"/><path d="M120 56 L180 55"/><path d="M120 86 L180 55"/></g>
+        <rect x="185" y="35" width="100" height="40" rx="8" fill="#4C5B66"/><text x="235" y="60" text-anchor="middle" fill="#fff" font-size="14" font-weight="600">one model</text>
+      </svg>
+      <div class="d">Trained <b>once</b> on roughly all public text, <b>before</b> anyone asks it anything. Months of GPUs; then frozen.</div></div>
+    <div class="fragment"><div class="n">T</div><div class="t">Transformer</div>
+      <svg viewBox="0 0 300 110" style="width:100%;height:110px;background:#fff;border-radius:8px;margin:.3em 0">
+        <g font-size="13" fill="#111"><text x="10" y="90">The</text><text x="40" y="90">animal</text><text x="92" y="90">didn't</text><text x="135" y="90">cross</text><text x="176" y="90">the</text><text x="202" y="90">street</text><text x="246" y="90">as</text><text x="268" y="90" font-weight="600" fill="#F76902">it</text></g>
+        <path d="M272 76 C 240 10, 95 10, 62 76" fill="none" stroke="#F76902" stroke-width="5" opacity=".85"/>
+        <path d="M272 76 C 255 40, 225 40, 218 76" fill="none" stroke="#F76902" stroke-width="2" opacity=".4"/>
+      </svg>
+      <div class="d">The 2017 architecture. <b>Attention</b>: every word looks at every other word at once, so "it" finds "animal." Parallel, so it scales to the web.</div></div>
+  </div>
+  <div class="takeaway fragment" style="font-size:.78em"><b>GPT is a model; ChatGPT is a product</b> (model + chat window + hidden instructions + tools). Claude, Gemini, Llama, DeepSeek: same recipe, different kitchens.</div>
+  <aside class="notes">~1.5 min. Unpack the acronym and the audience owns the vocabulary. The model-vs-product distinction matters all talk long: most of what you experience as "ChatGPT" is the product layer (Part 3).</aside>
+</section>
+
+<section data-ch="1">
+  <h2>The engine: predict the next token, sample, repeat</h2>
   <div class="toks" style="margin-left:1.1em"><span class="tok">The<i>976</i></span><span class="tok"> students<i>7906</i></span><span class="tok"> opened<i>10932</i></span><span class="tok"> their<i>1059</i></span><span class="tok" style="background:#fff;border:2px dashed var(--accent)"> ?<i>next</i></span>
     <span class="tiny" style="margin-left:14px">GPT-4o tokenizer, ~200K vocabulary</span></div>
   <div class="ntp">
@@ -272,7 +336,6 @@ svg text{font-family:"Fira Sans",sans-serif}
   <aside class="notes">~1.5 min. Click Sample until end-of-turn; every path is a grammatical sentence. Reset, show a different path. Attention: every token looks at every earlier token in parallel (~n² per step, KV-cached so each new token costs ~n).</aside>
 </section>
 
-<!-- one string -->
 <section data-ch="1">
   <h2>Chat, "reasoning," tool use: the same string, more colors</h2>
   <div class="doc">
@@ -294,7 +357,6 @@ svg text{font-family:"Fira Sans",sans-serif}
   <aside class="notes">~1.5 min. Reasoning models, RAG, agents, MCP are all ways of putting more text into this string. Tool descriptions (MCP) are just prompt text.</aside>
 </section>
 
-<!-- pipeline animated -->
 <section data-ch="1">
   <h2>How a 2026 model is made: four stages, four side effects</h2>
   <div class="pipe">
@@ -342,17 +404,8 @@ svg text{font-family:"Fira Sans",sans-serif}
   <aside class="notes">~2 min. Four panels animate. 1: pretraining is literally this, at web scale. 2: SFT teaches the format. 3: RLHF: people prefer answers that agree with them, hence sycophancy. 4: RLVR is why 2025 was the year coding agents started working; reward hacking = models caught editing tests to pass.</aside>
 </section>
 
-<!-- PART 2 -->
 <section data-ch="2"><div class="divider"><div class="num">2</div><div class="t">The curve</div><div class="s">What the numbers look like in October 2026</div></div></section>
 
-<!-- animated timeline -->
-<section data-ch="2">
-  <h2>How we got here: fourteen years, twelve moments</h2>
-  <svg class="tl3" id="tl3" viewBox="0 0 1200 520"></svg>
-  <aside class="notes">~1 min. Plays by itself (~6 s). Rhythm: same engine (2017) + more scale (2020) + better training (2022, 2025) + plumbing (2023–24). The last two are this fall.</aside>
-</section>
-
-<!-- horizon -->
 <section data-ch="2">
   <h2>How long a task can an AI finish on its own?</h2>
   <div class="hz">
@@ -366,7 +419,6 @@ svg text{font-family:"Fira Sans",sans-serif}
   <aside class="notes">~1.5 min. "Task length" = how long a human expert would take. Each generation roughly 4× the last. METR's suite is saturating so the 2026 point is shaky; even half the slope gives week-long tasks by 2028.</aside>
 </section>
 
-<!-- cheaper + longer, animated -->
 <section data-ch="2">
   <h2>…and cheaper, with a million-token memory</h2>
   <div class="cols">
@@ -399,7 +451,6 @@ svg text{font-family:"Fira Sans",sans-serif}
   <aside class="notes">~1 min. Left: window grew 500×. Right: same capability, 300× cheaper in three years. Quality still degrades as the window fills, which is why harnesses summarize and spawn sub-agents.</aside>
 </section>
 
-<!-- trend board with visuals -->
 <section data-ch="2">
   <h2>What's hot right now (October 2026): six things</h2>
   <div class="board">
@@ -439,10 +490,8 @@ svg text{font-family:"Fira Sans",sans-serif}
   <aside class="notes">~2.5 min. Six tiles, each with its own picture. For this room, linger on 3 (security faculty), 4 (we can run these on campus), 6 (everyone: Stanford says no mass layoffs, but the hiring door narrowed most in our majors).</aside>
 </section>
 
-<!-- PART 3 -->
 <section data-ch="3"><div class="divider"><div class="num">3</div><div class="t">Agents, the engineering, and the hole</div><div class="s">What a CS department should know that a chatbot user doesn't</div></div></section>
 
-<!-- agent trace as one string -->
 <section data-ch="3">
   <h2>An agent is the same string, looped until a checker says done</h2>
   <div class="doc" style="font-size:.55em">
@@ -467,7 +516,6 @@ svg text{font-family:"Fira Sans",sans-serif}
   <aside class="notes">~1.5 min. Same colored string as before. Click: think, call, result, repeat. Point out that the user typed one sentence; everything else the model wrote or the harness pasted. This is also the fallback if the live demo fails.</aside>
 </section>
 
-<!-- harness as one string -->
 <section data-ch="3">
   <h2>What the harness does around the string (the part nobody sees)</h2>
   <div class="doc" style="font-size:.5em;line-height:1.6;padding:.5em .8em">
@@ -489,7 +537,6 @@ svg text{font-family:"Fira Sans",sans-serif}
   <aside class="notes">~1.5 min. Gray lines are code, not the model. The model only ever sees the colored string. Each gray line is an open CS problem: what to retrieve (IR), what to allow (OS/security), how to verify (testing/PL), what to forget (memory hierarchy), what to cache (systems).</aside>
 </section>
 
-<!-- injection story -->
 <section data-ch="3">
   <h2>The unsolved hole: instructions and data are the same string</h2>
   <div class="doc" style="font-size:.55em">
@@ -510,10 +557,8 @@ svg text{font-family:"Fira Sans",sans-serif}
   <aside class="notes">~1.5 min. Click: the email arrives; the hidden text; the model obeys; the user sees a clean summary. Same mechanism as the "one string" slide. A security-course lab waiting to be written.</aside>
 </section>
 
-<!-- PART 4 -->
 <section data-ch="4"><div class="divider"><div class="num">4</div><div class="t">The classroom</div><div class="s">What MIT concluded, and what we do Monday</div></div></section>
 
-<!-- MIT -->
 <section data-ch="4">
   <h2>MIT, August 13, 2026: three things we can copy</h2>
   <div class="quote">"These technologies can produce credible solutions and provide reasonable responses to almost any written assignment in our undergraduate curriculum."<span class="src">MIT Ad Hoc Committee on AI in Teaching, Learning, and Research Training. 26 recommendations; no detection tools, no blanket ban.</span></div>
@@ -526,7 +571,6 @@ svg text{font-family:"Fira Sans",sans-serif}
   <aside class="notes">~1.5 min. The most thorough institutional answer so far, from a place where every student codes. The menu idea is the cheapest win: it ends the per-course ambiguity students exploit.</aside>
 </section>
 
-<!-- ladder -->
 <section data-ch="4">
   <h2>Where the work moves, what we grade moves with it</h2>
   <div class="ladder">
@@ -540,7 +584,6 @@ svg text{font-family:"Fira Sans",sans-serif}
   <aside class="notes">~1 min. Most of us are at 1–2; many students at 3–4; industry moving 3→5. The things we always said mattered are exactly what levels 3–5 require.</aside>
 </section>
 
-<!-- demo -->
 <section data-ch="4">
   <h2>Live: hand one of our assignments to an agent</h2>
   <div class="kv" style="margin-top:.8em">
@@ -552,7 +595,6 @@ svg text{font-family:"Fira Sans",sans-serif}
   <aside class="notes">~3 min. Pre-stage the repo; launch before the slide so it finishes while you talk. If offline, go back to the trace slide.</aside>
 </section>
 
-<!-- takeaways -->
 <section data-ch="4">
   <h2>Three things to remember</h2>
   <div class="steps" style="margin-top:1em">
@@ -586,7 +628,7 @@ Sources: METR Time Horizon 1.1 (Jan 29 2026); platform.claude.com models table; 
 Reveal.initialize({hash:true, center:false, progress:true, width:1280, height:720, margin:0.04, transition:'fade', transitionSpeed:'fast', plugins:[RevealNotes]});
 
 (function(){
-  var CH=[['1','1 Engine'],['2','2 Curve'],['3','3 Agents'],['4','4 Classroom']];
+  var CH=[['1','1 What it is'],['2','2 Curve'],['3','3 Agents'],['4','4 Classroom']];
   var rail=document.getElementById('rail');
   rail.innerHTML=CH.map(function(c){return '<span data-ch="'+c[0]+'">'+c[1]+'</span>';}).join('');
   var secs=Array.from(document.querySelectorAll('.reveal .slides>section'));
