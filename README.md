@@ -5,7 +5,3 @@ A 20-minute AI literacy talk for the Fall 2026 CS faculty meeting, built with re
 Play online: https://aquastar.github.io/ai-literacy-faculty/
 
 Keys: Space or arrows to advance, S for speaker notes (with timing cues), Esc for overview.
-
-## Live demo folder
-
-`demo/` is a data-structures assignment (LRU cache with O(1) get/put, starter with TODOs, 12 tests of which 11 fail) for the live-demo slide, plus `demo/inbox/` with a prompt-injection sample. The grades file is fake.
