@@ -483,8 +483,8 @@ svg text{font-family:"Fira Sans",sans-serif}
 <!-- harness as one string -->
 <section data-ch="3">
   <h2>What the harness does around the string (the part nobody sees)</h2>
-  <div class="doc" style="font-size:.52em;line-height:1.75">
-    <span class="har fragment" data-fragment-index="1">harness: build the system prompt — tool list + project rules file + 3-line summary of yesterday's session</span>
+  <div class="doc" style="font-size:.5em;line-height:1.6;padding:.5em .8em">
+    <span class="har fragment" data-fragment-index="1">harness: build the system prompt: tool list + project rules + 3-line summary of yesterday</span>
     <span class="sys fragment" data-fragment-index="1">&lt;system&gt; Coding agent. Tools: run, read, edit. Rules: never push to main. Yesterday: migrated grader to pytest… &lt;/system&gt;</span>
     <span class="har fragment" data-fragment-index="2">harness: search the repo for files relevant to the task and paste them in (retrieval)</span>
     <span class="file fragment" data-fragment-index="2">&lt;file stats_utils.py&gt; def average(xs): … &lt;/file&gt; &lt;file test_grades.py&gt; from stats_utils import mean … &lt;/file&gt;</span>
@@ -493,12 +493,12 @@ svg text{font-family:"Fira Sans",sans-serif}
     <span class="har fragment" data-fragment-index="3">harness: permission check — edit inside repo: allowed. (rm -rf, git push, network: ask the human.) Run in sandbox.</span>
     <span class="har fragment" data-fragment-index="4">harness: run the verifier automatically after every edit — tests + linter — and paste the result</span>
     <span class="res fragment" data-fragment-index="4">&lt;tool_result&gt; 42 passed · lint: 0 errors &lt;/tool_result&gt;</span>
-    <span class="har fragment" data-fragment-index="5">harness: window 80% full → compact: replace the 30 oldest turns with a 5-line summary. Side quest ("check all 12 other tests") → spawn a sub-agent with a fresh window; it returns one line.</span>
-    <span class="har fragment" data-fragment-index="6">harness: everything above this line is unchanged since last call → served from cache at 5–10% of the price</span>
+    <span class="har fragment" data-fragment-index="5">harness: window 80% full → replace the 30 oldest turns with a 5-line summary; side quests go to a sub-agent with a fresh window</span>
+    <span class="har fragment" data-fragment-index="6">harness: unchanged prefix served from cache at 5–10% of the price</span>
     <span class="out fragment" data-fragment-index="6">Fixed. 42/42 pass. &lt;end&gt;</span>
   </div>
-  <div class="legend" style="margin-top:.4em"><span><i style="background:#eceff1"></i>harness actions (code, not model)</span><span><i style="background:#f1f8e9"></i>files pasted by the harness</span><span><i style="background:var(--tool)"></i>model's tool call</span><span><i style="background:var(--res)"></i>result</span></div>
-  <div class="takeaway fragment" data-fragment-index="7">Context building, permissions, sandboxing, verification, compaction, caching: <b>systems, PL, SE, security.</b> The harness is where our research fits.</div>
+  <div class="legend" style="margin-top:.3em"><span><i style="background:#eceff1"></i>harness actions (code, not model)</span><span><i style="background:#f1f8e9"></i>files pasted by the harness</span><span><i style="background:var(--tool)"></i>model's tool call</span><span><i style="background:var(--res)"></i>result</span></div>
+  <div class="takeaway fragment" data-fragment-index="7" style="margin-top:.3em;font-size:.78em">Retrieval, permissions, sandboxing, verification, compaction, caching: <b>systems, PL, SE, security.</b> The harness is where our research fits.</div>
   <aside class="notes">~1.5 min. Gray lines are code, not the model. The model only ever sees the colored string. Each gray line is an open CS problem: what to retrieve (IR), what to allow (OS/security), how to verify (testing/PL), what to forget (memory hierarchy), what to cache (systems).</aside>
 </section>
 
